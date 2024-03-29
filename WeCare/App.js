@@ -13,6 +13,7 @@ import WelcomePage from './WelcomePage.js';
 import Tracking from './Tracking.js';
 import FitnessTracker from './screens/FitnessTracker.js'; // Import FitnessTracker component
 import DietTracker from './screens/DietTracker.js'; // Import Diet Tracker component
+import MakeAppointments from './Components/Appointments.js';
 import registerNNPushToken from 'native-notify';
 
 
@@ -52,6 +53,7 @@ export default function App() {
             <Stack.Screen name="Tracking" component={Tracking} /> 
             <Stack.Screen name="FitnessTracker" component={FitnessTracker} /> 
             <Stack.Screen name="DietTracker" component={DietTracker} /> 
+            <Stack.Screen name="Appointments" component={MakeAppointments} /> 
           </>
         )}
         {/* Define the 'Auth' screen only once */}
