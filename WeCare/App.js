@@ -16,6 +16,7 @@ import DietTracker from './screens/DietTracker.js'; // Import Diet Tracker compo
 import registerNNPushToken from 'native-notify';
 
 
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {

@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
 
   targetTitle: {
-    color: '#637697',
+    color: '#333',
     fontFamily: 'Segoe UI',
     fontSize: 14,
     fontStyle: 'normal',
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   },
 
   fitnessTitle: {
-    color: '#637697',
+    color: '#333',
     fontFamily: 'Segoe UI',
     fontSize: 14,
     fontStyle: 'normal',
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   },
 
   dietTitle: {
-    color: '#637697',
+    color: '#333',
     fontFamily: 'Segoe UI',
     fontSize: 14,
     fontStyle: 'normal',
