@@ -13,7 +13,7 @@ import WelcomePage from './WelcomePage.js';
 import Tracking from './Tracking.js';
 import FitnessTracker from './screens/FitnessTracker.js'; // Import FitnessTracker component
 import DietTracker from './screens/DietTracker.js'; // Import Diet Tracker component
-import MakeAppointments from './Components/Appointments.js';
+import MakeAppointments from './Components/MakeAppointments.js';
 import registerNNPushToken from 'native-notify';
 
 

@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, Alert } from "react-native";
 import { FlatList } from "react-native";
 import { SafeAreaView, Button } from "react-native";
 
@@ -12,14 +12,31 @@ export default function MakeAppointments() {
 }
 
 function ListAmbassadors() {
+    const [accept, setAccept]  = useState(false)
+
     const data = [
         { key: '1', text: 'Samson' }, 
         { key: '2', text: 'Bruno Mars' }, 
         { key: '3', text: 'James Bruv' }];
 
+    function AskAppointment()  {
+
+        return (<>
+            <View>
+                <Button
+                    title="Hello"
+                    onPress={()=> {
+                        setAccept(true)
+                        Alert.alert("Appointment is Made")
+                    }}
+                />
+            </View>
+        </>)
+    }
+
     const renderItem = ({ item }) => ( <>
         <Text>{item.text}</Text>
-        <Press />
+        <AskAppointment />
     </>
     );
 
@@ -34,12 +51,3 @@ function ListAmbassadors() {
     );
 }
 
-function Press()  {
-    return (<>
-        <View>
-            <Button
-                title="Hello"
-            />
-        </View>
-    </>)
-}
