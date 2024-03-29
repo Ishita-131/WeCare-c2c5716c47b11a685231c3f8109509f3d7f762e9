@@ -4,7 +4,8 @@ import { View, Text, StyleSheet } from 'react-native';
 const Tracking = () => {
   return (
     <View style={styles.container}>
-      <Text>Tracking Page</Text>
+      <Text>Test</Text>
+      {/* Add your tracking related components and logic here */}
     </View>
   );
 };

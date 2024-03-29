@@ -10,6 +10,7 @@ import Account from './Account.js';
 import Profile from './Profile.js';
 import Dashboard from './Dashboard.js'; // Import your Dashboard component
 import WelcomePage from './WelcomePage.js';
+import Tracking from './Tracking.js';
 import registerNNPushToken from 'native-notify';
 
 const Stack = createNativeStackNavigator();
@@ -45,6 +46,7 @@ export default function App() {
             <Stack.Screen name="Dashboard" component={Dashboard} />
             <Stack.Screen name="Account" component={Account} />
             <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="Tracking" component={Tracking} /> 
           </>
         )}
         {/* Define the 'Auth' screen only once */}
