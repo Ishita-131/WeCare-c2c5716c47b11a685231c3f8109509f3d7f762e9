@@ -20,9 +20,9 @@ const ProfileForm = () => {
   const submitForm = async () => {
     // Insert user data to Supabase
     const { data, error } = await supabase
-      .from('users')
+      .from('user_profiles')
       .insert([
-        { name, email, gender, age, fdmID, userType }
+        { name, email, gender, age, fdm_id: fdmID, user_type: userType  }
       ]);
 
     if (error) {
