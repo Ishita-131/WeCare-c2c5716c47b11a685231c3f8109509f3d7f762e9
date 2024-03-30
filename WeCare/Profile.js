@@ -47,7 +47,7 @@ const ProfileForm = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.profilePicContainer}>
-        <Text style={styles.editProfileText}>Edit your profile picture</Text>
+        <Text style={styles.editProfileText}>Edit Profile</Text>
         <TouchableOpacity style={styles.profilePicWrapper} onPress={displayProfilePic}>
           <View style={styles.profilePicBorder}>
             {profilePic ? (
@@ -183,6 +183,7 @@ const styles = StyleSheet.create({
   editProfileText: {
     color: '#fff',
     fontSize: 16,
+    fontWeight: 'bold',
     marginBottom: 10,
   },
   profilePicWrapper: {
