@@ -2,24 +2,25 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Alert, Button, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { UseAccept } from "./accept";
-import { supabase } from "../supabase";
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impmb3Vnd3ptdWhybXd5YnloZXBpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTEwMjMzNzQsImV4cCI6MjAyNjU5OTM3NH0.eB-l3dCXqe14uqcniDj8ByMOj9djZN5quE4H3RMHq-o'
+const supabase = createClient('https://jfougwzmuhrmwybyhepi.supabase.co', supabaseAnonKey)
 
 function AskAppointment({ setAccept }) {
     const {accept} = UseAccept();
 
-    async function makeAppointment() {
-        try {
-            await supabase
-                .from('ambassadors')
-                .insert([
-                    { user_name: "adam", makeAppointment: { accept } },
-                ]);
-            Alert.alert("Appointment is Made");
+    async function getUser() {
+        const {data: {user}} = (await supabase.auth.getUser())
+    }
 
-        } catch (error) {
-            console.error("Error making appointment:", error.message);
-            Alert.alert("Error making appointment. Please try again later.");
-        }
+    async function makeAppointment() {
+        const {error} = await supabase
+        .from('ambassadors')
+        .insert([
+            {id:5 , makeAppointment: Boolean({accept}), user_name: JSON.stringify(getUser())},
+        ])
+        Alert.alert("Appointment is Made");
     }
 
     return (
@@ -41,27 +42,32 @@ export default function MakeAppointments() {
     );
 }
 
+{/** gets ambassadors info */}
 function ListAmbassadors() {
-    const { accept, setAccept } = UseAccept();
+    const { setAccept } = UseAccept();
+    const [ambassadors , setAmbassadors] = useState();
 
-    const data = [
-        { key: '1', text: 'Samson' },
-        { key: '2', text: 'Bruno Mars' },
-        { key: '3', text: 'James Bruv' }
-    ];
-
+    const getAmbassadors = async () => {
+        let {data , error } = await supabase.from('ambassadors').select('*')
+        setAmbassadors(data)
+    }
+    
     const renderItem = ({ item }) => (
         <View>
-            <Text>{item.text}</Text>
+            <Text>{item.user_name}</Text>
             <AskAppointment setAccept={setAccept} />
         </View>
     );
 
+    useEffect(() => {
+        getAmbassadors();
+    }, [])
+
     return (
         <View>
             <FlatList
-                data={data}
-                keyExtractor={(item) => item.key}
+                data={ambassadors}
+                keyExtractor={(item) => parseInt(item.id)}
                 renderItem={renderItem}
             />
         </View>
