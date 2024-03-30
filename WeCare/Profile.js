@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, Pressable, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { supabase } from './supabase'; // Import supabase object
 
@@ -12,18 +12,18 @@ const ProfileForm = () => {
   const [userID, setUserID] = useState('');
   const [userType, setUserType] = useState('');
   const [profilePic, setProfilePic] = useState(null);
+  const [genderModalVisible, setGenderModalVisible] = useState(false); // State to control gender modal visibility
+  const [userTypeModalVisible, setUserTypeModalVisible] = useState(false); // State to control user type modal visibility
 
-  // Initialize Supabase (You can remove this initialization as it's already done in supabase.js)
-  // const supabaseUrl = 'https://jfougwzmuhrmwybyhepi.supabase.co';
-  // const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impmb3Vnd3ptdWhybXd5YnloZXBpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTEwMjMzNzQsImV4cCI6MjAyNjU5OTM3NH0.eB-l3dCXqe14uqcniDj8ByMOj9djZN5quE4H3RMHq-o';
-  // const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+  const genders = ['Male', 'Female', 'Other'];
+  const userTypes = ['User', 'Ambassador', 'Admin'];
 
   const submitForm = async () => {
     // Insert user data to Supabase
     const { data, error } = await supabase
       .from('users')
       .insert([
-        { name, email }
+        { name, email, gender, age, fdmID, userID, userType }
       ]);
 
     if (error) {
@@ -66,13 +66,35 @@ const ProfileForm = () => {
           />
 
           <Text style={styles.label}>Gender:</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={setGender}
-            value={gender}
-            placeholder="Enter your gender"
-            required
-          />
+          <TouchableOpacity style={styles.input} onPress={() => setGenderModalVisible(true)}>
+            <Text>{gender || 'Select Gender'}</Text>
+          </TouchableOpacity>
+          {/* Modal for gender selection */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={genderModalVisible}
+            onRequestClose={() => {
+              setGenderModalVisible(!genderModalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                {genders.map((item, index) => (
+                  <Pressable
+                    key={index}
+                    style={[styles.option, { backgroundColor: gender === item ? '#ccc' : '#fff' }]}
+                    onPress={() => {
+                      setGender(item);
+                      setGenderModalVisible(!genderModalVisible);
+                    }}
+                  >
+                    <Text style={styles.optionText}>{item}</Text>
+                  </Pressable>
+                ))}
+              </View>
+            </View>
+          </Modal>
 
           <Text style={styles.label}>Age:</Text>
           <TextInput
@@ -103,15 +125,37 @@ const ProfileForm = () => {
           />
 
           <Text style={styles.label}>User Type:</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={setUserType}
-            value={userType}
-            placeholder="Enter your User Type"
-            required
-          />
+          <TouchableOpacity style={styles.input} onPress={() => setUserTypeModalVisible(true)}>
+            <Text>{userType || 'Select User Type'}</Text>
+          </TouchableOpacity>
+          {/* Modal for user type selection */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={userTypeModalVisible}
+            onRequestClose={() => {
+              setUserTypeModalVisible(!userTypeModalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                {userTypes.map((item, index) => (
+                  <Pressable
+                    key={index}
+                    style={[styles.option, { backgroundColor: userType === item ? '#ccc' : '#fff' }]}
+                    onPress={() => {
+                      setUserType(item);
+                      setUserTypeModalVisible(!userTypeModalVisible);
+                    }}
+                  >
+                    <Text style={styles.optionText}>{item}</Text>
+                  </Pressable>
+                ))}
+              </View>
+            </View>
+          </Modal>
 
-<TouchableOpacity style={styles.button} onPress={submitForm}>
+          <TouchableOpacity style={styles.button} onPress={submitForm}>
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
         </View>
@@ -174,6 +218,35 @@ const styles = StyleSheet.create({
     height: 200,
     marginBottom: 16,
     borderRadius: 4,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  option: {
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 5,
+  },
+  optionText: {
+    fontSize: 16,
   },
 });
 
