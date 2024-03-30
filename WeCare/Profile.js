@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, Pressable, Image, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { supabase } from './supabase'; // Import supabase object
+import Avatar from './Avatar';
 
 const ProfileForm = () => {
   const [name, setName] = useState('');
@@ -39,19 +40,20 @@ const ProfileForm = () => {
       alert('Sorry, we need camera roll permissions to make this work!');
       return;
     }
-  
+
     // Allow user to pick an image from their device
     try {
       const result = await ImagePicker.launchImageLibraryAsync();
       if (!result.cancelled) {
-        // Log the result to verify the URI
+        // Log the URI to verify correctness
         console.log('Image picked:', result.uri);
-        setProfilePic(result.uri); // Set the selected image URI to profilePic state
+        // Set the selected image URI to profilePic state
+        setProfilePic(result.uri);
       }
     } catch (error) {
       console.error('Error picking image:', error);
     }
-  };  
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -61,16 +63,7 @@ const ProfileForm = () => {
       </View>
       <View style={styles.profilePicContainer}>
         <Text style={styles.editProfileText}>Edit Profile</Text>
-        <TouchableOpacity style={styles.profilePicWrapper} onPress={displayProfilePic}>
-  <View style={styles.profilePicBorder}>
-    {profilePic ? (
-      <Image source={{ uri: profilePic }} style={styles.profilePic} />
-    ) : (
-      <Text style={styles.profilePicPlaceholder}>+</Text>
-    )}
-  </View>
-</TouchableOpacity>
-
+        <Avatar imageUri={profilePic} onPress={displayProfilePic} />
       </View>
       <View style={styles.formContainer}>
         <View style={styles.column}>
@@ -99,6 +92,7 @@ const ProfileForm = () => {
             <Text>{gender || 'Select Gender'}</Text>
           </TouchableOpacity>
           {/* Modal for gender selection */}
+          {/* Modal for user type selection */}
           <Modal
             animationType="slide"
             transparent={true}
@@ -199,34 +193,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 10,
-  },
-  profilePicWrapper: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    borderWidth: 2,
-    borderColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden',
-  },
-  profilePicBorder: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 60,
-    borderWidth: 2,
-    borderColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profilePic: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 60,
-  },
-  profilePicPlaceholder: {
-    fontSize: 40,
-    color: '#fff',
   },
   formContainer: {
     flex: 1,
