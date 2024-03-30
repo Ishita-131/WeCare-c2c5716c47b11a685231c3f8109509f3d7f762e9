@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, Pressable, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, Pressable, Image, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { supabase } from './supabase'; // Import supabase object
 
@@ -9,7 +9,6 @@ const ProfileForm = () => {
   const [gender, setGender] = useState('');
   const [age, setAge] = useState('');
   const [fdmID, setFdmID] = useState('');
-  const [userID, setUserID] = useState('');
   const [userType, setUserType] = useState('');
   const [profilePic, setProfilePic] = useState(null);
   const [genderModalVisible, setGenderModalVisible] = useState(false); // State to control gender modal visibility
@@ -23,7 +22,7 @@ const ProfileForm = () => {
     const { data, error } = await supabase
       .from('users')
       .insert([
-        { name, email, gender, age, fdmID, userID, userType }
+        { name, email, gender, age, fdmID, userType }
       ]);
 
     if (error) {
@@ -42,7 +41,14 @@ const ProfileForm = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.profilePicContainer}>
+        <Text style={styles.label}>Profile Picture:</Text>
+        <TouchableOpacity style={styles.input} onPress={displayProfilePic}>
+          <Text>Choose Profile Picture</Text>
+        </TouchableOpacity>
+        {profilePic && <Image source={{ uri: profilePic }} style={styles.profilePic} />}
+      </View>
       <View style={styles.formContainer}>
         <View style={styles.column}>
           <Text style={styles.label}>Name:</Text>
@@ -115,15 +121,6 @@ const ProfileForm = () => {
             required
           />
 
-          <Text style={styles.label}>User ID:</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={setUserID}
-            value={userID}
-            placeholder="Enter your User ID"
-            required
-          />
-
           <Text style={styles.label}>User Type:</Text>
           <TouchableOpacity style={styles.input} onPress={() => setUserTypeModalVisible(true)}>
             <Text>{userType || 'Select User Type'}</Text>
@@ -159,33 +156,31 @@ const ProfileForm = () => {
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
         </View>
-
-        <View style={styles.column}>
-          <Text style={styles.label}>Profile Picture:</Text>
-          <TouchableOpacity style={styles.input} onPress={displayProfilePic}>
-            <Text>Choose Profile Picture</Text>
-          </TouchableOpacity>
-          {profilePic && <Image source={{ uri: profilePic }} style={styles.profilePic} />}
-        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f5f5f5',
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+  },
+  profilePicContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
   },
   formContainer: {
-    flexDirection: 'row',
-    marginHorizontal: 20,
+    flexDirection: 'column',
+    width: '100%',
+    maxWidth: 400,
   },
   column: {
-    flex: 1,
-    paddingHorizontal: 10,
+    marginBottom: 20,
   },
   label: {
     fontWeight: 'bold',
@@ -194,11 +189,12 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     marginBottom: 16,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 4,
+    borderColor: '#A9A9A9',
+    borderWidth: 2,
+    borderRadius: 8,
     fontSize: 16,
   },
   button: {
@@ -241,7 +237,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   option: {
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     marginBottom: 10,
     borderRadius: 5,
   },
