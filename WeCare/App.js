@@ -8,10 +8,15 @@ import { supabase } from './supabase.js';
 import Auth from './Auth.js';
 import Account from './Account.js';
 import Profile from './Profile.js';
-import Dashboard from './Dashboard.js'; // Import your Dashboard component
+import Dashboard from './Dashboard.js'; 
 import WelcomePage from './WelcomePage.js';
 import Tracking from './Tracking.js';
+import FitnessTracker from './FitnessTracker.js'; // Import FitnessTracker component
+import DietTracker from './DietTracker.js'; // Import Diet Tracker component
 import registerNNPushToken from 'native-notify';
+import ChatBot from './ChatBot.js'; // Import ChatBot component
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +52,9 @@ export default function App() {
             <Stack.Screen name="Account" component={Account} />
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Tracking" component={Tracking} /> 
+            <Stack.Screen name="FitnessTracker" component={FitnessTracker} /> 
+            <Stack.Screen name="DietTracker" component={DietTracker} /> 
+            <Stack.Screen name="ChatBot" component={ChatBot} />
           </>
         )}
         {/* Define the 'Auth' screen only once */}

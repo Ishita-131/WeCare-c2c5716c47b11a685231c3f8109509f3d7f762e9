@@ -7,6 +7,7 @@ const Dashboard = ({ navigation }) => {
       <Text>Dashboard</Text>
       <Button title="Go to Profile" onPress={() => navigation.navigate('Profile')} />
       <Button title="Go to Tracking" onPress={() => navigation.navigate('Tracking')} />
+      <Button title="Open ChatBot" onPress={() => navigation.navigate('ChatBot')} />
     </View>
   );
 };
