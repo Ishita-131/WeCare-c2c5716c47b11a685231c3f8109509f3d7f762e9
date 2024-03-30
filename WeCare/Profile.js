@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, Pressable, Image, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { supabase } from './supabase'; // Import supabase object
 
@@ -9,21 +9,20 @@ const ProfileForm = () => {
   const [gender, setGender] = useState('');
   const [age, setAge] = useState('');
   const [fdmID, setFdmID] = useState('');
-  const [userID, setUserID] = useState('');
   const [userType, setUserType] = useState('');
   const [profilePic, setProfilePic] = useState(null);
+  const [genderModalVisible, setGenderModalVisible] = useState(false); // State to control gender modal visibility
+  const [userTypeModalVisible, setUserTypeModalVisible] = useState(false); // State to control user type modal visibility
 
-  // Initialize Supabase (You can remove this initialization as it's already done in supabase.js)
-  // const supabaseUrl = 'https://jfougwzmuhrmwybyhepi.supabase.co';
-  // const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impmb3Vnd3ptdWhybXd5YnloZXBpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTEwMjMzNzQsImV4cCI6MjAyNjU5OTM3NH0.eB-l3dCXqe14uqcniDj8ByMOj9djZN5quE4H3RMHq-o';
-  // const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+  const genders = ['Male', 'Female', 'Other'];
+  const userTypes = ['User', 'Ambassador', 'Admin'];
 
   const submitForm = async () => {
     // Insert user data to Supabase
     const { data, error } = await supabase
       .from('users')
       .insert([
-        { name, email }
+        { name, email, gender, age, fdmID, userType }
       ]);
 
     if (error) {
@@ -42,7 +41,23 @@ const ProfileForm = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.greyBackground}>
+        <TouchableOpacity style={styles.iconContainer}>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.profilePicContainer}>
+        <Text style={styles.editProfileText}>Edit Profile</Text>
+        <TouchableOpacity style={styles.profilePicWrapper} onPress={displayProfilePic}>
+          <View style={styles.profilePicBorder}>
+            {profilePic ? (
+              <Image source={{ uri: profilePic }} style={styles.profilePic} />
+            ) : (
+              <Text style={styles.profilePicPlaceholder}>+</Text>
+            )}
+          </View>
+        </TouchableOpacity>
+      </View>
       <View style={styles.formContainer}>
         <View style={styles.column}>
           <Text style={styles.label}>Name:</Text>
@@ -66,13 +81,35 @@ const ProfileForm = () => {
           />
 
           <Text style={styles.label}>Gender:</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={setGender}
-            value={gender}
-            placeholder="Enter your gender"
-            required
-          />
+          <TouchableOpacity style={styles.input} onPress={() => setGenderModalVisible(true)}>
+            <Text>{gender || 'Select Gender'}</Text>
+          </TouchableOpacity>
+          {/* Modal for gender selection */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={genderModalVisible}
+            onRequestClose={() => {
+              setGenderModalVisible(!genderModalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                {genders.map((item, index) => (
+                  <Pressable
+                    key={index}
+                    style={[styles.option, { backgroundColor: gender === item ? '#ccc' : '#fff' }]}
+                    onPress={() => {
+                      setGender(item);
+                      setGenderModalVisible(!genderModalVisible);
+                    }}
+                  >
+                    <Text style={styles.optionText}>{item}</Text>
+                  </Pressable>
+                ))}
+              </View>
+            </View>
+          </Modal>
 
           <Text style={styles.label}>Age:</Text>
           <TextInput
@@ -93,72 +130,115 @@ const ProfileForm = () => {
             required
           />
 
-          <Text style={styles.label}>User ID:</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={setUserID}
-            value={userID}
-            placeholder="Enter your User ID"
-            required
-          />
-
           <Text style={styles.label}>User Type:</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={setUserType}
-            value={userType}
-            placeholder="Enter your User Type"
-            required
-          />
+          <TouchableOpacity style={styles.input} onPress={() => setUserTypeModalVisible(true)}>
+            <Text>{userType || 'Select User Type'}</Text>
+          </TouchableOpacity>
+          {/* Modal for user type selection */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={userTypeModalVisible}
+            onRequestClose={() => {
+              setUserTypeModalVisible(!userTypeModalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                {userTypes.map((item, index) => (
+                  <Pressable
+                    key={index}
+                    style={[styles.option, { backgroundColor: userType === item ? '#ccc' : '#fff' }]}
+                    onPress={() => {
+                      setUserType(item);
+                      setUserTypeModalVisible(!userTypeModalVisible);
+                    }}
+                  >
+                    <Text style={styles.optionText}>{item}</Text>
+                  </Pressable>
+                ))}
+              </View>
+            </View>
+          </Modal>
 
-<TouchableOpacity style={styles.button} onPress={submitForm}>
+          <TouchableOpacity style={styles.button} onPress={submitForm}>
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
         </View>
-
-        <View style={styles.column}>
-          <Text style={styles.label}>Profile Picture:</Text>
-          <TouchableOpacity style={styles.input} onPress={displayProfilePic}>
-            <Text>Choose Profile Picture</Text>
-          </TouchableOpacity>
-          {profilePic && <Image source={{ uri: profilePic }} style={styles.profilePic} />}
-        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
+    backgroundColor: '#FFF', // Set default background color to white
+  },
+  profilePicContainer: {
+    alignItems: 'center',
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  editProfileText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  profilePicWrapper: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    borderWidth: 2,
+    borderColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    overflow: 'hidden',
+  },
+  profilePicBorder: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 60,
+    borderWidth: 2,
+    borderColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  profilePic: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 60,
+  },
+  profilePicPlaceholder: {
+    fontSize: 40,
+    color: '#fff',
   },
   formContainer: {
-    flexDirection: 'row',
-    marginHorizontal: 20,
+    flex: 1,
+    paddingHorizontal: 20,
   },
   column: {
-    flex: 1,
-    paddingHorizontal: 10,
+    marginBottom: 20,
   },
   label: {
     fontWeight: 'bold',
     marginBottom: 8,
+    marginTop: 10,
     color: '#333',
   },
   input: {
     width: '100%',
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     marginBottom: 16,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 4,
+    borderColor: '#A9A9A9',
+    borderWidth: 2,
+    borderRadius: 8,
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#808080',
+    backgroundColor: '#171F1D',
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 4,
@@ -169,11 +249,49 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
   },
-  profilePic: {
-    width: '100%',
-    height: 200,
-    marginBottom: 16,
-    borderRadius: 4,
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  option: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginBottom: 10,
+    borderRadius: 5,
+  },
+  optionText: {
+    fontSize: 16,
+  },
+  greyBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: '79%', // Adjust height to make it 1/4 of the page
+    backgroundColor: '#6A7382',
+  },
+  iconContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 1,
   },
 });
 
