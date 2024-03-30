@@ -5,7 +5,7 @@ import { supabase } from './supabase'; // Import supabase object
 
 const ProfileForm = () => {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [surname, setSurname] = useState('');
   const [gender, setGender] = useState('');
   const [age, setAge] = useState('');
   const [fdmID, setFdmID] = useState('');
@@ -22,7 +22,7 @@ const ProfileForm = () => {
     const { data, error } = await supabase
       .from('user_profiles')
       .insert([
-        { name, email, gender, age, fdm_id: fdmID, user_type: userType  }
+        { name, surname, gender, age, fdm_id: fdmID, user_type: userType  }
       ]);
 
     if (error) {
@@ -70,13 +70,13 @@ const ProfileForm = () => {
             required
           />
 
-          <Text style={styles.label}>Email:</Text>
+          <Text style={styles.label}>Last Name:</Text>
           <TextInput
             style={styles.input}
-            onChangeText={setEmail}
-            value={email}
-            placeholder="Enter your email"
-            keyboardType="email-address"
+            onChangeText={setSurname}
+            value={surname}
+            placeholder="Enter your last name"
+            keyboardType="words"
             required
           />
 
