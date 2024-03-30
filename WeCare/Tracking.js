@@ -84,10 +84,11 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#FFF', // Set default background color to white
   },
 
   targetTitle: {
-    color: '#333',
+    color: 'white',
     fontFamily: 'Segoe UI',
     fontSize: 14,
     fontStyle: 'normal',
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
     height: 140,
     flexShrink: 0,
     borderRadius: 22,
-    backgroundColor: 'rgba(99, 118, 151, 0.2)', // Use rgba to set opacity of the background color
+    backgroundColor: '#6A7382', // Use rgba to set opacity of the background color
     marginVertical: 10,
     padding: 20,
   },
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
     height: 140,
     flexShrink: 0,
     borderRadius: 22,
-    backgroundColor: 'rgba(99, 118, 151, 0.2)', // Use rgba to set opacity of the background color
+    backgroundColor: '#6A7382', // Use rgba to set opacity of the background color
     marginVertical: 10,
     padding: 20,
   },
@@ -180,13 +181,13 @@ const styles = StyleSheet.create({
     height: 140,
     flexShrink: 0,
     borderRadius: 22,
-    backgroundColor: 'rgba(99, 118, 151, 0.2)', // Use rgba to set opacity of the background color
+    backgroundColor: '#6A7382', // Use rgba to set opacity of the background color
     marginVertical: 10,
     padding: 20,
   },
 
   fitnessTitle: {
-    color: '#333',
+    color: 'white',
     fontFamily: 'Segoe UI',
     fontSize: 14,
     fontStyle: 'normal',
@@ -196,7 +197,7 @@ const styles = StyleSheet.create({
   },
 
   dietTitle: {
-    color: '#333',
+    color: 'white',
     fontFamily: 'Segoe UI',
     fontSize: 14,
     fontStyle: 'normal',
@@ -230,7 +231,7 @@ const styles = StyleSheet.create({
     width: 91,
     height: 57,
     borderRadius: 99,
-    backgroundColor: '#637697',
+    backgroundColor: '#8CA7BE',
     justifyContent: 'center',
     alignItems: 'center',
     // Add box-shadow style
