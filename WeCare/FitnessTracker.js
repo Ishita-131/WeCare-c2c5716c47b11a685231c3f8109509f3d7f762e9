@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Modal, Portal, Text, Button, Provider as PaperProvider } from 'react-native-paper';
-import { View, StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'; // Import ScrollView from react-native
 import calories from './assets/images/calories.png';
 import clock from './assets/images/clock.png';
+import { supabase } from './supabase';
+
 
 const FitnessTracker = () => {
   return (
@@ -61,36 +63,50 @@ const WorkoutCard = () => {
   );
 };
 
+// LoggingCard component
+
 const LoggingCard = () => {
   const [visible, setVisible] = React.useState(false);
-  const [exerciseModalVisible, setExerciseModalVisible] = React.useState(false);
-  const [searchQuery, setSearchQuery] = React.useState('');
+  const [selectedExercise, setSelectedExercise] = React.useState(null); // State to hold selected exercise
   const [exerciseDetails, setExerciseDetails] = React.useState({
     date: '',
     duration: '',
     caloriesBurned: '',
   });
+  const [exerciseList, setExerciseList] = React.useState([]); // State to hold exercise list
+  const [filteredExerciseList, setFilteredExerciseList] = React.useState([]); // State to hold filtered exercise list
+  const [searchQuery, setSearchQuery] = React.useState(''); // State to hold search query
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-
-  const showExerciseModal = () => setExerciseModalVisible(true);
-  const hideExerciseModal = () => setExerciseModalVisible(false);
 
   const handlePress = () => {
     showModal(); // Show the modal when the button is pressed
   };
 
-  const handleSearch = (query) => setSearchQuery(query);
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    // Filter exercise list based on the search query
+    const filteredList = exerciseList.filter((exercise) =>
+      exercise.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredExerciseList(filteredList);
+  };
 
-  const handleSelectExercise = () => {
-    hideModal(); // Hide the first modal when "Select Exercise" is clicked
-    showExerciseModal();
+  const handleSelectExercise = (exercise) => {
+    setSelectedExercise(exercise); // Set the selected exercise
+    hideModal(); // Hide the modal
   };
 
   const handleSubmit = () => {
     // You can handle the submission here, for now, let's log the exercise details
     console.log('Exercise details:', exerciseDetails);
+    // Clear exercise details after submission
+    setExerciseDetails({
+      date: '',
+      duration: '',
+      caloriesBurned: '',
+    });
   };
 
   const handleChangeDate = (text) => {
@@ -104,6 +120,23 @@ const LoggingCard = () => {
   const handleChangeCaloriesBurned = (text) => {
     setExerciseDetails((prevDetails) => ({ ...prevDetails, caloriesBurned: text }));
   };
+
+  React.useEffect(() => {
+    // Fetch exercise list from Supabase when component mounts
+    const fetchExerciseList = async () => {
+      try {
+        const { data, error } = await supabase.from('exerciseslist').select('*');
+        if (error) {
+          throw error;
+        }
+        setExerciseList(data);
+      } catch (error) {
+        console.error('Error fetching exercise list:', error.message);
+      }
+    };
+
+    fetchExerciseList();
+  }, []);
 
   return (
     <View style={styles.loggingcard}>
@@ -124,49 +157,63 @@ const LoggingCard = () => {
           <Text style={styles.modalTitle}>Select Exercise</Text>
           <TextInput
             label="Search"
-            value={searchQuery}
             onChangeText={handleSearch}
             style={styles.searchBar}
             placeholder="Search for exercises"
             placeholderTextColor="#999"
+            value={searchQuery}
           />
-          <Button onPress={handleSelectExercise}>Select Exercise</Button>
+           {searchQuery !== '' && (
+            <ScrollView style={styles.exerciseListContainer}>
+              {filteredExerciseList.map((exercise) => (
+                <TouchableOpacity key={exercise.id} onPress={() => handleSelectExercise(exercise)} style={styles.exerciseItemContainer}>
+                  <Text style={styles.exerciseItem}>{exercise.name}</Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          )}
         </Modal>
-        <Modal visible={exerciseModalVisible} onDismiss={hideExerciseModal} contentContainerStyle={styles.modalContainer}>
-          <Text style={styles.modalTitle}>Log Exercise Details</Text>
-          {/* Input for Date */}
-          <TextInput
-            label="Date (YYYY-MM-DD)"
-            value={exerciseDetails.date}
-            onChangeText={handleChangeDate}
-            style={styles.input}
-            placeholder="YYYY-MM-DD"
-          />
-          {/* Input for Duration */}
-          <TextInput
-            label="Duration (minutes)"
-            value={exerciseDetails.duration}
-            onChangeText={handleChangeDuration}
-            style={styles.input}
-            keyboardType="numeric"
-            placeholder="Enter duration in minutes"
-          />
-          {/* Input for Calories Burned */}
-          <TextInput
-            label="Calories Burned"
-            value={exerciseDetails.caloriesBurned}
-            onChangeText={handleChangeCaloriesBurned}
-            style={styles.input}
-            keyboardType="numeric"
-            placeholder="Enter calories burned"
-          />
-          {/* Submit button */}
-          <Button onPress={handleSubmit}>Submit</Button>
-        </Modal>
+        {selectedExercise && (
+          <Modal visible={!!selectedExercise} onDismiss={() => setSelectedExercise(null)} contentContainerStyle={styles.modalContainer}>
+            <Text style={styles.modalTitle}>Log Exercise Details</Text>
+            {/* Input for Date */}
+            <TextInput
+              label="Date (YYYY-MM-DD)"
+              value={exerciseDetails.date}
+              onChangeText={handleChangeDate}
+              style={styles.input}
+              placeholder="YYYY-MM-DD"
+            />
+            {/* Input for Duration */}
+            <TextInput
+              label="Duration (minutes)"
+              value={exerciseDetails.duration}
+              onChangeText={handleChangeDuration}
+              style={styles.input}
+              keyboardType="numeric"
+              placeholder="Enter duration in minutes"
+            />
+            {/* Input for Calories Burned */}
+            <TextInput
+              label="Calories Burned"
+              value={exerciseDetails.caloriesBurned}
+              onChangeText={handleChangeCaloriesBurned}
+              style={styles.input}
+              keyboardType="numeric"
+              placeholder="Enter calories burned"
+            />
+            {/* Submit button */}
+            <Button onPress={handleSubmit}>Submit</Button>
+          </Modal>
+        )}
       </Portal>
     </View>
   );
 };
+
+
+
+
 
 
 const CaloriesCard = () => {
@@ -270,6 +317,32 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 10,
     marginBottom: 15, // Increased bottom margin for better separation
+  },
+
+  exerciseListContainer: {
+    marginTop: 10,
+    borderRadius: 10,
+    maxHeight: 200, // Limit the height of the exercise list
+    backgroundColor: '#f0f0f0', // Light gray background for the exercise list
+  },
+
+  exerciseItemContent: {
+    flexDirection: 'row', // Align items horizontally
+    alignItems: 'center', // Align items vertically
+    justifyContent: 'space-between', // Space evenly between items
+  },
+
+  exerciseItemContainer: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  exerciseItem: {
+    fontSize: 16,
+    color: '#333',
+    margin:5,
+    fontWeight: '600',
   },
 
   imageContainer: {
