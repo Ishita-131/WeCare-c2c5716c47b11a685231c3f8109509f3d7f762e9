@@ -164,20 +164,16 @@ const ProfileForm = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    paddingVertical: 20,
-    paddingHorizontal: 10,
+    backgroundColor: '#FFF', // Set default background color to white
   },
   profilePicContainer: {
+    backgroundColor: '#6A7382', // Set background color for the top section
+    padding: 50,
     alignItems: 'center',
-    marginBottom: 20,
   },
   formContainer: {
-    flexDirection: 'column',
-    width: '100%',
-    maxWidth: 400,
+    flex: 1,
+    paddingHorizontal: 20,
   },
   column: {
     marginBottom: 20,
@@ -185,6 +181,7 @@ const styles = StyleSheet.create({
   label: {
     fontWeight: 'bold',
     marginBottom: 8,
+    marginTop: 10,
     color: '#333',
   },
   input: {
@@ -198,7 +195,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#808080',
+    backgroundColor: '#171F1D',
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 4,
