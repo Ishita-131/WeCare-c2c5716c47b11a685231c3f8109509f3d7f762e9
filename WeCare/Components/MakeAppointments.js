@@ -1,7 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Alert } from "react-native";
-import { FlatList } from "react-native";
-import { SafeAreaView, Button } from "react-native";
+import { View, Text, Alert, Button, FlatList } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { UseAccept } from "./accept";
+import { supabase } from "../supabase";
+
+function AskAppointment({ setAccept }) {
+    const {accept} = UseAccept();
+
+    async function makeAppointment() {
+        try {
+            await supabase
+                .from('ambassadors')
+                .insert([
+                    { user_name: "adam", makeAppointment: { accept } },
+                ]);
+            Alert.alert("Appointment is Made");
+
+        } catch (error) {
+            console.error("Error making appointment:", error.message);
+            Alert.alert("Error making appointment. Please try again later.");
+        }
+    }
+
+    return (
+        <Button
+            title="Make Appointment"
+            onPress={() => {
+                setAccept(true);
+                makeAppointment();
+            }}
+        />
+    );
+}
 
 export default function MakeAppointments() {
     return (
@@ -12,42 +42,28 @@ export default function MakeAppointments() {
 }
 
 function ListAmbassadors() {
-    const [accept, setAccept]  = useState(false)
+    const { accept, setAccept } = UseAccept();
 
     const data = [
-        { key: '1', text: 'Samson' }, 
-        { key: '2', text: 'Bruno Mars' }, 
-        { key: '3', text: 'James Bruv' }];
+        { key: '1', text: 'Samson' },
+        { key: '2', text: 'Bruno Mars' },
+        { key: '3', text: 'James Bruv' }
+    ];
 
-    function AskAppointment()  {
-
-        return (<>
-            <View>
-                <Button
-                    title="Hello"
-                    onPress={()=> {
-                        setAccept(true)
-                        Alert.alert("Appointment is Made")
-                    }}
-                />
-            </View>
-        </>)
-    }
-
-    const renderItem = ({ item }) => ( <>
-        <Text>{item.text}</Text>
-        <AskAppointment />
-    </>
+    const renderItem = ({ item }) => (
+        <View>
+            <Text>{item.text}</Text>
+            <AskAppointment setAccept={setAccept} />
+        </View>
     );
 
     return (
         <View>
             <FlatList
                 data={data}
-                keyExtractor={(item , index) => item + index}
+                keyExtractor={(item) => item.key}
                 renderItem={renderItem}
             />
         </View>
     );
 }
-

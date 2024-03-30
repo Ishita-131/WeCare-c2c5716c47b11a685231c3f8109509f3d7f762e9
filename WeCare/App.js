@@ -15,6 +15,7 @@ import FitnessTracker from './screens/FitnessTracker.js'; // Import FitnessTrack
 import DietTracker from './screens/DietTracker.js'; // Import Diet Tracker component
 import MakeAppointments from './Components/MakeAppointments.js';
 import registerNNPushToken from 'native-notify';
+import { AcceptProvider } from './Components/accept.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -33,7 +34,8 @@ export default function App() {
     });
   }, []);
 
-  return (
+  return (<>
+    <AcceptProvider>
     <NavigationContainer>
       <Stack.Navigator>
         {!session ? (
@@ -60,6 +62,8 @@ export default function App() {
         
       </Stack.Navigator>
     </NavigationContainer>
+    </AcceptProvider>
+    </>
   );
 }
 
