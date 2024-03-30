@@ -42,12 +42,21 @@ const ProfileForm = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.profilePicContainer}>
-        <Text style={styles.label}>Profile Picture:</Text>
-        <TouchableOpacity style={styles.input} onPress={displayProfilePic}>
-          <Text>Choose Profile Picture</Text>
+      <View style={styles.greyBackground}>
+        <TouchableOpacity style={styles.iconContainer}>
         </TouchableOpacity>
-        {profilePic && <Image source={{ uri: profilePic }} style={styles.profilePic} />}
+      </View>
+      <View style={styles.profilePicContainer}>
+        <Text style={styles.editProfileText}>Edit your profile picture</Text>
+        <TouchableOpacity style={styles.profilePicWrapper} onPress={displayProfilePic}>
+          <View style={styles.profilePicBorder}>
+            {profilePic ? (
+              <Image source={{ uri: profilePic }} style={styles.profilePic} />
+            ) : (
+              <Text style={styles.profilePicPlaceholder}>+</Text>
+            )}
+          </View>
+        </TouchableOpacity>
       </View>
       <View style={styles.formContainer}>
         <View style={styles.column}>
@@ -167,9 +176,42 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF', // Set default background color to white
   },
   profilePicContainer: {
-    backgroundColor: '#6A7382', // Set background color for the top section
-    padding: 50,
     alignItems: 'center',
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  editProfileText: {
+    color: '#fff',
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  profilePicWrapper: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    borderWidth: 2,
+    borderColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  profilePicBorder: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 60,
+    borderWidth: 2,
+    borderColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  profilePic: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 60,
+  },
+  profilePicPlaceholder: {
+    fontSize: 40,
+    color: '#fff',
   },
   formContainer: {
     flex: 1,
@@ -206,12 +248,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
   },
-  profilePic: {
-    width: '100%',
-    height: 200,
-    marginBottom: 16,
-    borderRadius: 4,
-  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
@@ -241,6 +277,20 @@ const styles = StyleSheet.create({
   },
   optionText: {
     fontSize: 16,
+  },
+  greyBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: '79%', // Adjust height to make it 1/4 of the page
+    backgroundColor: '#6A7382',
+  },
+  iconContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 1,
   },
 });
 
