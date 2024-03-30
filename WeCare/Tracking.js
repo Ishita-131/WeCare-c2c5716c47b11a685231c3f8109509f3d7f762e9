@@ -30,7 +30,7 @@ const Card2 = () => {
   return (
     <View style={styles.card2}>
       <Image source={glass1} style={styles.waterImg} />
-      <Text style={styles.measurement}>8L</Text>
+      <Text style={styles.measurement}>2L</Text>
       <Text style={styles.waterTitle}>Water Intake</Text>
     </View>
   );
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
 
   targetTitle: {
-    color: '#637697',
+    color: '#333',
     fontFamily: 'Segoe UI',
     fontSize: 14,
     fontStyle: 'normal',
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   },
 
   fitnessTitle: {
-    color: '#637697',
+    color: '#333',
     fontFamily: 'Segoe UI',
     fontSize: 14,
     fontStyle: 'normal',
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   },
 
   dietTitle: {
-    color: '#637697',
+    color: '#333',
     fontFamily: 'Segoe UI',
     fontSize: 14,
     fontStyle: 'normal',

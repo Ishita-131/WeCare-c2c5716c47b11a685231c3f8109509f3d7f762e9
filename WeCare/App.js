@@ -18,6 +18,7 @@ import registerNNPushToken from 'native-notify';
 import { AcceptProvider } from './Components/accept.js';
 
 
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
