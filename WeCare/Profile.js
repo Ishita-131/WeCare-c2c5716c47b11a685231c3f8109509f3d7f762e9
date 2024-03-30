@@ -22,7 +22,7 @@ const ProfileForm = () => {
     const { data, error } = await supabase
       .from('user_profiles')
       .insert([
-        { name, surname, gender, age, fdm_id: fdmID, user_type: userType  }
+        { name, surname, gender, age, fdm_id: fdmID, user_type: userType, profile_pic: profilePic }
       ]);
 
     if (error) {
@@ -33,12 +33,25 @@ const ProfileForm = () => {
   };
 
   const displayProfilePic = async () => {
-    // Allow user to pick an image from their device
-    const result = await ImagePicker.launchImageLibraryAsync();
-    if (!result.cancelled) {
-      setProfilePic(result.uri);
+    // Check and request permission to access the photo library
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      alert('Sorry, we need camera roll permissions to make this work!');
+      return;
     }
-  };
+  
+    // Allow user to pick an image from their device
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync();
+      if (!result.cancelled) {
+        // Log the result to verify the URI
+        console.log('Image picked:', result.uri);
+        setProfilePic(result.uri); // Set the selected image URI to profilePic state
+      }
+    } catch (error) {
+      console.error('Error picking image:', error);
+    }
+  };  
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -49,14 +62,15 @@ const ProfileForm = () => {
       <View style={styles.profilePicContainer}>
         <Text style={styles.editProfileText}>Edit Profile</Text>
         <TouchableOpacity style={styles.profilePicWrapper} onPress={displayProfilePic}>
-          <View style={styles.profilePicBorder}>
-            {profilePic ? (
-              <Image source={{ uri: profilePic }} style={styles.profilePic} />
-            ) : (
-              <Text style={styles.profilePicPlaceholder}>+</Text>
-            )}
-          </View>
-        </TouchableOpacity>
+  <View style={styles.profilePicBorder}>
+    {profilePic ? (
+      <Image source={{ uri: profilePic }} style={styles.profilePic} />
+    ) : (
+      <Text style={styles.profilePicPlaceholder}>+</Text>
+    )}
+  </View>
+</TouchableOpacity>
+
       </View>
       <View style={styles.formContainer}>
         <View style={styles.column}>
