@@ -45,8 +45,6 @@ const ProfileForm = () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync();
       if (!result.cancelled) {
-        // Log the URI to verify correctness
-        console.log('Image picked:', result.uri);
         // Set the selected image URI to profilePic state
         setProfilePic(result.uri);
       }
