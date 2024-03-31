@@ -26,6 +26,7 @@
     "react": "18.2.0",
     "react-native": "^0.73.6",
     "react-native-accurate-step-counter": "^2.0.4",
+    "react-native-calendar-picker": "^8.0.2",
     "react-native-elements": "^3.4.3",
     "react-native-gesture-handler": "~2.14.0",
     "react-native-get-random-values": "^1.8.0",
