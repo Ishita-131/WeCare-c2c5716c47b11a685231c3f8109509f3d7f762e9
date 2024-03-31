@@ -14,6 +14,9 @@ import Tracking from './Tracking.js';
 import FitnessTracker from './FitnessTracker.js'; // Import FitnessTracker component
 import DietTracker from './DietTracker.js'; // Import Diet Tracker component
 import MakeAppointments from './Components/MakeAppointments.js';
+import DeleteProfile from './DeleteProfile.js'; 
+import RetrieveProfile from './RetrieveProfile.js';
+import Options from './Options.js';
 import registerNNPushToken from 'native-notify';
 import { AcceptProvider } from './Components/accept.js';
 
