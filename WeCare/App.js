@@ -59,7 +59,12 @@ export default function App() {
             <Stack.Screen name="Tracking" component={Tracking} /> 
             <Stack.Screen name="FitnessTracker" component={FitnessTracker} /> 
             <Stack.Screen name="DietTracker" component={DietTracker} /> 
-            <Stack.Screen name="Appointments" component={MakeAppointments} /> 
+            <Stack.Screen name="Appointments" component={MakeAppointments} />
+            <Stack.Screen name="DeleteProfile" component={DeleteProfile} /> 
+            <Stack.Screen name="Options" component={Options} />
+            <Stack.Screen name="RetrieveProfile" component={RetrieveProfile} /> 
+          
+          
           </>
         )}
         {/* Define the 'Auth' screen only once */}
