@@ -43,7 +43,12 @@ const ProfileForm = () => {
 
     // Allow user to pick an image from their device
     try {
-      const result = await ImagePicker.launchImageLibraryAsync();
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
       if (!result.cancelled) {
         // Set the selected image URI to profilePic state
         setProfilePic(result.uri);

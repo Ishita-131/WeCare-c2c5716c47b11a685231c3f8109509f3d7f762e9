@@ -8,7 +8,7 @@ const Avatar = ({ imageUri, onPress }) => {
         {imageUri ? (
           <Image source={{ uri: imageUri }} style={styles.profilePic} />
         ) : (
-          <Image source={require('./user.png')} style={styles.profilePicPlaceholder} />
+          <Image source={require('./user.png')} style={styles.profilePic} />
         )}
       </View>
     </TouchableOpacity>
@@ -36,11 +36,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profilePic: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 60,
-  },
-  profilePicPlaceholder: {
     width: '100%',
     height: '100%',
     borderRadius: 60,
