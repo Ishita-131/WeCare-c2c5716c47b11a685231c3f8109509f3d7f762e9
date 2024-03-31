@@ -30,6 +30,13 @@ const ProfileForm = () => {
     } else {
       console.log('User data inserted successfully:', data);
     }
+
+      // Navigate based on user type
+    if (userType === 'User' || userType === 'Ambassador') {
+      navigation.navigate('Dashboard');
+    } else if (userType === 'Admin') {
+      navigation.navigate('AdminDashboard');
+    }
   };
 
   const displayProfilePic = async () => {

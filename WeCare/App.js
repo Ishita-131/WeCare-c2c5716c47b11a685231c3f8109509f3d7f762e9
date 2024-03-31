@@ -11,8 +11,11 @@ import Profile from './Profile.js';
 import Dashboard from './Dashboard.js'; 
 import WelcomePage from './WelcomePage.js';
 import Tracking from './Tracking.js';
-import FitnessTracker from './FitnessTracker.js'; // Import FitnessTracker component
-import DietTracker from './DietTracker.js'; // Import Diet Tracker component
+import FitnessTracker from './screens/FitnessTracker.js'; // Import FitnessTracker component
+import DietTracker from './screens/DietTracker.js';
+import DeleteProfile from './DeleteProfile.js'; 
+import RetrieveProfile from './RetrieveProfile.js';
+import Options from './Options.js';
 import registerNNPushToken from 'native-notify';
 
 
@@ -52,7 +55,10 @@ export default function App() {
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Tracking" component={Tracking} /> 
             <Stack.Screen name="FitnessTracker" component={FitnessTracker} /> 
-            <Stack.Screen name="DietTracker" component={DietTracker} /> 
+            <Stack.Screen name="DietTracker" component={DietTracker} />
+            <Stack.Screen name="DeleteProfile" component={DeleteProfile} /> 
+            <Stack.Screen name="Options" component={Options} />
+            <Stack.Screen name="RetrieveProfile" component={RetrieveProfile} /> 
           </>
         )}
         {/* Define the 'Auth' screen only once */}
