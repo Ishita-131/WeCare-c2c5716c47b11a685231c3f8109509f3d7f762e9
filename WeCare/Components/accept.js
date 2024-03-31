@@ -8,9 +8,10 @@ export function UseAccept() {
 
 export function AcceptProvider({children}) {
     const [accept , setAccept] = useState(false);
+    const [ambassadors , setAmbassadors] = useState();
 
     return (<>
-        <AcceptContext.Provider value={{accept, setAccept}} >
+        <AcceptContext.Provider value={{accept, setAccept, ambassadors, setAmbassadors}} >
             {children}
         </AcceptContext.Provider>
     </>)
