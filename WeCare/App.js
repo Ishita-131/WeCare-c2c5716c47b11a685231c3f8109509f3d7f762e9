@@ -23,6 +23,8 @@ import registerNNPushToken from 'native-notify';
 import { AcceptProvider } from './Components/accept.js';
 import SelectRole from './SelectRole'; // Import the SelectRole component
 import AdminDashboard from './AdminDashboard';
+import AmbassadorDashboard from './AmbassadorDashboard';
+
 
 
 
@@ -62,6 +64,7 @@ export default function App() {
           <>
           <Stack.Screen name="SelectRole" component={SelectRole} />
           <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
+          <Stack.Screen name="AmbassadorDashboard" component={AmbassadorDashboard} />
             <Stack.Screen name="Dashboard" component={Dashboard} />
             <Stack.Screen name="Account" component={Account} />
             <Stack.Screen name="Profile" component={Profile} />

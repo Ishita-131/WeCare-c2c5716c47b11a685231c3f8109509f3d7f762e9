@@ -7,7 +7,8 @@ const SelectRole = ({ navigation }) => {
 
   const handleNext = () => {
     // Determine the dashboard based on the selected role
-    const dashboardScreen = selectedRole === 'admin' ? 'AdminDashboard' : 'Dashboard';
+    const dashboardScreen = selectedRole === 'admin' ? 'AdminDashboard' : 
+    selectedRole === 'ambassador' ? 'AmbassadorDashboard' : 'Dashboard';
     // Navigate to the respective dashboard
     navigation.navigate(dashboardScreen);
   };
