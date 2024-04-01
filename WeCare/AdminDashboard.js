@@ -8,6 +8,7 @@ const Dashboard = ({ navigation }) => {
       <Button title="Go to Profile" onPress={() => navigation.navigate('Profile')} />
       <Button title="Go to Tracking" onPress={() => navigation.navigate('Tracking')} />
       <Button title='Go to Appointments' onPress={() => navigation.navigate('Appointments')}/>
+      <Button title="Edit User Profiles(Admin Only)" onPress={() => navigation.navigate('Options')} />
     </View>
   );
 };

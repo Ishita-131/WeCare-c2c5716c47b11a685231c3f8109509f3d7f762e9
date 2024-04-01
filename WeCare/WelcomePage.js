@@ -10,10 +10,10 @@ const WelcomePage = ({ navigation }) => {
           <Text style={styles.welcomeText}>Let's get started!</Text>
           <Text style={styles.secondaryText}>Login or Sign Up below</Text>
         </View>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Auth')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Auth')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
       </View>
