@@ -15,12 +15,12 @@ import FitnessTracker from './FitnessTracker.js'; // Import FitnessTracker compo
 import DietTracker from './DietTracker.js'; // Import Diet Tracker component
 import Login from './Login.js'
 import SignUp from './SignUp.js'; // Import the SignUp component
-import MakeAppointments from './Components/MakeAppointments.js';
+import MakeAppointments from './Components/ViewAppointments/MakeAppointments.js';
 import DeleteProfile from './DeleteProfile.js'; 
 import RetrieveProfile from './RetrieveProfile.js';
 import Options from './Options.js';
 import registerNNPushToken from 'native-notify';
-import { AcceptProvider } from './Components/accept.js';
+import { AcceptProvider } from './Components/ViewAppointments/accept.js';
 import SelectRole from './SelectRole'; // Import the SelectRole component
 import AdminDashboard from './AdminDashboard';
 import AmbassadorDashboard from './AmbassadorDashboard';
