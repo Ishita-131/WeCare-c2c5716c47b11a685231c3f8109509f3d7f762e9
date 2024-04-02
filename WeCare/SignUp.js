@@ -3,22 +3,30 @@ import { Alert, StyleSheet, View } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { supabase } from './supabase';
 
-export default function Auth() {
+export default function SignUp({ navigation }) {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  async function signInWithEmail() {
+  async function signUp() {
+    if (password !== repeatPassword) {
+      Alert.alert('Passwords do not match');
+      return;
+    }
+
     setLoading(true);
-    const { error } = await supabase.auth.signIn({
+    const { error, data } = await supabase.auth.signUp({
       email: email,
       password: password,
     });
 
     if (error) {
       Alert.alert(error.message);
-      navigation.navigate('SelectRole');
-
+    } else {
+      Alert.alert('Please check your inbox for email verification!');
+      navigation.navigate('Login');
     }
 
     setLoading(false);
@@ -26,6 +34,15 @@ export default function Auth() {
 
   return (
     <View style={styles.container}>
+      <View style={[styles.verticallySpaced, styles.mt20]}>
+        <Input
+          label="Name"
+          onChangeText={(text) => setName(text)}
+          value={name}
+          placeholder="Your Name"
+          autoCapitalize={'none'}
+        />
+      </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Input
           label="Email"
@@ -47,8 +64,19 @@ export default function Auth() {
           autoCapitalize={'none'}
         />
       </View>
+      <View style={styles.verticallySpaced}>
+        <Input
+          label="Repeat Password"
+          leftIcon={{ type: 'font-awesome', name: 'lock' }}
+          onChangeText={(text) => setRepeatPassword(text)}
+          value={repeatPassword}
+          secureTextEntry={true}
+          placeholder="Repeat Password"
+          autoCapitalize={'none'}
+        />
+      </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Button title="Login" disabled={loading} onPress={signInWithEmail} />
+        <Button title="Sign Up" disabled={loading} onPress={signUp} />
       </View>
     </View>
   );

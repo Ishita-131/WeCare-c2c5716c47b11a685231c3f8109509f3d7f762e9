@@ -1,4 +1,4 @@
-// App.js
+
 import 'react-native-url-polyfill/auto';
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
@@ -13,9 +13,19 @@ import WelcomePage from './WelcomePage.js';
 import Tracking from './Tracking.js';
 import FitnessTracker from './FitnessTracker.js'; // Import FitnessTracker component
 import DietTracker from './DietTracker.js'; // Import Diet Tracker component
+import Login from './Login.js'
+import SignUp from './SignUp.js'; // Import the SignUp component
 import MakeAppointments from './Components/MakeAppointments.js';
+import DeleteProfile from './DeleteProfile.js'; 
+import RetrieveProfile from './RetrieveProfile.js';
+import Options from './Options.js';
 import registerNNPushToken from 'native-notify';
 import { AcceptProvider } from './Components/accept.js';
+import SelectRole from './SelectRole'; // Import the SelectRole component
+import AdminDashboard from './AdminDashboard';
+import AmbassadorDashboard from './AmbassadorDashboard';
+
+
 
 
 
@@ -42,6 +52,8 @@ export default function App() {
         {!session ? (
           <>
           <Stack.Screen name="Welcome" component={WelcomePage} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Auth" component={Auth} options={({ navigation }) => ({
             headerShown: false,
             navigation: navigation,
@@ -50,13 +62,21 @@ export default function App() {
           </>
         ) : (
           <>
+          <Stack.Screen name="SelectRole" component={SelectRole} />
+          <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
+          <Stack.Screen name="AmbassadorDashboard" component={AmbassadorDashboard} />
             <Stack.Screen name="Dashboard" component={Dashboard} />
             <Stack.Screen name="Account" component={Account} />
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Tracking" component={Tracking} /> 
             <Stack.Screen name="FitnessTracker" component={FitnessTracker} /> 
             <Stack.Screen name="DietTracker" component={DietTracker} /> 
-            <Stack.Screen name="Appointments" component={MakeAppointments} /> 
+            <Stack.Screen name="Appointments" component={MakeAppointments} />
+            <Stack.Screen name="DeleteProfile" component={DeleteProfile} /> 
+            <Stack.Screen name="Options" component={Options} />
+            <Stack.Screen name="RetrieveProfile" component={RetrieveProfile} /> 
+          
+          
           </>
         )}
         {/* Define the 'Auth' screen only once */}
