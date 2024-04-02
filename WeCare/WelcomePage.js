@@ -6,14 +6,14 @@ const WelcomePage = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.logoContainer}>
-          <Image source={require('./Logo.png')} style={styles.logo} />
+          <Image source={require('./assets/images/Logo2.png')} style={styles.logo} />
           <Text style={styles.welcomeText}>Let's get started!</Text>
           <Text style={styles.secondaryText}>Login or Sign Up below</Text>
         </View>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SignUp.')}>
+        <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
       </View>
@@ -23,6 +23,7 @@ const WelcomePage = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'white',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -36,9 +37,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   logo: {
-    width: 200,
-    height: 200,
+    width: 350,
+    height: 350,
     resizeMode: 'contain',
+    marginBottom: -40,
   },
   welcomeText: {
     color: '#221f1f',
@@ -58,13 +60,23 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   button: {
-    backgroundColor: '#6A7382',
+    backgroundColor: '#1986EC',
     paddingHorizontal: 120,
     height: 50,
     paddingVertical: 15,
     borderRadius: 32,
     marginBottom: 15,
   },
+
+  button2: {
+    backgroundColor: '#1986EC',
+    paddingHorizontal: 110,
+    height: 50,
+    paddingVertical: 15,
+    borderRadius: 32,
+    marginBottom: 15,
+  },
+
   buttonText: {
     color: 'white',
     fontSize: 16,
