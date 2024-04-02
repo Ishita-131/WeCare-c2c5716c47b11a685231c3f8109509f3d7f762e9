@@ -168,7 +168,7 @@ export default function App() {
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Button title="Sign in" disabled={loading} onPress={() => signInWithEmail()} />
       </View>
-      <View style={styles.verticallySpaced}>
+      <View style={styles.verticallySpaced a }>
         <Button title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
       </View>
     </View>
