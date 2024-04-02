@@ -2,7 +2,6 @@ import React, { useEffect, useState , setState} from "react";
 import { View, Text, Alert, Button, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { UseAccept } from "./accept";
-import { createClient } from "@supabase/supabase-js";
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { StyleSheet } from "react-native";
 import { supabase } from "../../supabase";
