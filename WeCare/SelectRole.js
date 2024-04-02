@@ -16,9 +16,9 @@ const SelectRole = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <ImageBackground
-          source={require('./Group 10303.png')}
+          source={require('./Image.png')}
           style={styles.backgroundImage}
-        />
+        /> 
       </View>
       <View style={styles.content}>
         <Text style={styles.heading}>Select Your Role</Text>
@@ -52,6 +52,7 @@ const SelectRole = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#FFFFFF', // Default white background
   },
   imageContainer: {
     flex: 1,
@@ -92,21 +93,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   selectedRole: {
-    backgroundColor: '#7FFF00',
+    backgroundColor: '#1986EC',
   },
   roleText: {
     fontSize: 18,
   },
+
   nextButton: {
     marginTop: 20, // Adjust spacing as needed
-    backgroundColor: '#7FFF00',
+    backgroundColor: '#1986EC',
     padding: 20,
     width: 315,
     height: 60,
     borderRadius: 99,
   },
   nextButtonText: {
-    color: '#000000',
+    color: 'white',
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',

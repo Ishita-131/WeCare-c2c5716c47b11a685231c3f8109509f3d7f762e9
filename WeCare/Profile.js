@@ -12,8 +12,8 @@ const ProfileForm = () => {
   const [fdmID, setFdmID] = useState('');
   const [userType, setUserType] = useState('');
   const [profilePic, setProfilePic] = useState(null);
-  const [genderModalVisible, setGenderModalVisible] = useState(false); // State to control gender modal visibility
-  const [userTypeModalVisible, setUserTypeModalVisible] = useState(false); // State to control user type modal visibility
+  const [genderModalVisible, setGenderModalVisible] = useState(false); 
+  const [userTypeModalVisible, setUserTypeModalVisible] = useState(false);
 
   const genders = ['Male', 'Female', 'Other'];
   const userTypes = ['User', 'Ambassador', 'Admin'];

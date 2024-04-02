@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/WeCareLogo.png",
+      "image": "./assets/images/Logo2.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

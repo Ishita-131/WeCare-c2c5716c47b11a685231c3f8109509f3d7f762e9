@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
-import { Button, Input } from 'react-native-elements';
+import { Alert, StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { Input, Button } from 'react-native-elements'; // Import Button from react-native-elements for consistency
 import { supabase } from './supabase';
 
 export default function SignUp({ navigation }) {
@@ -75,9 +75,9 @@ export default function SignUp({ navigation }) {
           autoCapitalize={'none'}
         />
       </View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Button title="Sign Up" disabled={loading} onPress={signUp} />
-      </View>
+      <TouchableOpacity style={styles.button} onPress={signUp} disabled={loading}>
+        <Text style={styles.buttonText}>Sign Up</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -86,6 +86,21 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 40,
     padding: 12,
+  },
+  button: {
+    backgroundColor: '#1986EC',
+    paddingHorizontal: 120,
+    height: 50,
+    paddingVertical: 15,
+    borderRadius: 32,
+    marginBottom: 15,
+    alignItems: 'center', // Center the text horizontally
+    justifyContent: 'center', // Center the text vertically
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   verticallySpaced: {
     paddingTop: 4,

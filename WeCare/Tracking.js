@@ -131,7 +131,6 @@ const BMICard = () => {
       style={styles.BMICard}
     >
       <View style={styles.cardContent}>
-        <Text style={styles.BMICardText}>BMI Tracker</Text>
         <Text style={styles.BMIText}>Track your BMI progress with this chart</Text>
         <TouchableOpacity style={styles.learnMoreButton}>
           <Text style={styles.learnMoreText}>View More</Text>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
-import { Button, Input } from 'react-native-elements';
+import { Alert, StyleSheet, View, TouchableOpacity, Text } from 'react-native'; // Import TouchableOpacity and Text
+import { Input } from 'react-native-elements';
 import { supabase } from './supabase';
 
 export default function Auth() {
@@ -47,9 +47,9 @@ export default function Auth() {
           autoCapitalize={'none'}
         />
       </View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Button title="Login" disabled={loading} onPress={signInWithEmail} />
-      </View>
+      <TouchableOpacity style={styles.button} onPress={signInWithEmail} disabled={loading}>
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -59,12 +59,19 @@ const styles = StyleSheet.create({
     marginTop: 40,
     padding: 12,
   },
-  verticallySpaced: {
-    paddingTop: 4,
-    paddingBottom: 4,
-    alignSelf: 'stretch',
+  button: {
+    backgroundColor: '#1986EC',
+    paddingHorizontal: 120,
+    height: 50,
+    paddingVertical: 15,
+    borderRadius: 32,
+    marginBottom: 15,
+    alignItems: 'center', // Center the text horizontally
+    justifyContent: 'center', // Center the text vertically
   },
-  mt20: {
-    marginTop: 20,
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
