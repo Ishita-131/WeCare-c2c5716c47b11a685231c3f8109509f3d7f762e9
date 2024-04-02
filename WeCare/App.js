@@ -13,7 +13,9 @@ import WelcomePage from './WelcomePage.js';
 import Tracking from './Tracking.js';
 import FitnessTracker from './FitnessTracker.js'; // Import FitnessTracker component
 import DietTracker from './DietTracker.js'; // Import Diet Tracker component
+import MakeAppointments from './Components/MakeAppointments.js';
 import registerNNPushToken from 'native-notify';
+import { AcceptProvider } from './Components/accept.js';
 import ChatBot from './ChatBot.js'; // Import ChatBot component
 
 
@@ -34,7 +36,8 @@ export default function App() {
     });
   }, []);
 
-  return (
+  return (<>
+    <AcceptProvider>
     <NavigationContainer>
       <Stack.Navigator>
         {!session ? (
@@ -54,6 +57,7 @@ export default function App() {
             <Stack.Screen name="Tracking" component={Tracking} /> 
             <Stack.Screen name="FitnessTracker" component={FitnessTracker} /> 
             <Stack.Screen name="DietTracker" component={DietTracker} /> 
+            <Stack.Screen name="Appointments" component={MakeAppointments} /> 
             <Stack.Screen name="ChatBot" component={ChatBot} />
           </>
         )}
@@ -61,6 +65,8 @@ export default function App() {
         
       </Stack.Navigator>
     </NavigationContainer>
+    </AcceptProvider>
+    </>
   );
 }
 
