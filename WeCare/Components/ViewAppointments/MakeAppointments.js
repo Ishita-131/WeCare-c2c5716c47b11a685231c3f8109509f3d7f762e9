@@ -5,9 +5,7 @@ import { UseAccept } from "./accept";
 import { createClient } from "@supabase/supabase-js";
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { StyleSheet } from "react-native";
-
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impmb3Vnd3ptdWhybXd5YnloZXBpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTEwMjMzNzQsImV4cCI6MjAyNjU5OTM3NH0.eB-l3dCXqe14uqcniDj8ByMOj9djZN5quE4H3RMHq-o'
-const supabase = createClient('https://jfougwzmuhrmwybyhepi.supabase.co', supabaseAnonKey)
+import { supabase } from "../../supabase";
 
 {/** Main Function */}
 export default function MakeAppointments() {
@@ -55,7 +53,7 @@ function ViewArrangement({setAccept , accept , item , user, date, setDate}) {
         <Button title="Arrange Appointment" onPress={() => setBlock(!block)}/>
         {(!block) && (
             <View>
-                <AskAppointment setAccept={setAccept} accept={accept} item={item.user_name} user={user} date={date}/>
+                <AskAppointment setAccept={setAccept} accept={accept} item={item} user={user} date={date}/>
                 <ViewDatePicker date={date} setDate={setDate} />
             </View>
         )}
@@ -76,6 +74,7 @@ function ViewDatePicker({date, setDate}) {
     <View>
         <DateTimePicker 
         value={date}
+        timeZoneName="GB"
         minimumDate={new Date()}
         mode="datetime"
         display="spinner"
@@ -97,9 +96,8 @@ function AskAppointment({ setAccept , accept , item , user, date}) {
             const {error} = await supabase
             .from('Appointments')
             .insert([
-                {ambassador_name: item, makeAppointment: Boolean({accept}), user: {user} }
-            ])
-            .select();
+                { ambassador_name: String(item), makeAppointment: Boolean({accept}), user: {user} , Date_Suggested: {date}}
+            ]).select();
             Alert.alert("Appointment is Made");
         } catch (error) {
             Alert.alert(error)
@@ -121,6 +119,9 @@ function CancelAppointment({item,user}) {
     async function cancel() {
         try {
             const {error} = await supabase.from('Appointments').delete().eq('ambassador_name', String(item))
+            if (error) {
+                Alert.alert(error)
+            }
             Alert.alert('Appointment Cancelled');
         } catch (error) {
             Alert.alert(error);
