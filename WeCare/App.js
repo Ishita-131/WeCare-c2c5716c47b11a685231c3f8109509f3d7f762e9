@@ -10,17 +10,18 @@ import Profile from './Profile.js';
 import Dashboard from './Dashboard.js'; 
 import WelcomePage from './WelcomePage.js';
 import Tracking from './Tracking.js';
-import FitnessTracker from './FitnessTracker.js'; // Import FitnessTracker component
-import DietTracker from './DietTracker.js'; // Import Diet Tracker component
-import UpcomingWorkouts from './UpcomingWorkouts.js'; // Import FitnessTracker component
+import FitnessTracker from './FitnessTracker.js';
+import DietTracker from './DietTracker.js';
+import MakeAppointments from './Components/ViewAppointments/MakeAppointments.js'; // Check if this component exists, otherwise remove it
+import registerNNPushToken from 'native-notify';
+import { AcceptProvider } from './Components/ViewAppointments/accept.js';
+import ChatBot from './ChatBot.js'; // Import ChatBot component
 import Login from './Login.js';
-import SignUp from './SignUp.js'; // Import the SignUp component
-import MakeAppointments from './Components/ViewAppointments/MakeAppointments.js';
+import SignUp from './SignUp.js';
+import UpcomingWorkouts from './UpcomingWorkouts.js';
 import DeleteProfile from './DeleteProfile.js'; 
 import RetrieveProfile from './RetrieveProfile.js';
 import Options from './Options.js';
-import registerNNPushToken from 'native-notify';
-import { AcceptProvider } from './Components/ViewAppointments/accept.js';
 import SelectRole from './SelectRole'; // Import the SelectRole component
 import AdminDashboard from './AdminDashboard';
 import AmbassadorDashboard from './AmbassadorDashboard';
@@ -47,46 +48,45 @@ export default function App() {
   }, []);
 
   return (
-    <>
-      <AcceptProvider>
-        <NavigationContainer>
-          <Stack.Navigator>
-            {!session ? (
-              <>
-                <Stack.Screen name="Onboarding1" component={Onboarding1} />
-                <Stack.Screen name="Onboarding2" component={Onboarding2} />
-                <Stack.Screen name="Onboarding3" component={Onboarding3} />
-                <Stack.Screen name="Onboarding4" component={Onboarding4} />
-                <Stack.Screen name="Onboarding5" component={Onboarding5} />
-                <Stack.Screen name="Welcome" component={WelcomePage} />
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="SignUp" component={SignUp} />
-                <Stack.Screen name="Auth" component={Auth} options={({ navigation }) => ({
-                  headerShown: false,
-                  navigation: navigation,
-                })}/>
-              </>
-            ) : (
-              <>
-                <Stack.Screen name="SelectRole" component={SelectRole} />
-                <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
-                <Stack.Screen name="AmbassadorDashboard" component={AmbassadorDashboard} />
-                <Stack.Screen name="Dashboard" component={Dashboard} />
-                <Stack.Screen name="Account" component={Account} />
-                <Stack.Screen name="Profile" component={Profile} />
-                <Stack.Screen name="Tracking" component={Tracking} /> 
-                <Stack.Screen name="FitnessTracker" component={FitnessTracker} /> 
-                <Stack.Screen name="DietTracker" component={DietTracker} /> 
-                <Stack.Screen name="UpcomingWorkouts" component={UpcomingWorkouts} /> 
-                <Stack.Screen name="Appointments" component={MakeAppointments} />
-                <Stack.Screen name="DeleteProfile" component={DeleteProfile} /> 
-                <Stack.Screen name="Options" component={Options} />
-                <Stack.Screen name="RetrieveProfile" component={RetrieveProfile} /> 
-              </>
-            )}
-          </Stack.Navigator>
-        </NavigationContainer>
-      </AcceptProvider>
-    </>
+    <AcceptProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          {!session ? (
+            <>
+              <Stack.Screen name="Onboarding1" component={Onboarding1} />
+              <Stack.Screen name="Onboarding2" component={Onboarding2} />
+              <Stack.Screen name="Onboarding3" component={Onboarding3} />
+              <Stack.Screen name="Onboarding4" component={Onboarding4} />
+              <Stack.Screen name="Onboarding5" component={Onboarding5} />
+              <Stack.Screen name="Welcome" component={WelcomePage} />
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="SignUp" component={SignUp} />
+              <Stack.Screen name="Auth" component={Auth} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/>
+            </>
+          ) : (
+            <>
+              <Stack.Screen name="SelectRole" component={SelectRole} />
+              <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
+              <Stack.Screen name="AmbassadorDashboard" component={AmbassadorDashboard} />
+              <Stack.Screen name="Dashboard" component={Dashboard} />
+              <Stack.Screen name="Account" component={Account} />
+              <Stack.Screen name="Profile" component={Profile} />
+              <Stack.Screen name="Tracking" component={Tracking} /> 
+              <Stack.Screen name="FitnessTracker" component={FitnessTracker} /> 
+              <Stack.Screen name="DietTracker" component={DietTracker} /> 
+              <Stack.Screen name="ChatBot" component={ChatBot} />
+              <Stack.Screen name="UpcomingWorkouts" component={UpcomingWorkouts} /> 
+              <Stack.Screen name="Appointments" component={MakeAppointments} />
+              <Stack.Screen name="DeleteProfile" component={DeleteProfile} /> 
+              <Stack.Screen name="Options" component={Options} />
+              <Stack.Screen name="RetrieveProfile" component={RetrieveProfile} /> 
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AcceptProvider>
   );
 }
