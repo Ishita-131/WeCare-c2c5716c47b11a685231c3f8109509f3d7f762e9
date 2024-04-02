@@ -16,7 +16,7 @@ const SelectRole = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <ImageBackground
-          source={require('/Users/ishitakaramchandani/WeCare-c2c5716c47b11a685231c3f8109509f3d7f762e9-5/WeCare/Group 10303.png')}
+          source={require('./Image.png')}
           style={styles.backgroundImage}
         />
       </View>
@@ -52,6 +52,7 @@ const SelectRole = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#FFFFFF', // Default white background
   },
   imageContainer: {
     flex: 1,

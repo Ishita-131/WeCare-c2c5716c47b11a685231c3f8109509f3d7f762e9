@@ -24,6 +24,12 @@ import { AcceptProvider } from './Components/accept.js';
 import SelectRole from './SelectRole'; // Import the SelectRole component
 import AdminDashboard from './AdminDashboard';
 import AmbassadorDashboard from './AmbassadorDashboard';
+import Onboarding1 from './Onboarding1.js';
+import Onboarding2 from './Onboarding2.js';
+import Onboarding3 from './Onboarding3.js';
+import Onboarding4 from './Onboarding4.js';
+import Onboarding5 from './Onboarding5.js';
+
 
 
 
@@ -51,6 +57,11 @@ export default function App() {
       <Stack.Navigator>
         {!session ? (
           <>
+          <Stack.Screen name="Onboarding1" component={Onboarding1} />
+          <Stack.Screen name="Onboarding2" component={Onboarding2} />
+          <Stack.Screen name="Onboarding3" component={Onboarding3} />
+          <Stack.Screen name="Onboarding4" component={Onboarding4} />
+          <Stack.Screen name="Onboarding5" component={Onboarding5} />
           <Stack.Screen name="Welcome" component={WelcomePage} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="SignUp" component={SignUp} />
