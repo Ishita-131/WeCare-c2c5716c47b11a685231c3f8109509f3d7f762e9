@@ -17,7 +17,7 @@ import Account from './Account';
 import MakeAppointments from './makeappointments';
 
 import Tracking from './Tracking';
-import ChatbotTemplate from './ChatbotTemplate';
+import ChatbotTemplate from './ChatBot';
 import NotificationTemplate from './NotificationTemplate';
 
 const Drawer = createDrawerNavigator();

@@ -7,7 +7,7 @@ import Profile from './Profile';
 import Account from './Account';
 import MakeAppointments from './makeappointments';
 import Tracking from './Tracking';
-import ChatbotTemplate from './ChatbotTemplate';
+import ChatbotTemplate from './ChatBot'
 import NotificationTemplate from './NotificationTemplate';
 import DeleteProfile from './DeleteProfile'; // Import DeleteProfile component
 import RetrieveProfile from './RetrieveProfile'; // Import RetrieveProfile component
