@@ -1,28 +1,40 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Modal, Portal, Text, Button, Provider as PaperProvider } from 'react-native-paper';
-import { View, StyleSheet, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'; // Import ScrollView from react-native
+import { ScrollView, View, StyleSheet, TouchableOpacity, Image, TextInput, Switch } from 'react-native'; // Import ScrollView from react-native
+import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
 import calories from './assets/images/calories.png';
 import clock from './assets/images/clock.png';
 import { supabase } from './supabase';
+import ProfileButton2 from './assets/images/ProfileButton2.png'; // Import the image
+import Workout from './assets/images/Workout.png';
+import Workout2 from './assets/images/Workout2.png';
 
 
 const FitnessTracker = () => {
   return (
     <PaperProvider>
-      <View style={styles.container}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.welcomeTitle}>Welcome back</Text>
-          <Text style={styles.todayTitle}>Today</Text>
+      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+        <View style={styles.container}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.welcomeStyles}>Fitness Tracker</Text>
+            <Image source={ProfileButton2} style={styles.profileButton} />
+          </View>
+          <WorkoutCard />
+          <View style={styles.cardContainer}>
+            <LoggingCard />
+            <CaloriesCard />
+          </View>
+          <UpcomingWorkouts />
+          <Upcoming1 />
+          <Upcoming2 />
+          <ExerciseCount />
         </View>
-        <WorkoutCard />
-        <View style={styles.cardContainer}>
-          <LoggingCard />
-          <CaloriesCard />
-        </View>
-      </View>
+      </ScrollView>
     </PaperProvider>
   );
 };
+
 
 const WorkoutCard = () => {
   const [visible, setVisible] = React.useState(false);
@@ -35,7 +47,12 @@ const WorkoutCard = () => {
   };
 
   return (
-    <View style={styles.workoutCard}>
+    <LinearGradient
+      colors={['#92A3FD', '#9DCEFF']} // Set gradient colors
+      start={{ x: 0, y: 0 }} // Set start point of the gradient
+      end={{ x: 1, y: 0 }} // Set end point of the gradient
+      style={styles.workoutCard} // Apply gradient to the entire card
+    >
       <View style={styles.cardContent}>
         <Text style={styles.dailyWorkoutTitle}>Daily Workout Schedule</Text>
         <TouchableOpacity style={styles.button} onPress={handlePress}>
@@ -59,7 +76,7 @@ const WorkoutCard = () => {
           </Button>
         </Modal>
       </Portal>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -67,26 +84,29 @@ const WorkoutCard = () => {
 
 const LoggingCard = () => {
   const [visible, setVisible] = React.useState(false);
-  const [selectedExercise, setSelectedExercise] = React.useState(null); // State to hold selected exercise
+  const [selectedExercise, setSelectedExercise] = React.useState(null);
   const [exerciseDetails, setExerciseDetails] = React.useState({
     date: '',
     duration: '',
-    caloriesBurned: '',
+    caloriesBurned: 0,
   });
-  const [exerciseList, setExerciseList] = React.useState([]); // State to hold exercise list
-  const [filteredExerciseList, setFilteredExerciseList] = React.useState([]); // State to hold filtered exercise list
-  const [searchQuery, setSearchQuery] = React.useState(''); // State to hold search query
+
+  const [totalCaloriesBurned, setTotalCaloriesBurned] = React.useState(0); // State to hold total calories burned
+  const [totalDuration, setTotalDuration] = React.useState(0); // State to hold total duration in minutes
+
+  const [exerciseList, setExerciseList] = React.useState([]);
+  const [filteredExerciseList, setFilteredExerciseList] = React.useState([]);
+  const [searchQuery, setSearchQuery] = React.useState('');
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
 
   const handlePress = () => {
-    showModal(); // Show the modal when the button is pressed
+    showModal();
   };
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-    // Filter exercise list based on the search query
     const filteredList = exerciseList.filter((exercise) =>
       exercise.name.toLowerCase().includes(query.toLowerCase())
     );
@@ -94,31 +114,70 @@ const LoggingCard = () => {
   };
 
   const handleSelectExercise = (exercise) => {
-    setSelectedExercise(exercise); // Set the selected exercise
-    hideModal(); // Hide the modal
+    setSelectedExercise(exercise);
+    hideModal();
   };
 
-  const handleSubmit = () => {
-    // You can handle the submission here, for now, let's log the exercise details
-    console.log('Exercise details:', exerciseDetails);
-    // Clear exercise details after submission
+  const handleDurationChange = (text) => {
+    const duration = parseInt(text);
+    const caloriesBurned = duration * selectedExercise.calories_per_minute;
+    setExerciseDetails((prevDetails) => ({ ...prevDetails, duration, caloriesBurned }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const { data: exerciseData, error: exerciseError } = await supabase
+        .from('exerciseslist')
+        .select('*')
+        .eq('id', selectedExercise.id)
+        .single();
+  
+      if (exerciseError) {
+        throw exerciseError;
+      }
+  
+      const caloriesBurned = exerciseData.calories_per_minute * parseInt(exerciseDetails.duration);
+  
+      const { data, error } = await supabase
+        .from('exerciselog')
+        .insert([
+          {
+            exercisename: selectedExercise.name,
+            exercisedate: exerciseDetails.date,
+            durationminutes: parseInt(exerciseDetails.duration),
+            caloriesburned: caloriesBurned,
+          },
+        ]);
+  
+      if (error) {
+        throw error;
+      }
+  
+      console.log('Exercise details inserted successfully:', data);
+
+      // Update total calories burned and total duration
+      setTotalCaloriesBurned(totalCaloriesBurned + caloriesBurned);
+      setTotalDuration(totalDuration + parseInt(exerciseDetails.duration));
+    } catch (error) {
+      console.error('Error inserting exercise details:', error);
+    }
+  
     setExerciseDetails({
       date: '',
       duration: '',
       caloriesBurned: '',
     });
   };
+  
 
   const handleChangeDate = (text) => {
     setExerciseDetails((prevDetails) => ({ ...prevDetails, date: text }));
   };
 
-  const handleChangeDuration = (text) => {
-    setExerciseDetails((prevDetails) => ({ ...prevDetails, duration: text }));
-  };
-
-  const handleChangeCaloriesBurned = (text) => {
-    setExerciseDetails((prevDetails) => ({ ...prevDetails, caloriesBurned: text }));
+  const formatDuration = (minutes) => {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return `${hours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')} hr`;
   };
 
   React.useEffect(() => {
@@ -143,11 +202,11 @@ const LoggingCard = () => {
       <Text style={styles.loggingTitle}>Log Exercise</Text>
       <View style={styles.imageContainer}>
         <Image source={calories} style={styles.caloriesImg} />
-        <Text style={styles.loggingSmallText}>0 cal</Text>
+        <Text style={styles.loggingSmallText}>{totalCaloriesBurned} cal</Text>
       </View>
       <View style={styles.imageContainer}>
         <Image source={clock} style={styles.clockImg} />
-        <Text style={styles.loggingSmallText}>00:00 hr</Text>
+        <Text style={styles.loggingSmallText}>{formatDuration(totalDuration)}</Text>
       </View>
       <TouchableOpacity style={styles.button2} onPress={handlePress}>
         <Text style={styles.buttonText2}>Log</Text>
@@ -163,7 +222,7 @@ const LoggingCard = () => {
             placeholderTextColor="#999"
             value={searchQuery}
           />
-           {searchQuery !== '' && (
+          {searchQuery !== '' && (
             <ScrollView style={styles.exerciseListContainer}>
               {filteredExerciseList.map((exercise) => (
                 <TouchableOpacity key={exercise.id} onPress={() => handleSelectExercise(exercise)} style={styles.exerciseItemContainer}>
@@ -186,21 +245,12 @@ const LoggingCard = () => {
             />
             {/* Input for Duration */}
             <TextInput
-              label="Duration (minutes)"
-              value={exerciseDetails.duration}
-              onChangeText={handleChangeDuration}
-              style={styles.input}
-              keyboardType="numeric"
-              placeholder="Enter duration in minutes"
-            />
-            {/* Input for Calories Burned */}
-            <TextInput
-              label="Calories Burned"
-              value={exerciseDetails.caloriesBurned}
-              onChangeText={handleChangeCaloriesBurned}
-              style={styles.input}
-              keyboardType="numeric"
-              placeholder="Enter calories burned"
+                label="Duration (minutes)"
+                value={exerciseDetails.duration}
+                onChangeText={handleDurationChange}
+                style={styles.input}
+                keyboardType="numeric"
+                placeholder="Enter duration in minutes"
             />
             {/* Submit button */}
             <Button onPress={handleSubmit}>Submit</Button>
@@ -210,6 +260,8 @@ const LoggingCard = () => {
     </View>
   );
 };
+
+
 
 
 
@@ -228,6 +280,102 @@ const CaloriesCard = () => {
   );
 };
 
+
+const UpcomingWorkouts = () => {
+  const navigation = useNavigation();
+
+  const handleSeeMorePress = () => {
+    navigation.navigate('UpcomingWorkouts'); // Navigate to the UpcomingWorkouts page
+  };
+
+  return (
+    <View style={styles.UpcomingWorkouts}>
+      <View style={styles.titleWorkoutsContainer}>
+        <Text style={styles.UpcomingWorkoutsTitle}>Upcoming Workouts</Text>
+        <TouchableOpacity onPress={handleSeeMorePress}>
+          <Text style={styles.seeMoreButton}>See more</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+const Upcoming1 = () => {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
+  return (
+    <View style={styles.upcoming1Container}>
+      <View style={styles.cardContentUpcoming}>
+        <Image source={Workout} style={styles.workoutImage} />
+        <View>
+          <Text style={styles.UpcomingText}>FullBody Workout</Text>
+          <Text style={[styles.UpcomingText2, styles.dateText]}>Today, 03:00pm</Text>
+        </View>
+        <Switch
+          trackColor={{ false: '#767577', true: '#C58BF2' }}
+          thumbColor={isEnabled ? '#FFFFFF' : '#f4f3f4'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+      </View>
+    </View>
+  );
+};
+
+
+const Upcoming2 = () => {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
+  return (
+    <View style={styles.upcoming1Container}>
+      <View style={styles.cardContentUpcoming}>
+        <Image source={Workout2} style={styles.workoutImage} />
+        <View>
+          <Text style={styles.UpcomingText2}>UpperBody Workout</Text>
+          <Text style={[styles.UpcomingText2, styles.dateText]}>April 20, 01:00pm</Text>
+        </View>
+        <Switch
+          trackColor={{ false: '#767577', true: '#C58BF2' }}
+          thumbColor={isEnabled ? '#FFFFFF' : '#f4f3f4'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+      </View>
+    </View>
+  );
+};
+
+const ExerciseCount = () => {
+  return (
+    <LinearGradient
+      colors={['#92A3FD', '#9DCEFF']}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 0 }}
+      style={styles.ExerciseCountStyle}
+    >
+      <View style={styles.cardContentExCount}>
+        <Text style={styles.CountTitle}>Weekly Exercise Count</Text>
+        <View style={styles.countAndButtonContainer}>
+          {/* More Details Button */}
+          <TouchableOpacity style={styles.learnMoreButton2}>
+            <Text style={styles.learnMoreText}>More Details</Text>
+          </TouchableOpacity>
+          {/* Exercise Count Circle */}
+          <View style={styles.countContainer}>
+            <Text style={styles.CountNumber}>20</Text>
+          </View>
+        </View>
+      </View>
+    </LinearGradient>
+  );
+};
+
+
+
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
@@ -241,14 +389,24 @@ const styles = StyleSheet.create({
     alignItems: 'center', // Align items vertically
     width: '100%', // Ensure full width
     paddingHorizontal: 20, // Add padding to the sides
+    marginTop: 8, 
   },
 
-  welcomeTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#333', // Adjust color as needed
-    marginTop: 10,
+  welcomeStyles: {
+    color: '#000',
+    fontFamily: 'Poppins',
+    fontSize: 18,
+    fontWeight: '800',
+    lineHeight: 40,
+    textAlign: 'left',
+  },
+
+  profileButton: {
+    width: 51.508,
+    height: 51.508,
+    flexShrink: 0,
+    borderRadius: 51.508,
+    backgroundColor: '#9DCEFF',
   },
 
   todayTitle: {
@@ -264,7 +422,7 @@ const styles = StyleSheet.create({
     height: 80,
     flexShrink: 0,
     borderRadius: 22,
-    backgroundColor: '#6A7382', // Use rgba to set opacity of the background color
+    backgroundColor: '#1986EC', 
     marginVertical: 10,
     padding: 20,
   },
@@ -279,13 +437,13 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   button: {
-    backgroundColor: '#8CA7BE',
+    backgroundColor: 'white',
     borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 20,
   },
   buttonText: {
-    color: 'white',
+    color: '#1986EC',
     fontWeight: 'bold',
   },
 
@@ -293,10 +451,17 @@ const styles = StyleSheet.create({
     width: 162, // Adjusted width to fit next to diet card
     height: 180,
     flexShrink: 0,
-    borderRadius: 22,
     backgroundColor: '#6A7382', // Use rgba to set opacity of the background color
     marginVertical: 10,
     padding: 20,
+    marginVertical: 10,
+    borderRadius: 10,
+    backgroundColor: '#FFF',
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 4,
+    shadowOpacity: 1,
+    elevation: 4,
   },
 
   searchBar: {
@@ -355,28 +520,28 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 5, // Adjust spacing between image and text
-    tintColor: 'white',
+    tintColor: 'black',
   },
 
   clockImg: {
     width: 20,
     height: 20,
     marginRight: 5, // Adjust spacing between image and text
-    tintColor: 'white',
+    tintColor: 'black',
   },
 
   loggingTitle: {
-    color: 'white',
+    color: 'black',
     fontFamily: 'Segoe UI',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '600',
     lineHeight: 21, // React Native does not require units for lineHeight
-    marginBottom: 3,
+    marginBottom: 5,
   },
 
   loggingSmallText: {
-    color: 'white',
+    color: 'black',
     fontFamily: 'Segoe UI',
     fontSize: 13,
     fontWeight: '400',
@@ -384,18 +549,24 @@ const styles = StyleSheet.create({
   },
 
   caloriesCard: {
-    width: 162,
-    height: 180,
-    borderRadius: 22,
-    backgroundColor: '#6A7382',
     marginVertical: 10,
-    padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    width: 162, // Adjusted width to fit next to diet card
+    height: 180,
+    flexShrink: 0,
+    padding: 20,
+    borderRadius: 10,
+    backgroundColor: '#FFF',
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 4,
+    shadowOpacity: 1,
+    elevation: 4,
   },
 
   caloriesTitle: {
-    color: 'white',
+    color: 'black',
     fontFamily: 'Segoe UI',
     fontSize: 14,
     fontWeight: '600',
@@ -414,7 +585,7 @@ const styles = StyleSheet.create({
     width: 110,
     height: 110,
     borderRadius: 60,
-    backgroundColor: '#8CA7BE', // Adjust circle color as needed
+    backgroundColor: '#1986EC' , // Adjust circle color as needed
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2, // Add border for circle
@@ -434,19 +605,178 @@ const styles = StyleSheet.create({
     width: 348, // Set width to match the target card's width
   },
 
+  UpcomingWorkoutsTitle: {
+    fontFamily: 'Poppins',
+    fontSize: 16,
+    fontStyle: 'normal',
+    fontWeight: '600',
+    lineHeight: 24, // React Native does not require units for lineHeight
+    color: '#1D1617', // Use the provided color or fallback to #1D1617
+    marginTop:10, 
+  },
+
+  titleWorkoutsContainer: {
+    flexDirection: 'row', // Align children in a row
+    justifyContent: 'space-between', // Distribute children along the row
+    alignItems: 'center', // Align items vertically
+    width: '100%', // Ensure full width
+    paddingHorizontal: 20, // Add padding to the sides
+    marginTop: 8, 
+  }, 
+
+  seeMoreButton: {
+    fontFamily: 'Poppins',
+    fontSize: 12,
+    fontWeight: '500',
+    lineHeight: 18,
+    color: '#ADA4A5',
+    marginTop: 10,
+  },
+
+  upcoming1Container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: 350,
+    height: 80,
+    borderRadius: 16,
+    backgroundColor: '#FFF',
+    shadowColor: '#1D1617',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.07,
+    shadowRadius: 40,
+    elevation: 4,
+    marginVertical: 10,
+  },
+  cardContentUpcoming: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 20,
+    flex: 1,
+  },
+
+  UpcomingText: {
+    fontFamily: 'Poppins',
+    fontSize: 14, // React Native does not require units for fontSize
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: 18, // React Native does not require units for lineHeight
+    marginRight: 40,
+    marginTop: -15, 
+  }, 
+
+  UpcomingText2: {
+    fontFamily: 'Poppins',
+    fontSize: 14, // React Native does not require units for fontSize
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: 18, // React Native does not require units for lineHeight
+    marginRight: 18,
+    marginTop: -15, 
+  }, 
+
+  dateText: {
+    marginTop:5,
+    fontFamily: 'Poppins',
+    fontSize: 10, // React Native does not require units for fontSize
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: 15, // React Native does not require units for lineHeight
+    color: '#ADA4A5', // Specify the color explicitly
+  },
+
+  ExerciseCountStyle: {
+    // Updated styles for Exercise Count card
+    width: 348,
+    height: 140,
+    borderRadius: 10,
+    overflow: 'hidden',
+    marginTop: 10,
+    padding: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom:50, 
+  },
+
+  cardContentExCount: {
+    // Updated styles for content container
+    flex: 1,
+  },
+
+  CountTitle: {
+    // Styles for Weekly Exercise Count title
+    color: 'white',
+    fontFamily: 'Poppins',
+    fontSize: 16,
+    fontWeight: '600',
+    marginTop:10,
+  },
+
+  countAndButtonContainer: {
+    // Container for count and button
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  countContainer: {
+    // Container for exercise count
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 50,
+    width: 90,
+    height: 90,
+    marginLeft:20,
+    marginBottom:10,
+  },
+
+  CountNumber: {
+    // Styles for exercise count number
+    color: '#1986EC',
+    fontFamily: 'Poppins',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+
+  learnMoreButton: {
+    // Styles for "More Details" button
+    backgroundColor: '#1986EC',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginLeft: 20, // Add margin to separate button from count
+  },
+
+  learnMoreText: {
+    // Styles for "More Details" button text
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+
+  learnMoreButton2: {
+    // Styles for "More Details" button
+    backgroundColor: '#1986EC',
+    borderRadius: 22,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginRight: 50,
+    marginLeft:-3,
+  },
+
   button2: {
     width: 91,
     height: 57,
     borderRadius: 99,
-    backgroundColor: '#8CA7BE',
+    backgroundColor: '#1986EC',
     justifyContent: 'center',
     alignItems: 'center',
-    // Add box-shadow style
-    shadowColor: 'rgba(149, 173, 254, 0.3)',
-    shadowOffset: { width: 0, height: 10 },
-    shadowRadius: 22,
-    shadowOpacity: 1,
-    elevation: 5, // Android elevation for shadow effect
     marginTop: 10,
     marginLeft: 15,
   },
@@ -477,9 +807,10 @@ const styles = StyleSheet.create({
     color: '#333', // Change text color to dark
   },
   closeButton: {
-    backgroundColor: '#637697',
+    backgroundColor: '#1986EC',
     marginTop: 10,
   },
 });
+
 
 export default FitnessTracker;

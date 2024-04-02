@@ -13,6 +13,7 @@ import WelcomePage from './WelcomePage.js';
 import Tracking from './Tracking.js';
 import FitnessTracker from './FitnessTracker.js'; // Import FitnessTracker component
 import DietTracker from './DietTracker.js'; // Import Diet Tracker component
+import UpcomingWorkouts from './UpcomingWorkouts.js'; // Import FitnessTracker component
 import Login from './Login.js'
 import SignUp from './SignUp.js'; // Import the SignUp component
 import MakeAppointments from './Components/ViewAppointments/MakeAppointments.js';
@@ -82,6 +83,7 @@ export default function App() {
             <Stack.Screen name="Tracking" component={Tracking} /> 
             <Stack.Screen name="FitnessTracker" component={FitnessTracker} /> 
             <Stack.Screen name="DietTracker" component={DietTracker} /> 
+            <Stack.Screen name="UpcomingWorkouts" component={UpcomingWorkouts} /> 
             <Stack.Screen name="Appointments" component={MakeAppointments} />
             <Stack.Screen name="DeleteProfile" component={DeleteProfile} /> 
             <Stack.Screen name="Options" component={Options} />
