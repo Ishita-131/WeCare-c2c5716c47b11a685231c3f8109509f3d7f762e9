@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, Pressable, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, Pressable, Image, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { supabase } from './supabase'; // Import supabase object
+import Avatar from './Avatar';
 
 const ProfileForm = () => {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [surname, setSurname] = useState('');
   const [gender, setGender] = useState('');
   const [age, setAge] = useState('');
   const [fdmID, setFdmID] = useState('');
-  const [userID, setUserID] = useState('');
   const [userType, setUserType] = useState('');
   const [profilePic, setProfilePic] = useState(null);
-  const [genderModalVisible, setGenderModalVisible] = useState(false); // State to control gender modal visibility
-  const [userTypeModalVisible, setUserTypeModalVisible] = useState(false); // State to control user type modal visibility
+  const [genderModalVisible, setGenderModalVisible] = useState(false); 
+  const [userTypeModalVisible, setUserTypeModalVisible] = useState(false);
 
   const genders = ['Male', 'Female', 'Other'];
   const userTypes = ['User', 'Ambassador', 'Admin'];
@@ -21,9 +21,9 @@ const ProfileForm = () => {
   const submitForm = async () => {
     // Insert user data to Supabase
     const { data, error } = await supabase
-      .from('users')
+      .from('user_profiles')
       .insert([
-        { name, email, gender, age, fdmID, userID, userType }
+        { name, surname, gender, age, fdm_id: fdmID, user_type: userType, profile_pic: profilePic }
       ]);
 
     if (error) {
@@ -34,15 +34,40 @@ const ProfileForm = () => {
   };
 
   const displayProfilePic = async () => {
+    // Check and request permission to access the photo library
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      alert('Sorry, we need camera roll permissions to make this work!');
+      return;
+    }
+
     // Allow user to pick an image from their device
-    const result = await ImagePicker.launchImageLibraryAsync();
-    if (!result.cancelled) {
-      setProfilePic(result.uri);
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        // Set the selected image URI to profilePic state
+        setProfilePic(result.uri);
+      }
+    } catch (error) {
+      console.error('Error picking image:', error);
     }
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.greyBackground}>
+        <TouchableOpacity style={styles.iconContainer}>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.profilePicContainer}>
+        <Text style={styles.editProfileText}>Edit Profile</Text>
+        <Avatar imageUri={profilePic} onPress={displayProfilePic} />
+      </View>
       <View style={styles.formContainer}>
         <View style={styles.column}>
           <Text style={styles.label}>Name:</Text>
@@ -55,13 +80,13 @@ const ProfileForm = () => {
             required
           />
 
-          <Text style={styles.label}>Email:</Text>
+          <Text style={styles.label}>Last Name:</Text>
           <TextInput
             style={styles.input}
-            onChangeText={setEmail}
-            value={email}
-            placeholder="Enter your email"
-            keyboardType="email-address"
+            onChangeText={setSurname}
+            value={surname}
+            placeholder="Enter your last name"
+            keyboardType="words"
             required
           />
 
@@ -70,6 +95,7 @@ const ProfileForm = () => {
             <Text>{gender || 'Select Gender'}</Text>
           </TouchableOpacity>
           {/* Modal for gender selection */}
+          {/* Modal for user type selection */}
           <Modal
             animationType="slide"
             transparent={true}
@@ -115,15 +141,6 @@ const ProfileForm = () => {
             required
           />
 
-          <Text style={styles.label}>User ID:</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={setUserID}
-            value={userID}
-            placeholder="Enter your User ID"
-            required
-          />
-
           <Text style={styles.label}>User Type:</Text>
           <TouchableOpacity style={styles.input} onPress={() => setUserTypeModalVisible(true)}>
             <Text>{userType || 'Select User Type'}</Text>
@@ -159,50 +176,52 @@ const ProfileForm = () => {
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
         </View>
-
-        <View style={styles.column}>
-          <Text style={styles.label}>Profile Picture:</Text>
-          <TouchableOpacity style={styles.input} onPress={displayProfilePic}>
-            <Text>Choose Profile Picture</Text>
-          </TouchableOpacity>
-          {profilePic && <Image source={{ uri: profilePic }} style={styles.profilePic} />}
-        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    flexGrow: 1,
+    backgroundColor: '#FFF', // Set default background color to white
+  },
+  profilePicContainer: {
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  editProfileText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
   formContainer: {
-    flexDirection: 'row',
-    marginHorizontal: 20,
+    flex: 1,
+    paddingHorizontal: 20,
   },
   column: {
-    flex: 1,
-    paddingHorizontal: 10,
+    marginBottom: 20,
   },
   label: {
     fontWeight: 'bold',
     marginBottom: 8,
+    marginTop: 10,
     color: '#333',
   },
   input: {
     width: '100%',
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     marginBottom: 16,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 4,
+    borderColor: '#A9A9A9',
+    borderWidth: 2,
+    borderRadius: 8,
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#808080',
+    backgroundColor: '#171F1D',
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 4,
@@ -212,12 +231,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 16,
-  },
-  profilePic: {
-    width: '100%',
-    height: 200,
-    marginBottom: 16,
-    borderRadius: 4,
   },
   centeredView: {
     flex: 1,
@@ -241,12 +254,27 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   option: {
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     marginBottom: 10,
     borderRadius: 5,
   },
   optionText: {
     fontSize: 16,
+  },
+  greyBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: '79%', // Adjust height to make it 1/4 of the page
+    backgroundColor: '#6A7382',
+  },
+  iconContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 1,
   },
 });
 
