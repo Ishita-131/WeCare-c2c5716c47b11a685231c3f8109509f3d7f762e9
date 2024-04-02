@@ -1,7 +1,7 @@
 
 import 'react-native-url-polyfill/auto';
-import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { Text, View, Button, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { supabase } from './supabase.js';
@@ -21,6 +21,7 @@ import DeleteProfile from './DeleteProfile.js';
 import RetrieveProfile from './RetrieveProfile.js';
 import Options from './Options.js';
 import registerNNPushToken from 'native-notify';
+import * as Notifications from 'expo-notifications';
 import { AcceptProvider } from './Components/ViewAppointments/accept.js';
 import SelectRole from './SelectRole'; // Import the SelectRole component
 import AdminDashboard from './AdminDashboard';
@@ -32,16 +33,23 @@ import Onboarding4 from './Onboarding4.js';
 import Onboarding5 from './Onboarding5.js';
 
 
-
-
-
-
 const Stack = createNativeStackNavigator();
 
-export default function App() {
-  registerNNPushToken(20413, 'XXCgXNEW3momP1iuI6L78k');
-  const [session, setSession] = useState(null);
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
+export default function App() {
+    const [session, setSession] = useState(null);
+    const [expoPushToken, setExpoPushToken] = useState('');
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
+  
   useEffect(() => {
     // Sign out at the start
     supabase.auth.signOut().then(() => {
@@ -99,6 +107,68 @@ export default function App() {
     </AcceptProvider>
     </>
   );
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+
+}
+
+Notifications.scheduleNotificationAsync({
+  content: {
+    title: "Time to Drink Water 💧",
+    body: 'Drinking water regularly is important for your health.',
+  },
+  trigger: {
+    seconds: 7,
+  },
+});
+
+async function registerForPushNotificationsAsync() {
+  let token;
+
+  if (Platform.OS === 'android') {
+    await Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    // Learn more about projectId:
+    // https://docs.expo.dev/push-notifications/push-notifications-setup/#configure-projectid
+    token = (await Notifications.getExpoPushTokenAsync({ projectId: 'your-project-id' })).data;
+    console.log(token);
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
+
+  return token;
 }
 
 
@@ -168,7 +238,7 @@ export default function App() {
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Button title="Sign in" disabled={loading} onPress={() => signInWithEmail()} />
       </View>
-      <View style={styles.verticallySpaced a }>
+      <View style={styles.verticallySpaced}>
         <Button title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
       </View>
     </View>
