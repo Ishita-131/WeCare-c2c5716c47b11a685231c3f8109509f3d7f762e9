@@ -14,7 +14,7 @@ import Profile from './Profile';
 
 import Account from './Account';
 
-import MakeAppointments from './makeappointments';
+import MakeAppointments from './Components/ViewAppointments/MakeAppointments';
 
 import Tracking from './Tracking';
 import ChatBot from './ChatBot.js'; // Import ChatBot component
