@@ -12,17 +12,17 @@ import WelcomePage from './WelcomePage.js';
 import Tracking from './Tracking.js';
 import FitnessTracker from './FitnessTracker.js';
 import DietTracker from './DietTracker.js';
-import MakeAppointments from './Components/ViewAppointments/MakeAppointments.js'; // Check if this component exists, otherwise remove it
+import MakeAppointments from './Components/ViewAppointments/MakeAppointments.js';
 import registerNNPushToken from 'native-notify';
 import { AcceptProvider } from './Components/ViewAppointments/accept.js';
-import ChatBot from './ChatBot.js'; // Import ChatBot component
+import ChatBot from './ChatBot.js';
 import Login from './Login.js';
 import SignUp from './SignUp.js';
 import UpcomingWorkouts from './UpcomingWorkouts.js';
 import DeleteProfile from './DeleteProfile.js'; 
 import RetrieveProfile from './RetrieveProfile.js';
 import Options from './Options.js';
-import SelectRole from './SelectRole'; // Import the SelectRole component
+import SelectRole from './SelectRole'; 
 import AdminDashboard from './AdminDashboard';
 import AmbassadorDashboard from './AmbassadorDashboard';
 import Onboarding1 from './Onboarding1.js';
