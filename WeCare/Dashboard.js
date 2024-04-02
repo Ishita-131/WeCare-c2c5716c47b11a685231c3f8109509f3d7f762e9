@@ -17,7 +17,7 @@ import Account from './Account';
 import MakeAppointments from './makeappointments';
 
 import Tracking from './Tracking';
-import ChatbotTemplate from './ChatbotTemplate';
+import ChatBot from './ChatBot.js'; // Import ChatBot component
 import NotificationTemplate from './NotificationTemplate';
 
 const Drawer = createDrawerNavigator();
@@ -40,7 +40,7 @@ return (
 
 <Drawer.Screen name="Track Your Progress" component={Tracking}/>
 
-<Drawer.Screen name="Chatbot" component={ChatbotTemplate}/>
+<Drawer.Screen name="Chatbot" component={ChatBot}/>
 
 <Drawer.Screen name="Access Notifications" component={NotificationTemplate}/>
 
