@@ -15,15 +15,10 @@ const SelectRole = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-<<<<<<< HEAD
         <ImageBackground
           source={require('./Image.png')}
-=======
-        {/* <ImageBackground
-          source={require('/Users/ishitakaramchandani/WeCare-c2c5716c47b11a685231c3f8109509f3d7f762e9-5/WeCare/Group 10303.png')}
->>>>>>> d2a83e4 (Diet tracker)
           style={styles.backgroundImage}
-        /> */}
+        /> 
       </View>
       <View style={styles.content}>
         <Text style={styles.heading}>Select Your Role</Text>
