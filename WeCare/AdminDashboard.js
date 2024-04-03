@@ -11,6 +11,8 @@ import ChatbotTemplate from './ChatBot';
 import NotificationTemplate from './NotificationTemplate';
 import DeleteProfile from './DeleteProfile'; // Import DeleteProfile component
 import RetrieveProfile from './RetrieveProfile'; // Import RetrieveProfile component
+import MentalHealth from './MentalHealth'; // Correct import
+
 
 const Drawer = createDrawerNavigator();
 
@@ -23,6 +25,8 @@ const Dashboard = () => {
         <Drawer.Screen name="Account" component={Account}/>
         <Drawer.Screen name="Book an Appointment" component={MakeAppointments}/>
         <Drawer.Screen name="Track Your Progress" component={Tracking}/>
+        <Drawer.Screen name="Wellbeing" component={MentalHealth}/> {/* Corrected component name */}
+
         <Drawer.Screen name="Chatbot" component={ChatbotTemplate}/>
         <Drawer.Screen name="Access Notifications" component={NotificationTemplate}/>
         {/* Admin Dashboard Buttons */}

@@ -17,6 +17,8 @@ import Tracking from './Tracking';
 import ChatbotTemplate from './ChatBot';
 import NotificationTemplate from './NotificationTemplate';
 import AppointmentsMade from './Components/ListAppointments.js/AppointmentsMade';
+import MentalHealth from './MentalHealth'; // Correct import
+
 
 const Drawer = createDrawerNavigator();
 
@@ -37,6 +39,9 @@ return (
 <Drawer.Screen name="Manage an Appointment " component={AppointmentsMade}/>
 
 <Drawer.Screen name="Track Your Progress" component={Tracking}/>
+
+<Drawer.Screen name="Wellbeing" component={MentalHealth}/> {/* Corrected component name */}
+
 
 <Drawer.Screen name="Chatbot" component={ChatbotTemplate}/>
 
