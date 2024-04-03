@@ -5,6 +5,7 @@ import { UseAccept } from "./accept";
 import { StyleSheet } from "react-native";
 import { supabase } from "../../supabase";
 import ViewArrangement from "./ViewArrangement"
+import { RefreshControl } from "react-native-gesture-handler";
 
 {/** Main Function */}
 export default function MakeAppointments() {
@@ -18,7 +19,9 @@ export default function MakeAppointments() {
 {/** gets ambassadors info */}
 function ListAmbassadors() {
     const { setAccept, accept , ambassadors , setAmbassadors, user , date, setDate} = UseAccept();
-    
+    const [StartIndex, setIndex] = useState(0);
+    const [refreshing , setRefresh] = useState(false)
+
     const renderItem = ({ item }) => (
         <View style={styles.container}>
             <Text>{item.user_name}</Text>
@@ -29,25 +32,55 @@ function ListAmbassadors() {
     );
 
     const getAmbassadors = async () => {
-        let {data , error } = await supabase.from('ambassadors').select('*')
-        setAmbassadors(data) 
+        try {
+            setRefresh(true)
+            let {data } = await supabase.from('ambassadors').select('*')
+            if (data) {
+                setAmbassadors(data) 
+            }
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setRefresh(false)
+        }
+        
     }
+
+    const Next = () => {
+        if (StartIndex < 11) {
+            setIndex(StartIndex => StartIndex + 10)
+        }
+    }
+
+    const prev = () => {
+        if (StartIndex > 0) {
+            setIndex(StartIndex - 10)
+        } 
+    }
+
     useEffect(() => {
         getAmbassadors();
-    }, [])
+    }, [ambassadors])
 
     return (
         <View>
             <FlatList
-                data={ambassadors}
-                keyExtractor={(item) => parseInt(item.id)}
-                renderItem={renderItem}
+               data={ambassadors ? (ambassadors.slice(StartIndex,StartIndex+10)) : ({ambassadors})} // Render only the first 10 items
+               keyExtractor={(item) => parseInt(item.id)}
+               renderItem={renderItem}
+               refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={getAmbassadors} />
+               }
             />
+            <View style={styles.btn}>
+                <Button title="Prev" onPress={prev} />
+                <Button title="Next" onPress={Next} />
+            </View>
         </View>
     );
 }
 
-function CancelAppointment({item,user}) {
+function CancelAppointment({item}) {
     async function cancel() {
         try {
             const {error} = await supabase.from('Appointments').delete().eq('ambassador_name', String(item))
@@ -83,4 +116,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#ccc',
     },
+    btn: {
+        position: "relative",
+        flexDirection: 'row', // Arrange items horizontally
+    }
 });
