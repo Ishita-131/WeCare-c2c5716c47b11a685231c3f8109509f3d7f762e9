@@ -1,11 +1,9 @@
 import { supabase } from "../../supabase";
 import { Button } from "react-native-elements";
 import { Alert } from "react-native";
-import { UseAccept } from "./accept";
 
 {/** Asking for Appointments */}
-export default function AskAppointment({item,  date}) {
-    const {accept , setAccept, users} = UseAccept();
+export default function AskAppointment({item,  date, accept, setAccept , users}) {
 
     async function makeAppointment() {
         
@@ -15,7 +13,7 @@ export default function AskAppointment({item,  date}) {
             const {error} = await supabase
             .from('Appointments')
             .insert([
-                { ambassador_name: String(item), makeAppointment: accept, user: {users} , Date_Suggested: {date}}
+                { ambassador_name: String(item), makeAppointment: Boolean({accept}), user:{users} , Date_Suggested: {date}}
             ]).select();
             Alert.alert("Appointment is Made");
         } catch (error) {

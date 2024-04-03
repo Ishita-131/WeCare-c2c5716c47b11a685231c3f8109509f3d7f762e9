@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { supabase } from './supabase';
+import { UseAccept } from './Components/ViewAppointments/accept';
 
 export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const {setUser} = UseAccept();
 
   async function signInWithEmail() {
     setLoading(true);
@@ -14,7 +16,6 @@ export default function Auth() {
       email: email,
       password: password,
     });
-
     if (error) {
       Alert.alert(error.message);
       navigation.navigate('SelectRole');
