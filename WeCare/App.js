@@ -142,14 +142,38 @@ export default function App() {
         <Stack.Navigator>
           {!session ? (
             <>
-              <Stack.Screen name="Onboarding1" component={Onboarding1} />
-              <Stack.Screen name="Onboarding2" component={Onboarding2} />
-              <Stack.Screen name="Onboarding3" component={Onboarding3} />
-              <Stack.Screen name="Onboarding4" component={Onboarding4} />
-              <Stack.Screen name="Onboarding5" component={Onboarding5} />
-              <Stack.Screen name="Welcome" component={WelcomePage} />
-              <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="SignUp" component={SignUp} />
+              <Stack.Screen name="Onboarding1" component={Onboarding1}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} />
+              <Stack.Screen name="Onboarding2" component={Onboarding2}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} />
+              <Stack.Screen name="Onboarding3" component={Onboarding3} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/>
+              <Stack.Screen name="Onboarding4" component={Onboarding4} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/>
+              <Stack.Screen name="Onboarding5" component={Onboarding5} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/>
+              <Stack.Screen name="Welcome" component={WelcomePage} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/>
+              <Stack.Screen name="Login" component={Login}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} />
+              <Stack.Screen name="SignUp" component={SignUp}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} />
               <Stack.Screen name="Auth" component={Auth} options={({ navigation }) => ({
                 headerShown: false,
                 navigation: navigation,
@@ -157,23 +181,74 @@ export default function App() {
             </>
           ) : (
             <>
-              <Stack.Screen name="SelectRole" component={SelectRole} />
-              <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
-              <Stack.Screen name="AmbassadorDashboard" component={AmbassadorDashboard} />
-              <Stack.Screen name="Dashboard" component={Dashboard} />
-              <Stack.Screen name="Account" component={Account} />
-              <Stack.Screen name="Profile" component={Profile} />
-              <Stack.Screen name="Tracking" component={Tracking} /> 
-              <Stack.Screen name="FitnessTracker" component={FitnessTracker} /> 
-              <Stack.Screen name="DietTracker" component={DietTracker} /> 
-              <Stack.Screen name="ChatBot" component={ChatBot} />
-              <Stack.Screen name="UpcomingWorkouts" component={UpcomingWorkouts} /> 
-              <Stack.Screen name="Appointments" component={MakeAppointments} />
-              <Stack.Screen name="ViewArrangements" component={ViewArrangement} />
-              <Stack.Screen name='AskAppointment' component={AskAppointment} />
-              <Stack.Screen name="DeleteProfile" component={DeleteProfile} /> 
-              <Stack.Screen name="Options" component={Options} />
-              <Stack.Screen name="RetrieveProfile" component={RetrieveProfile} /> 
+              <Stack.Screen name="SelectRole" component={SelectRole} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/>
+              <Stack.Screen name="AdminDashboard" component={AdminDashboard} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/>
+              <Stack.Screen name="AmbassadorDashboard" component={AmbassadorDashboard} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/>
+              <Stack.Screen name="Dashboard" component={Dashboard}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} />
+              <Stack.Screen name="Account" component={Account} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/>
+              <Stack.Screen name="Profile" component={Profile}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/>
+              <Stack.Screen name="Tracking" component={Tracking} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/> 
+              <Stack.Screen name="FitnessTracker" component={FitnessTracker}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} /> 
+              <Stack.Screen name="DietTracker" component={DietTracker}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} /> 
+              <Stack.Screen name="ChatBot" component={ChatBot} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/>
+              <Stack.Screen name="UpcomingWorkouts" component={UpcomingWorkouts} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/> 
+              <Stack.Screen name="Appointments" component={MakeAppointments}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} />
+              <Stack.Screen name="ViewArrangements" component={ViewArrangement} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/>
+              <Stack.Screen name='AskAppointment' component={AskAppointment}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} />
+              <Stack.Screen name="DeleteProfile" component={DeleteProfile} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/> 
+              <Stack.Screen name="Options" component={Options}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} />
+              <Stack.Screen name="RetrieveProfile" component={RetrieveProfile}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} /> 
             </>
           )}
         </Stack.Navigator>
