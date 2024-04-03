@@ -13,12 +13,10 @@ import DashboardScreen from './dashboardScreen';
 import Profile from './Profile';
 
 import Account from './Account';
-
-import MakeAppointments from './makeappointments';
-
 import Tracking from './Tracking';
 import ChatbotTemplate from './ChatBot';
 import NotificationTemplate from './NotificationTemplate';
+import AppointmentsMade from './Components/ListAppointments.js/AppointmentsMade';
 
 const Drawer = createDrawerNavigator();
 
@@ -36,7 +34,7 @@ return (
 
 <Drawer.Screen name="Account" component={Account}/>
 
-<Drawer.Screen name="Book an Appointment " component={MakeAppointments}/>
+<Drawer.Screen name="Manage an Appointment " component={AppointmentsMade}/>
 
 <Drawer.Screen name="Track Your Progress" component={Tracking}/>
 
