@@ -15,6 +15,7 @@
     "@react-navigation/drawer": "^6.6.15",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
+    "@react-navigation/stack": "^6.3.29",
     "@supabase/supabase-js": "^2.0.0",
     "aes-js": "^3.1.2",
     "expo": "~50.0.13",

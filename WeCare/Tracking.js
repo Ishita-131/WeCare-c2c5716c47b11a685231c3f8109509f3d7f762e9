@@ -31,6 +31,8 @@ const Tracking = () => {
   );
 };
 
+
+
 const TargetCard = () => {
   return (
     <View style={styles.card}>
@@ -98,7 +100,7 @@ const FitnessCard = () => {
     <View style={styles.fitnesscard}>
       <Text style={styles.fitnessTitle}>Fitness Tracker</Text>
       <TouchableOpacity style={styles.button} onPress={handlePress}>
-        <Text style={styles.buttonText}>Go</Text>
+        <Text style={styles.buttonText}>Go </Text>
       </TouchableOpacity>
     </View>
   );
