@@ -5,7 +5,7 @@ import AskAppointment from "./AskAppointment";
 import { View } from "react-native";
 import { StyleSheet } from "react-native";
 
-export default function ViewArrangement({setAccept , accept , item , user, date, setDate}) {
+export default function ViewArrangement({accept , item , users, date, setDate}) {
     const [block, setBlock] = useState('show');
     const [title, setTitle] = useState('Arrange Appointment');
 
@@ -20,7 +20,7 @@ export default function ViewArrangement({setAccept , accept , item , user, date,
         }}/>
         {(!block) && (
             <View>
-                <AskAppointment style={styles.container} setAccept={setAccept} accept={accept} item={item} user={user} date={date}/>
+                <AskAppointment style={styles.container} accept={accept} item={item} user={users} date={date}/>
                 <ViewDatePicker date={date} setDate={setDate} />
             </View>
         )}

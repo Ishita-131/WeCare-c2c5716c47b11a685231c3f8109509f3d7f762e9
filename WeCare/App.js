@@ -30,6 +30,8 @@ import Onboarding2 from './Onboarding2.js';
 import Onboarding3 from './Onboarding3.js';
 import Onboarding4 from './Onboarding4.js';
 import Onboarding5 from './Onboarding5.js';
+import ViewArrangement from './Components/ViewAppointments/ViewArrangement.js';
+import AskAppointment from './Components/ViewAppointments/AskAppointment.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -80,6 +82,8 @@ export default function App() {
               <Stack.Screen name="ChatBot" component={ChatBot} />
               <Stack.Screen name="UpcomingWorkouts" component={UpcomingWorkouts} /> 
               <Stack.Screen name="Appointments" component={MakeAppointments} />
+              <Stack.Screen name="ViewArrangements" component={ViewArrangement} />
+              <Stack.Screen name='AskAppointment' component={AskAppointment} />
               <Stack.Screen name="DeleteProfile" component={DeleteProfile} /> 
               <Stack.Screen name="Options" component={Options} />
               <Stack.Screen name="RetrieveProfile" component={RetrieveProfile} /> 

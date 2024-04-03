@@ -1,7 +1,7 @@
 import React, { useEffect, useState , setState} from "react";
 import { View, Text, Alert, Button, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { UseAccept } from "./accept";
+import { AcceptProvider, UseAccept } from "./accept";
 import { StyleSheet } from "react-native";
 import { supabase } from "../../supabase";
 import ViewArrangement from "./ViewArrangement"
@@ -9,16 +9,20 @@ import { RefreshControl } from "react-native-gesture-handler";
 
 {/** Main Function */}
 export default function MakeAppointments() {
-    return (
+    return (<>
+    <AcceptProvider>
         <SafeAreaView>
             <ListAmbassadors />
         </SafeAreaView>
+    </AcceptProvider>
+    </>
+        
     );
 }
 
 {/** gets ambassadors info */}
 function ListAmbassadors() {
-    const { setAccept, accept , ambassadors , setAmbassadors, user , date, setDate} = UseAccept();
+    const {ambassadors , setAmbassadors, user , date, setDate} = UseAccept();
     const [StartIndex, setIndex] = useState(0);
     const [refreshing , setRefresh] = useState(false)
 
@@ -26,7 +30,7 @@ function ListAmbassadors() {
         <View style={styles.container}>
             <Text>{item.user_name}</Text>
             <Text>{item.Description}</Text>
-            <ViewArrangement setAccept={setAccept} accept={accept} item={item.user_name} user={user} date={date} setDate={setDate}/>
+            <ViewArrangement item={item.user_name} user={user} date={date} setDate={setDate}/>
             <CancelAppointment item={item.user_name} user={user} />
         </View>
     );
@@ -60,7 +64,7 @@ function ListAmbassadors() {
 
     useEffect(() => {
         getAmbassadors();
-    }, [ambassadors])
+    }, [])
 
     return (
         <View>
