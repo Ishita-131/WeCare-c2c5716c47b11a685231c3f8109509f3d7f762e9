@@ -14,6 +14,7 @@ import RetrieveProfile from './RetrieveProfile'; // Import RetrieveProfile compo
 import MentalHealth from './MentalHealth'; // Correct import
 import TechnicalIssue from './TechnicalIssue';
 import ViewTechnicalIssue from './ViewTechnicalIssue';
+import Options from 'Options';
 
 
 const Drawer = createDrawerNavigator();
