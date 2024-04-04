@@ -29,24 +29,14 @@ return (
 <NavigationContainer independent={true}>
 
 <Drawer.Navigator>
-
-<Drawer.Screen name="Home" component={DashboardScreen}/>
-
-<Drawer.Screen name="Profile" component={Profile}/>
-
-<Drawer.Screen name="Account" component={Account}/>
-
-<Drawer.Screen name="Manage an Appointment " component={AppointmentsMade}/>
-
-<Drawer.Screen name="Track Your Progress" component={Tracking}/>
-
-<Drawer.Screen name="Wellbeing" component={MentalHealth}/> {/* Corrected component name */}
-
-
-<Drawer.Screen name="Chatbot" component={ChatbotTemplate}/>
-
-<Drawer.Screen name="Access Notifications" component={NotificationTemplate}/>
-
+  <Drawer.Screen name="Home" component={DashboardScreen}/>
+  <Drawer.Screen name="Profile" component={Profile}/>
+  <Drawer.Screen name="Account" component={Account}/>
+  <Drawer.Screen name="Manage an Appointment" component={AppointmentsMade}/> {/* Corrected */}
+  <Drawer.Screen name="Track Your Progress" component={Tracking}/>
+  <Drawer.Screen name="Wellbeing" component={MentalHealth}/>
+  <Drawer.Screen name="Chatbot" component={ChatbotTemplate}/>
+  <Drawer.Screen name="Access Notifications" component={NotificationTemplate}/>
 </Drawer.Navigator>
 
 </NavigationContainer>
@@ -54,3 +44,4 @@ return (
 )
 
 }
+
