@@ -24,6 +24,8 @@ import Options from './Options.js';
 import SelectRole from './SelectRole'; 
 import AdminDashboard from './AdminDashboard';
 import AmbassadorDashboard from './AmbassadorDashboard';
+import TechnicalIssue from './TechnicalIssue';
+import ViewTechnicalIssue from './ViewTechnicalIssue';
 import Onboarding1 from './Onboarding1.js';
 import Onboarding2 from './Onboarding2.js';
 import Onboarding3 from './Onboarding3.js';
@@ -249,6 +251,8 @@ export default function App() {
                 headerShown: false,
                 navigation: navigation,
               })} /> 
+              <Stack.Screen name="TechnicalIssue" component={TechnicalIssue} />
+              <Stack.Screen name="ViewTechnicalIssue" component={ViewTechnicalIssue} />
             </>
           )}
         </Stack.Navigator>
