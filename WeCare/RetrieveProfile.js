@@ -64,12 +64,12 @@ const RetrieveProfile = () => {
   const renderUserProfile = ({ item, index }) => (
     <View style={[styles.profileContainer, index % 2 === 0 ? styles.lightBlueRow : styles.darkBlueRow]}>
     <Text style={[styles.column, { width: 50 }]}> {item.id}</Text>
-    <Text style={[styles.column, { width: 50 }]}> {item.name}</Text>
-    <Text style={[styles.column, { width: 50 }]}> {item.surname}</Text>
-    <Text style={[styles.column, { width: 50 }]}> {item.fdm_id}</Text>
+    <Text style={[styles.column, { width: 100 }]}> {item.name}</Text>
+    <Text style={[styles.column, { width: 100 }]}> {item.surname}</Text>
+    <Text style={[styles.column, { width: 100 }]}> {item.fdm_id}</Text>
     <TouchableOpacity onPress={() => retrieveUserProfile(item.id, item)}>
-      <Text style={styles.retrieveButton}>Retrieve</Text>
-    </TouchableOpacity>
+        <Text style={[styles.retrieveButton, { width: 70 }]}>Retrieve</Text>
+      </TouchableOpacity>
     </View>
   );
 
@@ -81,7 +81,7 @@ const RetrieveProfile = () => {
           <Text style={[styles.columnHeader, { width: 100 }]}>  Name</Text>
           <Text style={[styles.columnHeader, { width: 100 }]}>  Surname</Text>
           <Text style={[styles.columnHeader, { width: 100 }]}>  FDM ID</Text>
-          <Text style={[styles.columnHeader, { width: 70 }]}>  Actions</Text>
+          <Text style={[styles.columnHeader, { width: 80 }]}>  Actions</Text>
         </View>
         <FlatList
           data={userProfiles}
