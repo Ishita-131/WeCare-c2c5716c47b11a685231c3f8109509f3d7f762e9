@@ -251,8 +251,14 @@ export default function App() {
                 headerShown: false,
                 navigation: navigation,
               })} /> 
-              <Stack.Screen name="TechnicalIssue" component={TechnicalIssue} />
-              <Stack.Screen name="ViewTechnicalIssue" component={ViewTechnicalIssue} />
+                <Stack.Screen name="TechnicalIssue" component={TechnicalIssue}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} /> 
+                <Stack.Screen name="ViewTechnicalIssue" component={ViewTechnicalIssue}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} /> 
             </>
           )}
         </Stack.Navigator>
