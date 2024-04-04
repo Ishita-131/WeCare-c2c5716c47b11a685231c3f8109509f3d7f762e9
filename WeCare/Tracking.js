@@ -8,25 +8,26 @@ import ProfileButton2 from './assets/images/ProfileButton2.png'; // Import the i
 import ProgressImg from './assets/images/ProgressImg.png'; // Import the image
 import BannerPie from './assets/images/BannerPie.png'; // Import the circular image
 
+
 const Tracking = () => {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.welcomeStyles}>Welcome to your tracker,</Text>
-        <Image source={ProfileButton2} style={styles.profileButton} />
-      </View>
-      <View style={styles.container2}>
-        <TargetCard />
-        <NotificationButton />
-        <ProgressCard /> 
-        <View style={styles.cardContainer}>
-          <FitnessCard />
-          <DietCard />
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.welcomeStyles}>Welcome to your tracker,</Text>
+          <Image source={ProfileButton2} style={styles.profileButton} />
         </View>
-        <BMICard />
+        <View style={styles.container2}>
+          <TargetCard />
+          <NotificationButton />
+          <ProgressCard />
+          <View style={styles.cardContainer}>
+            <FitnessCard navigation={navigation} /> {/* Pass navigation prop */}
+            <DietCard navigation={navigation} /> {/* Pass navigation prop */}
+          </View>
+          <BMICard />
+        </View>
       </View>
-    </View>
     </ScrollView>
   );
 };
@@ -90,12 +91,11 @@ const Card3 = () => {
   );
 };
 
-const FitnessCard = () => {
-    const navigation = useNavigation();
-    
-    const handlePress = () => {
-        navigation.navigate('FitnessTracker');
-      };
+const FitnessCard = ({ navigation }) => {
+  const handlePress = () => {
+    navigation.navigate('FitnessTracker');
+  };
+
   return (
     <View style={styles.fitnesscard}>
       <Text style={styles.fitnessTitle}>Fitness Tracker</Text>
@@ -106,13 +106,10 @@ const FitnessCard = () => {
   );
 };
 
-const DietCard = () => {
-
-    const navigation = useNavigation();
-    
-    const handlePress = () => {
-        navigation.navigate('DietTracker');
-      };
+const DietCard = ({ navigation }) => {
+  const handlePress = () => {
+    navigation.navigate('DietTracker');
+  };
 
   return (
     <View style={styles.dietcard}>
