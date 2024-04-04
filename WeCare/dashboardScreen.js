@@ -148,10 +148,12 @@ const DashboardScreen = ({ navigation }) => {
 
            
 
-            <TouchableOpacity style={styles.targetButton} 
-            onPress={() => navigation.navigate('Track Your Progress')} >
-                <Text style={styles.targetButtonText}>Today's Target</Text>
-            </TouchableOpacity>
+            <TouchableOpacity 
+    style={styles.targetButton} 
+    onPress={() => navigation.navigate('Tracking')} >
+    <Text style={styles.targetButtonText}>Today's Target</Text>
+</TouchableOpacity>
+
 
             <Text style={styles.activityStatusLabel}>Activity Status</Text>
 
