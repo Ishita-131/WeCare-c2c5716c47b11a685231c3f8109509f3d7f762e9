@@ -1,8 +1,6 @@
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 import { DrawerActions } from '@react-navigation/native';
 import { View, Text, Button } from 'react-native';
@@ -12,7 +10,6 @@ import Account from './Account';
 import MakeAppointments from './Components/ViewAppointments/MakeAppointments';
 import Tracking from './Tracking';
 import ChatBot from './ChatBot.js';
-import ChatBot from './ChatBot.js'; 
 import NotificationTemplate from './NotificationTemplate';
 import AppointmentsMade from './Components/ListAppointments.js/AppointmentsMade';
 import MentalHealth from './MentalHealth'; // Correct import
