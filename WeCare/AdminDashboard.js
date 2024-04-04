@@ -19,14 +19,13 @@ const Drawer = createDrawerNavigator();
 const Dashboard = () => {
   return (
     <NavigationContainer independent={true}>
-      <Drawer.Navigator>
+      <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={DashboardScreen}/>
         <Drawer.Screen name="Profile" component={Profile}/>
         <Drawer.Screen name="Account" component={Account}/>
         <Drawer.Screen name="Book an Appointment" component={MakeAppointments}/>
         <Drawer.Screen name="Track Your Progress" component={Tracking}/>
-        <Drawer.Screen name="Wellbeing" component={MentalHealth}/> {/* Corrected component name */}
-
+        <Drawer.Screen name="Wellbeing" component={MentalHealth}/> 
         <Drawer.Screen name="Chatbot" component={ChatbotTemplate}/>
         <Drawer.Screen name="Access Notifications" component={NotificationTemplate}/>
         {/* Admin Dashboard Buttons */}
