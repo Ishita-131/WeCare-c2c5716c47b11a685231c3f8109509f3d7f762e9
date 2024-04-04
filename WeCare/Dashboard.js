@@ -1,7 +1,5 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { DrawerActions } from '@react-navigation/native';
-import { View, Text, Button } from 'react-native';
 import DashboardScreen from './dashboardScreen';
 import Profile from './Profile';
 import Account from './Account';
@@ -23,7 +21,7 @@ export default function Dashboard() {
       <Drawer.Screen name="Book an Appointment" component={MakeAppointments} />
       <Drawer.Screen name="Appointments Made" component={AppointmentsMade} />
       <Drawer.Screen name="Tracking" component={Tracking} />
-      <Drawer.Screen name="Wellbeing" component={MentalHealth}/>
+      <Drawer.Screen name="Mental Health" component={MentalHealth}/>
       <Drawer.Screen name="Chatbot" component={ChatBot} />
       <Drawer.Screen name="Access Notifications" component={NotificationTemplate} />
     </Drawer.Navigator>

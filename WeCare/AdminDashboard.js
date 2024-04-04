@@ -25,11 +25,7 @@ const Dashboard = () => {
         <Drawer.Screen name="Home" component={DashboardScreen}/>
         <Drawer.Screen name="Profile" component={Profile}/>
         <Drawer.Screen name="Account" component={Account}/>
-        <Drawer.Screen name="Book an Appointment" component={MakeAppointments}/>
-        <Drawer.Screen name="Track Your Progress" component={Tracking}/>
-        <Drawer.Screen name="Wellbeing" component={MentalHealth}/> 
         <Drawer.Screen name="Chatbot" component={ChatbotTemplate}/>
-        <Drawer.Screen name="Access Notifications" component={NotificationTemplate}/>
         {/* Admin Dashboard Buttons */}
         <Drawer.Screen name="Delete User Profiles" component={DeleteProfile}/>
         <Drawer.Screen name="Retrieve Deleted User Profiles" component={RetrieveProfile}/>
