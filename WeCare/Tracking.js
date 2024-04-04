@@ -10,6 +10,8 @@ import BannerPie from './assets/images/BannerPie.png'; // Import the circular im
 
 
 const Tracking = () => {
+  const navigation = useNavigation(); // Get navigation object using useNavigation hook
+
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
@@ -22,8 +24,9 @@ const Tracking = () => {
           <NotificationButton />
           <ProgressCard />
           <View style={styles.cardContainer}>
-            <FitnessCard navigation={navigation} /> {/* Pass navigation prop */}
-            <DietCard navigation={navigation} /> {/* Pass navigation prop */}
+            {/* Pass navigation prop to FitnessCard and DietCard */}
+            <FitnessCard navigation={navigation} />
+            <DietCard navigation={navigation} />
           </View>
           <BMICard />
         </View>
@@ -31,7 +34,6 @@ const Tracking = () => {
     </ScrollView>
   );
 };
-
 
 
 const TargetCard = () => {
