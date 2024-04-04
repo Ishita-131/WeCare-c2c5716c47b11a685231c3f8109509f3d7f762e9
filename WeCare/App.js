@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Platform } from 'react-native';
+import { View, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { supabase } from './supabase.js';
@@ -251,14 +251,8 @@ export default function App() {
                 headerShown: false,
                 navigation: navigation,
               })} /> 
-                <Stack.Screen name="TechnicalIssue" component={TechnicalIssue}options={({ navigation }) => ({
-                headerShown: false,
-                navigation: navigation,
-              })} /> 
-                <Stack.Screen name="ViewTechnicalIssue" component={ViewTechnicalIssue}options={({ navigation }) => ({
-                headerShown: false,
-                navigation: navigation,
-              })} /> 
+              <Stack.Screen name="TechnicalIssue" component={TechnicalIssue} />
+              <Stack.Screen name="ViewTechnicalIssue" component={ViewTechnicalIssue} />
             </>
           )}
         </Stack.Navigator>
