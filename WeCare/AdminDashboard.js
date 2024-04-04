@@ -12,9 +12,6 @@ import NotificationTemplate from './NotificationTemplate';
 import DeleteProfile from './DeleteProfile'; // Import DeleteProfile component
 import RetrieveProfile from './RetrieveProfile'; // Import RetrieveProfile component
 import MentalHealth from './MentalHealth'; // Correct import
-import TechnicalIssue from './TechnicalIssue';
-import ViewTechnicalIssue from './ViewTechnicalIssue';
-import Options from './Options';
 
 
 const Drawer = createDrawerNavigator();
@@ -33,10 +30,8 @@ const Dashboard = () => {
         <Drawer.Screen name="Chatbot" component={ChatbotTemplate}/>
         <Drawer.Screen name="Access Notifications" component={NotificationTemplate}/>
         {/* Admin Dashboard Buttons */}
-        <Drawer.Screen name="Edit User Profiles" component={Options}/>
-        <Drawer.Screen name="Report Technical Issue" component={TechnicalIssue}/>
-        <Drawer.Screen name="View Technical Issue" component={TechnicalIssue}/>
-    
+        <Drawer.Screen name="Delete User Profiles" component={DeleteProfile}/>
+        <Drawer.Screen name="Retrieve Deleted User Profiles" component={RetrieveProfile}/>
       </Drawer.Navigator>
     </NavigationContainer>
   );
