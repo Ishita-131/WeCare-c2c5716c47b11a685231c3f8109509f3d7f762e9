@@ -6,7 +6,7 @@ import { supabase } from './supabase'; // Import your Supabase configuration
 const Chatbot = () => {
   const navigation = useNavigation();
   const [messages, setMessages] = useState([
-    { id: 1, content: "Hello, how can I help you? You can type in 'need instant support', 'get in touch' or 'report bug'", sender: "bot" }
+    { id: 1, content: "Hello, You can report bugs here. Please type in 'Report bug'", sender: "bot" }
   ]);
   const [userMessage, setUserMessage] = useState('');
   const [bugModalVisible, setBugModalVisible] = useState(false);
@@ -39,18 +39,12 @@ const Chatbot = () => {
 
     setTimeout(() => {
       let newMessage;
-      if (userMessage.toLowerCase() === 'need instant support') {
-        newMessage = { id: messages.length + 2, content: "Central London Samaritans: 116 123 free from any phone and 0330 094 5717 local call charges apply", sender: "bot" };
-      } else if (userMessage.toLowerCase() === 'get in touch') {
-        navigation.navigate('Book an Appointment');
-        setUserMessage('');
-        return;
-      } else if (userMessage.toLowerCase() === 'report bug') {
+       if (userMessage.toLowerCase() === 'report bug') {
         setBugModalVisible(true);
         setUserMessage('');
         return;
       } else {
-        newMessage = { id: messages.length + 2, content: "Sorry, please type in 'need instant support', 'get in touch' or 'report bug'", sender: "bot" };
+        newMessage = { id: messages.length + 2, content: "Sorry, please type in 'report bug'", sender: "bot" };
       }
 
       setMessages([...messages, userNewMessage, newMessage]);
