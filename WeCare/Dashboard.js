@@ -1,5 +1,9 @@
+
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { View, Text, Button } from 'react-native';
 import DashboardScreen from './dashboardScreen';
 import Profile from './Profile';
 import Account from './Account';
