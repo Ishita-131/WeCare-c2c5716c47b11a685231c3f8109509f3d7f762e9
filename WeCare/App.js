@@ -175,6 +175,7 @@ export default function App() {
       <View style={styles.verticallySpaced a }>
         <Button title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
       </View>
+      /aa/
     </View>
   );
 }

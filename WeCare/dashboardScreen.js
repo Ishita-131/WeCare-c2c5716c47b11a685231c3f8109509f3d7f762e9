@@ -1,113 +1,3 @@
-// import { View, Text, StyleSheet } from "react-native";
-
-// const dashboardScreen = () => {
-//     return (
-//         <View style={styles.container}>
-//         <Text style={styles.text}>DashboardScreen</Text>
-//         </View>
-//     );
-// };
-
-// export default dashboardScreen;
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         alignItems: "center",
-//         justifyContent: "center",
-//     },
-//     text: {
-//         fontSize: 24, 
-//         fontWeight: "bold",
-//         marginBottom: 16,
-//     },
-// });
-
-// import React from 'react';
-// import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-
-// const dashboardScreen = () => {
-//     return (
-//         <ScrollView style={styles.container}>
-//             <Text style={styles.greeting}>Hi, Sam</Text>
-//             <Text style={styles.quote}>"Take care of your body. It's the only place you have to live." - Jim Rohn</Text>
-
-//             {/* Today's Target Button */}
-//             <TouchableOpacity style={styles.targetButton}>
-//                 <Text style={styles.targetButtonText}>Check</Text>
-//             </TouchableOpacity>
-
-//             {/* Activity Status */}
-//             <View style={styles.activityStatus}>
-//                 <View style={styles.activityCard}>
-//                     <Text style={styles.activityCardTitle}>Calories</Text>
-//                     <Text style={styles.activityCardValue}>760 KCal</Text>
-//                     {/* You'll need to implement a progress circle or similar component */}
-//                 </View>
-//                 <View style={styles.activityCard}>
-//                     <Text style={styles.activityCardTitle}>Sleep</Text>
-//                     <Text style={styles.activityCardValue}>8h 20m</Text>
-//                     {/* You'll need to implement a graph or similar component */}
-//                 </View>
-//             </View>
-//         </ScrollView>
-//     );
-// };
-
-// export default dashboardScreen;
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         backgroundColor: '#fff',
-//         padding: 20,
-//     },
-//     greeting: {
-//         fontSize: 24,
-//         fontWeight: 'bold',
-//         marginTop: 20,
-//     },
-//     quote: {
-//         fontStyle: 'italic',
-//         marginVertical: 20,
-//     },
-//     targetButton: {
-//         backgroundColor: '#007AFF',
-//         padding: 15,
-//         borderRadius: 8,
-//         alignItems: 'center',
-//         marginBottom: 30,
-//     },
-//     targetButtonText: {
-//         color: '#fff',
-//         fontWeight: '600',
-//     },
-//     activityStatus: {
-//         flexDirection: 'row',
-//         justifyContent: 'space-between',
-//         marginBottom: 30,
-//     },
-//     activityCard: {
-//         backgroundColor: '#F0F0F0',
-//         padding: 20,
-//         borderRadius: 10,
-//         alignItems: 'center',
-//         flex: 1,
-//         marginHorizontal: 5,
-//     },
-//     activityCardTitle: {
-//         fontSize: 18,
-//         fontWeight: 'bold',
-//         marginBottom: 10,
-//     },
-//     activityCardValue: {
-//         fontSize: 16,
-//     },
-//     // Add additional styles for other components as necessary
-// });
-
-
-
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
@@ -163,31 +53,31 @@ const DashboardScreen = ({ navigation }) => {
                 <View style={styles.moodIconsContainer}>
                     <TouchableOpacity>
                         <Image
-                            source={require('./assets/images/Happye.png')}
+                            source={require('./assets/images/Happy1.png')}
                             style={styles.moodIcon}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Image
-                            source={require('./assets/images/Calme.png')}
+                            source={require('./assets/images/Calm1.png')}
                             style={styles.moodIcon}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Image
-                            source={require('./assets/images/Manice.png')}
+                            source={require('./assets/images/Manic1.png')}
                             style={styles.moodIcon}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Image
-                            source={require('./assets/images/Angrye.png')}
+                            source={require('./assets/images/Angry1.png')}
                             style={styles.moodIcon}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Image
-                            source={require('./assets/images/Sade.png')}
+                            source={require('./assets/images/Sad1.png')}
                             style={styles.moodIcon}
                         />
                     </TouchableOpacity>
@@ -252,14 +142,14 @@ const DashboardScreen = ({ navigation }) => {
       <Text style={styles.bookNowText}>
         Book Now 
         <Image
-          source={require('./assets/images/dateIcon.png')}
+          source={require('./assets/images/dateIcon1.png')}
           style={styles.dateIcon}
         />
       </Text>
     </TouchableOpacity>
   </View>
   <Image
-    source={require('./assets/images/Sessionimage.png')}
+    source={require('./assets/images/Sessionimage1.png')}
     style={styles.sessionImage}
   />
 </View>
@@ -615,3 +505,4 @@ const styles = StyleSheet.create({
 
 export default DashboardScreen;
 
+//aa
