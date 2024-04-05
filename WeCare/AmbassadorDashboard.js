@@ -1,15 +1,32 @@
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import DashboardScreen from './dashboardScreen';
+import Profile from './Profile';
+import Account from './Account';
+import ChatbotTemplate from './ChatBot';
+import ViewArrangement from './Components/ViewAppointments/ViewArrangement.js';
+import AppointmentsMade from './Components/ListAppointments.js/AppointmentsMade';
+import NotificationTemplate from './NotificationInbox';
 
-const Dashboard = ({ navigation }) => {
+const Drawer = createDrawerNavigator();
+
+export default function Dashboard() {
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Dashboard</Text>
-      <Button title="Go to Profile" onPress={() => navigation.navigate('Profile')} />
-      <Button title="Go to Tracking" onPress={() => navigation.navigate('Tracking')} />
-      <Button title='View Scheduled Appointments' onPress={() => navigation.navigate('Appointments')}/> 
-    </View>
-  );
-};
 
-export default Dashboard;
+    <NavigationContainer independent={true}>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={DashboardScreen} />
+        <Drawer.Screen name="Profile" component={Profile} />
+        <Drawer.Screen name="Account" component={Account} />
+        <Drawer.Screen name="View Scheduled Appointments" component={ViewArrangement} />
+        <Drawer.Screen name="Chatbot" component={ChatbotTemplate} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+
+  )
+
+}
+
