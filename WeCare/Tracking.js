@@ -47,12 +47,19 @@ const TargetCard = () => {
 };
 
 const NotificationButton = () => {
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate('NotificationTemplate'); // Navigate to the NotificationInbox page
+  };
+
   return (
-    <TouchableOpacity style={styles.notificationButton}>
+    <TouchableOpacity style={styles.notificationButton} onPress={handlePress}>
       <Text style={styles.notificationButtonText}>Notifications</Text>
     </TouchableOpacity>
   );
 };
+
 
 const ProgressCard = () => {
   return (

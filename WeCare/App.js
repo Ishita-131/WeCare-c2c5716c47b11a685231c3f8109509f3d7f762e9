@@ -35,6 +35,7 @@ import Onboarding5 from './Onboarding5.js';
 import ViewArrangement from './Components/ViewAppointments/ViewArrangement.js';
 import AskAppointment from './Components/ViewAppointments/AskAppointment.js';
 import * as Notifications from 'expo-notifications';
+import NotificationTemplate from './NotificationInbox';
 
 const Stack = createNativeStackNavigator();
 
@@ -303,6 +304,10 @@ export default function App() {
               })} /> 
               <Stack.Screen name="ViewTechnicalIssue" component={ViewTechnicalIssue}options={({ navigation }) => ({
                 headerShown: false,
+                navigation: navigation,
+              })} />
+              <Stack.Screen name="NotificationTemplate" component={NotificationTemplate}options={({ navigation }) => ({
+                headerShown: true,
                 navigation: navigation,
               })} />
             </>
