@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Platform } from 'react-native';
+import { Text, View, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { supabase } from './supabase.js';
@@ -11,16 +11,17 @@ import WelcomePage from './WelcomePage.js';
 import Tracking from './Tracking.js';
 import FitnessTracker from './FitnessTracker.js';
 import DietTracker from './DietTracker.js';
-import MakeAppointments from './Components/ViewAppointments/MakeAppointments.js';
-import registerNNPushToken from 'native-notify';
-import { AcceptProvider } from './Components/ViewAppointments/accept.js';
-import ChatBot from './ChatBot.js';
+import UpcomingWorkouts from './UpcomingWorkouts.js';
 import Login from './Login.js';
 import SignUp from './SignUp.js';
-import UpcomingWorkouts from './UpcomingWorkouts.js';
+import MakeAppointments from './Components/ViewAppointments/MakeAppointments.js';
 import DeleteProfile from './DeleteProfile.js'; 
 import RetrieveProfile from './RetrieveProfile.js';
 import Options from './Options.js';
+import registerNNPushToken from 'native-notify';
+import * as Notifications from 'expo-notifications';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AcceptProvider } from './Components/ViewAppointments/accept.js';
 import SelectRole from './SelectRole'; 
 import AdminDashboard from './AdminDashboard';
 import AmbassadorDashboard from './AmbassadorDashboard';
@@ -31,7 +32,6 @@ import Onboarding4 from './Onboarding4.js';
 import Onboarding5 from './Onboarding5.js';
 import ViewArrangement from './Components/ViewAppointments/ViewArrangement.js';
 import AskAppointment from './Components/ViewAppointments/AskAppointment.js';
-import * as Notifications from 'expo-notifications';
 
 const Stack = createNativeStackNavigator();
 
@@ -79,12 +79,6 @@ export default function App() {
       console.log(response);
     });
   };
-
-  useEffect(() => {
-    if (Notifications) {
-      scheduleNotification();
-    }
-  }, []);
 
   const scheduleNotification = async () => {
     try {
@@ -166,7 +160,6 @@ export default function App() {
               <Stack.Screen name="Tracking" component={Tracking} /> 
               <Stack.Screen name="FitnessTracker" component={FitnessTracker} /> 
               <Stack.Screen name="DietTracker" component={DietTracker} /> 
-              <Stack.Screen name="ChatBot" component={ChatBot} />
               <Stack.Screen name="UpcomingWorkouts" component={UpcomingWorkouts} /> 
               <Stack.Screen name="Appointments" component={MakeAppointments} />
               <Stack.Screen name="ViewArrangements" component={ViewArrangement} />

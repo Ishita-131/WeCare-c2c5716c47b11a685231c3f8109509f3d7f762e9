@@ -18,8 +18,9 @@ import MakeAppointments from './Components/ViewAppointments/MakeAppointments';
 
 import Tracking from './Tracking';
 import ChatBot from './ChatBot.js'; // Import ChatBot component
-import NotificationTemplate from './NotificationTemplate';
+import NotificationTemplate from './NotificationInbox';
 import AppointmentsMade from './Components/ListAppointments.js/AppointmentsMade';
+
 
 const Drawer = createDrawerNavigator();
 
