@@ -59,14 +59,16 @@ const RetrieveProfile = () => {
     }
   };
 
-  const renderUserProfile = ({ item }) => (
-    <View style={styles.profileContainer}>
-      <Text style={styles.column}>{item.id}</Text>
-      <Text style={styles.column}>{item.name}</Text>
-      <Text style={styles.column}>{item.surname}</Text>
-      <Text style={styles.column}>{item.fdm_id}</Text>
-      <TouchableOpacity onPress={() => retrieveUserProfile(item.id, item)}>
-        <Text style={styles.retrieveButton}>Retrieve</Text>
+
+
+  const renderUserProfile = ({ item, index }) => (
+    <View style={[styles.profileContainer, index % 2 === 0 ? styles.lightBlueRow : styles.darkBlueRow]}>
+    <Text style={[styles.column, { width: 50 }]}> {item.id}</Text>
+    <Text style={[styles.column, { width: 100 }]}> {item.name}</Text>
+    <Text style={[styles.column, { width: 100 }]}> {item.surname}</Text>
+    <Text style={[styles.column, { width: 100 }]}> {item.fdm_id}</Text>
+    <TouchableOpacity onPress={() => retrieveUserProfile(item.id, item)}>
+        <Text style={[styles.retrieveButton, { width: 70 }]}>Retrieve</Text>
       </TouchableOpacity>
     </View>
   );
@@ -75,11 +77,11 @@ const RetrieveProfile = () => {
     <ScrollView horizontal={true}>
       <View style={styles.container}>
         <View style={styles.profileContainer}>
-          <Text style={[styles.columnHeader, { flex: 10 }]}>ID</Text>
-          <Text style={[styles.columnHeader, { flex: 10 }]}>  Name</Text>
-          <Text style={[styles.columnHeader, { flex: 10 }]}>  Surname</Text>
-          <Text style={[styles.columnHeader, { flex: 10 }]}>  FDM ID</Text>
-          <Text style={[styles.columnHeader, { flex: 10 }]}>  Actions</Text>
+          <Text style={[styles.columnHeader, { width: 50 }]}>ID</Text>
+          <Text style={[styles.columnHeader, { width: 100 }]}>  Name</Text>
+          <Text style={[styles.columnHeader, { width: 100 }]}>  Surname</Text>
+          <Text style={[styles.columnHeader, { width: 100 }]}>  FDM ID</Text>
+          <Text style={[styles.columnHeader, { width: 80 }]}>  Actions</Text>
         </View>
         <FlatList
           data={userProfiles}
@@ -95,27 +97,42 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 20,
+    padding: 5,
   },
   profileContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start', // Align items to flex-start
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-    paddingVertical: 10,
+    paddingVertical: 7,
   },
   columnHeader: {
     fontWeight: 'bold',
-    flex: 1,
+    textAlign: 'left', // Align text to start from the left
+    backgroundColor: '#1986EC', // Heading background color
+    color: '#fff', // Heading text color
+    textTransform: 'uppercase', // Convert text to uppercase
+    paddingHorizontal: 5, // Add padding for better spacing
   },
   column: {
-    flex: 1,
+    flex: 5,
+    paddingHorizontal: 10, // Add some padding to columns for better spacing
+  },
+  deleteButton: {
+    color: 'red',
+    fontWeight: 'bold',
+  },
+  lightBlueRow: {
+    backgroundColor: '#EAF2FE', // Light blue background for rows
+  },
+  darkBlueRow: {
+    backgroundColor: '#C3D6F4', // Dark blue background for rows
   },
   retrieveButton: {
     color: 'green',
     fontWeight: 'bold',
-  },
+  },  
 });
 
 export default RetrieveProfile;

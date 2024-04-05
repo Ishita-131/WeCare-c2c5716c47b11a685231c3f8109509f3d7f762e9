@@ -12,11 +12,22 @@ import Workout2 from './assets/images/Workout2.png';
 
 
 const FitnessTracker = () => {
+
+  const navigation = useNavigation();
+
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
+
+
   return (
     <PaperProvider>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         <View style={styles.container}>
           <View style={styles.titleContainer}>
+          <TouchableOpacity onPress={handleGoBack}>
+            <Text style={styles.backButton}>Back</Text>
+          </TouchableOpacity>
             <Text style={styles.welcomeStyles}>Fitness Tracker</Text>
             <Image source={ProfileButton2} style={styles.profileButton} />
           </View>
@@ -381,6 +392,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#FFF', // Set default background color to white
+    marginTop:60,
   },
 
   titleContainer: {
@@ -407,6 +419,13 @@ const styles = StyleSheet.create({
     flexShrink: 0,
     borderRadius: 51.508,
     backgroundColor: '#9DCEFF',
+  },
+
+  backButton: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#1986EC',
+    marginLeft: 10,
   },
 
   todayTitle: {

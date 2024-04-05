@@ -1,29 +1,35 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Switch } from 'react-native'; // Import necessary components
+import { ScrollView, View, StyleSheet, TouchableOpacity, Image, Switch, Text } from 'react-native'; // Import Text component from react-native
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 import Workout from './assets/images/Workout.png'; // Import Workout image
 import Workout2 from './assets/images/Workout2.png'; // Import Workout2 image
 
+
 const UpcomingWorkouts = () => {
   const navigation = useNavigation(); // Initialize navigation
-
-  const handleSeeMorePress = () => {
-    navigation.navigate('UpcomingWorkouts'); // Navigate to the UpcomingWorkouts page
+  
+  const handleGoBack = () => {
+    navigation.goBack();
   };
 
+
   return (
-    <View style={styles.UpcomingWorkouts}>
-      <View style={styles.titleWorkoutsContainer}>
-        <Text style={styles.UpcomingWorkoutsTitle}>Upcoming Workouts</Text>
-        <TouchableOpacity onPress={handleSeeMorePress}>
-          <Text style={styles.seeMoreButton}>See more</Text>
-        </TouchableOpacity>
+    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+      <View style={styles.container}>
+        <View style={styles.UpcomingWorkouts}>
+          <View style={styles.titleWorkoutsContainer}>
+          <TouchableOpacity onPress={handleGoBack}>
+            <Text style={styles.backButton}>Back</Text>
+          </TouchableOpacity>
+            <Text style={styles.UpcomingWorkoutsTitle}>Upcoming Workouts</Text>
+          </View>
+          <FullBody />
+          <UpperBody />
+          <Cardio />
+          <StrengthTraining />
+        </View>
       </View>
-      <FullBody />
-      <UpperBody />
-      <Cardio />
-      <StrengthTraining />
-    </View>
+    </ScrollView>
   );
 };
 
@@ -76,54 +82,67 @@ const UpperBody = () => {
 };
 
 const Cardio = () => {
-    const [isEnabled, setIsEnabled] = React.useState(false); // Initialize isEnabled state for Switch component
-    const toggleSwitch = () => setIsEnabled((previousState) => !previousState); // Function to toggle the Switch component
-  
-    return (
-      <View style={styles.upcoming1Container}>
-        <View style={styles.cardContentUpcoming}>
-          <Image source={Workout2} style={styles.workoutImage} />
-          <View>
-            <Text style={styles.UpcomingText}>UpperBody Workout</Text>
-            <Text style={[styles.UpcomingText2, styles.dateText]}>April 20, 01:00pm</Text>
-          </View>
-          <Switch // Switch component
-            trackColor={{ false: '#767577', true: '#C58BF2' }} // Track color based on state
-            thumbColor={isEnabled ? '#FFFFFF' : '#f4f3f4'} // Thumb color based on state
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch} // Toggle state on change
-            value={isEnabled} // Current state value
-          />
-        </View>
-      </View>
-    );
-  };
+  const [isEnabled, setIsEnabled] = React.useState(false); // Initialize isEnabled state for Switch component
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState); // Function to toggle the Switch component
 
-  const StrengthTraining = () => {
-    const [isEnabled, setIsEnabled] = React.useState(false); // Initialize isEnabled state for Switch component
-    const toggleSwitch = () => setIsEnabled((previousState) => !previousState); // Function to toggle the Switch component
-  
-    return (
-      <View style={styles.upcoming1Container}>
-        <View style={styles.cardContentUpcoming}>
-          <Image source={Workout2} style={styles.workoutImage} />
-          <View>
-            <Text style={styles.UpcomingText}>UpperBody Workout</Text>
-            <Text style={[styles.UpcomingText2, styles.dateText]}>April 20, 01:00pm</Text>
-          </View>
-          <Switch // Switch component
-            trackColor={{ false: '#767577', true: '#C58BF2' }} // Track color based on state
-            thumbColor={isEnabled ? '#FFFFFF' : '#f4f3f4'} // Thumb color based on state
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch} // Toggle state on change
-            value={isEnabled} // Current state value
-          />
+  return (
+    <View style={styles.upcoming1Container}>
+      <View style={styles.cardContentUpcoming}>
+        <Image source={Workout2} style={styles.workoutImage} />
+        <View>
+          <Text style={styles.UpcomingText}>UpperBody Workout</Text>
+          <Text style={[styles.UpcomingText2, styles.dateText]}>April 20, 01:00pm</Text>
         </View>
+        <Switch // Switch component
+          trackColor={{ false: '#767577', true: '#C58BF2' }} // Track color based on state
+          thumbColor={isEnabled ? '#FFFFFF' : '#f4f3f4'} // Thumb color based on state
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch} // Toggle state on change
+          value={isEnabled} // Current state value
+        />
       </View>
-    );
-  };
+    </View>
+  );
+};
+
+const StrengthTraining = () => {
+  const [isEnabled, setIsEnabled] = React.useState(false); // Initialize isEnabled state for Switch component
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState); // Function to toggle the Switch component
+
+  return (
+    <View style={styles.upcoming1Container}>
+      <View style={styles.cardContentUpcoming}>
+        <Image source={Workout2} style={styles.workoutImage} />
+        <View>
+          <Text style={styles.UpcomingText}>UpperBody Workout</Text>
+          <Text style={[styles.UpcomingText2, styles.dateText]}>April 20, 01:00pm</Text>
+        </View>
+        <Switch // Switch component
+          trackColor={{ false: '#767577', true: '#C58BF2' }} // Track color based on state
+          thumbColor={isEnabled ? '#FFFFFF' : '#f4f3f4'} // Thumb color based on state
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch} // Toggle state on change
+          value={isEnabled} // Current state value
+        />
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    backgroundColor: '#FFF', // Set default background color to white
+    marginTop: 60,
+  },
+
+  backButton: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#1986EC',
+    marginLeft: 10,
+  },
+
   UpcomingWorkouts: {
     marginTop: 20,
     paddingHorizontal: 20,
@@ -132,6 +151,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', // Align children in a row
     justifyContent: 'space-between', // Distribute children along the row
     alignItems: 'center', // Align items vertically
+    marginRight:85,
   },
   UpcomingWorkoutsTitle: {
     fontSize: 16,
