@@ -7,8 +7,8 @@ import Profile from './Profile';
 import Account from './Account';
 import MakeAppointments from './makeappointments';
 import Tracking from './Tracking';
-import ChatbotTemplate from './ChatBot';
-import NotificationTemplate from './NotificationTemplate';
+import ChatbotTemplate from './ChatBot'
+import NotificationTemplate from './NotificationInbox';
 import DeleteProfile from './DeleteProfile'; // Import DeleteProfile component
 import RetrieveProfile from './RetrieveProfile'; // Import RetrieveProfile component
 import MentalHealth from './MentalHealth'; // Correct import

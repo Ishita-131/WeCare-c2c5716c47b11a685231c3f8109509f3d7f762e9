@@ -14,6 +14,7 @@ import DietTracker from './DietTracker.js';
 import MakeAppointments from './Components/ViewAppointments/MakeAppointments.js';
 import registerNNPushToken from 'native-notify';
 import { AcceptProvider } from './Components/ViewAppointments/accept.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ChatBot from './ChatBot.js';
 import Login from './Login.js';
 import SignUp from './SignUp.js';

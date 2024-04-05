@@ -6,7 +6,7 @@ import Account from './Account';
 import MakeAppointments from './Components/ViewAppointments/MakeAppointments';
 import Tracking from './Tracking.js';
 import ChatBot from './ChatBot.js';
-import NotificationTemplate from './NotificationTemplate';
+import NotificationTemplate from './NotificationInbox';
 import AppointmentsMade from './Components/ListAppointments.js/AppointmentsMade';
 import MentalHealth from './MentalHealth'; // Correct import
 

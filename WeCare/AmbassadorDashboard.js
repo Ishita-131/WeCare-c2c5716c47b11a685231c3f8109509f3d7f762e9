@@ -8,7 +8,7 @@ import Account from './Account';
 import ChatbotTemplate from './ChatBot';
 import ViewArrangement from './Components/ViewAppointments/ViewArrangement.js';
 import AppointmentsMade from './Components/ListAppointments.js/AppointmentsMade';
-
+import NotificationTemplate from './NotificationInbox';
 
 const Drawer = createDrawerNavigator();
 
