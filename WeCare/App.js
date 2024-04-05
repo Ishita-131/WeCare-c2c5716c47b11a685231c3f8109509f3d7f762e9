@@ -77,7 +77,11 @@ export default function App() {
           <Stack.Screen name="SelectRole" component={SelectRole} />
           <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
           <Stack.Screen name="AmbassadorDashboard" component={AmbassadorDashboard} />
-            <Stack.Screen name="Dashboard" component={Dashboard} />
+            <Stack.Screen 
+              name="Dashboard" 
+              component={Dashboard} 
+              options={{ headerTitle: '', headerShown: false }} // This line removes the header
+            />
             <Stack.Screen name="Account" component={Account} />
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Tracking" component={Tracking} /> 
