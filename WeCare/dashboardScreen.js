@@ -163,31 +163,31 @@ const DashboardScreen = ({ navigation }) => {
                 <View style={styles.moodIconsContainer}>
                     <TouchableOpacity>
                         <Image
-                            source={require('./assets/images/Happy.png')}
+                            source={require('./assets/images/Happye.png')}
                             style={styles.moodIcon}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Image
-                            source={require('./assets/images/Calm.png')}
+                            source={require('./assets/images/Calme.png')}
                             style={styles.moodIcon}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Image
-                            source={require('./assets/images/Manic.png')}
+                            source={require('./assets/images/Manice.png')}
                             style={styles.moodIcon}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Image
-                            source={require('./assets/images/Angry.png')}
+                            source={require('./assets/images/Angrye.png')}
                             style={styles.moodIcon}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Image
-                            source={require('./assets/images/Sad.png')}
+                            source={require('./assets/images/Sade.png')}
                             style={styles.moodIcon}
                         />
                     </TouchableOpacity>
