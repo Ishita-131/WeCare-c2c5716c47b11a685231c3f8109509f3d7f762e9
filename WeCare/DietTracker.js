@@ -3,8 +3,6 @@ import { Modal, Portal, Text, Button, Provider as PaperProvider } from 'react-na
 import { ScrollView, View, StyleSheet, TouchableOpacity, Image, TextInput, Switch } from 'react-native'; // Import ScrollView from react-native
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
-import calories from './assets/images/calories.png';
-import clock from './assets/images/clock.png';
 import { supabase } from './supabase';
 import ProfileButton2 from './assets/images/ProfileButton2.png'; // Import the image
 import Workout from './assets/images/Workout.png';
@@ -97,14 +95,26 @@ const WorkoutCard = () => {
 const WaterLoggingCard = () => {
   const [visible, setVisible] = useState(false);
   const [waterAmount, setWaterAmount] = useState("0.25"); // Default water amount in liters
+  const [totalWater, setTotalWater] = useState(0); // Total water consumption
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
 
-  // Function to handle logging water consumption
   const handleLogWater = async () => {
     try {
-      // Your logging logic here
+      const { data, error } = await supabase.from('waterlog').insert([
+        { amount: waterAmount, timestamp: new Date() },
+      ]);
+
+      if (error) {
+        console.error('Error logging water consumption:', error.message);
+      } else {
+        console.log('Water consumption logged successfully:', data);
+        const amountInLiters = parseFloat(waterAmount);
+        setTotalWater(prevTotal => prevTotal + amountInLiters); // Update total water
+        setWaterAmount("0.25");
+        hideModal();
+      }
     } catch (error) {
       console.error('Error logging water consumption:', error.message);
     }
@@ -115,7 +125,7 @@ const WaterLoggingCard = () => {
       <Text style={styles.loggingTitle}>Log Water Consumption</Text>
       <View style={styles.imageContainer}>
         <Image source={Drop} style={styles.clockImg} />
-        <Text style={styles.loggingSmallText}>1L</Text>
+        <Text style={styles.loggingSmallText}>{totalWater.toFixed(2)}L drank today!</Text>
       </View>
       <TouchableOpacity style={styles.button2} onPress={showModal}>
         <Text style={styles.buttonText2}>Log Water</Text>
@@ -141,13 +151,58 @@ const WaterLoggingCard = () => {
 };
 
 const CaloriesCard = () => {
+  const [mealName, setMealName] = useState('');
+  const [time, setTime] = useState('');
+
+  const handleLogMeal = async () => {
+    try {
+      // Check if any of the input fields are empty
+      if (!mealName || !time) {
+        console.error('Please fill in all fields');
+        return;
+      }
+  
+      // Insert meal data into the database
+      const { data, error } = await supabase.from('meals').insert([
+        { meal_name: mealName, time: time, timestamp: new Date() },
+      ]);
+  
+      if (error) {
+        console.error('Error logging meal:', error.message);
+      } else {
+        console.log('Meal logged successfully:', data);
+        // Clear input fields after successful logging
+        setMealName('');
+        setTime('');
+      }
+    } catch (error) {
+      console.error('Error logging meal:', error.message);
+    }
+  };
+  
   return (
-    <View style={styles.caloriesCard}>
-      <Text style={styles.caloriesTitle}>Calories burned</Text>
-      <View style={styles.caloriesCircle}>
-        <Text style={styles.caloriesText}>1700</Text>
-        <Text style={styles.caloriessmallText}>remaining</Text>
-      </View>
+    <View style={styles.loggingcard}>
+      <Text style={styles.loggingTitle}>Log Meal</Text>
+      {/* Input for Meal Name */}
+      <TextInput
+        label="Meal Name"
+        value={mealName}
+        onChangeText={(text) => setMealName(text)}
+        style={styles.input}
+        placeholder="Enter meal"
+      />
+      {/* Input for Time */}
+      <TextInput
+        label="Time"
+        value={time}
+        onChangeText={(text) => setTime(text)}
+        style={styles.input}
+        placeholder="Enter time"
+      />
+      {/* Submit button */}
+      <TouchableOpacity style={styles.buttonLog2} onPress={handleLogMeal}>
+        <Text style={styles.buttonText2}>Log Meal</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -329,7 +384,7 @@ const styles = StyleSheet.create({
 
   loggingcard: {
     width: 162, // Adjusted width to fit next to diet card
-    height: 180,
+    height: 210,
     flexShrink: 0,
     backgroundColor: '#6A7382', // Use rgba to set opacity of the background color
     marginVertical: 10,
@@ -360,7 +415,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 10,
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 5,
     marginBottom: 15, // Increased bottom margin for better separation
   },
 
@@ -393,7 +448,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 5,
+    marginTop:10
   },
 
   caloriesImg: {
@@ -423,7 +478,7 @@ const styles = StyleSheet.create({
   loggingSmallText: {
     color: 'black',
     fontFamily: 'Segoe UI',
-    fontSize: 13,
+    fontSize: 15,
     fontWeight: '400',
     marginLeft: 8,
   },
@@ -651,6 +706,16 @@ const styles = StyleSheet.create({
   },
 
   button2: {
+    width: 120,
+    height: 50,
+    borderRadius: 30,
+    backgroundColor: '#1986EC',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop:20,
+  },
+
+  buttonLog2: {
     width: 120,
     height: 50,
     borderRadius: 30,
