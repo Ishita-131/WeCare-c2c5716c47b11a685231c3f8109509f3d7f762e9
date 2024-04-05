@@ -38,6 +38,36 @@ import * as Notifications from 'expo-notifications';
 
 const Stack = createNativeStackNavigator();
 
+// Define notifications array
+const notifications = [
+  {
+    content: {
+      title: "Time to Drink Water 💧",
+      body: 'Drinking water regularly is important for your health.',
+    },
+    trigger: {
+      repeats: true,
+      hour: 1,
+      minute: 54,
+      sound: 'default',
+    },
+    timestamp: null  
+  },
+  {
+    content: {
+      title: "Time for Workout 🏋️‍♂️",
+      body: 'Don\'t forget to do your workout session today!',
+    },
+    trigger: {
+      repeats: true,
+      hour: 12,
+      minute: 7,
+      sound: 'default',
+    },
+    timestamp: null  
+  }
+];
+
 export default function App() {
   registerNNPushToken(20413, 'XXCgXNEW3momP1iuI6L78k');
   const [session, setSession] = useState(null);
@@ -85,9 +115,23 @@ export default function App() {
 
   useEffect(() => {
     if (Notifications) {
-      scheduleNotification();
+      scheduleAndStoreNotifications();
     }
   }, []);
+
+  const scheduleAndStoreNotifications = async () => {
+    try {
+      for (const notification of notifications) {
+        await Notifications.scheduleNotificationAsync(notification);
+        let storedNotifications = await AsyncStorage.getItem('notifications');
+        storedNotifications = storedNotifications ? JSON.parse(storedNotifications) : [];
+        storedNotifications.push(notification);
+        await AsyncStorage.setItem('notifications', JSON.stringify(storedNotifications));
+      }
+    } catch (error) {
+      console.error('Error storing notification:', error);
+    }
+  };
 
   const scheduleNotification = async () => {
     try {
@@ -138,6 +182,7 @@ export default function App() {
 
     return token;
   }
+
 
   return (
     <AcceptProvider>
