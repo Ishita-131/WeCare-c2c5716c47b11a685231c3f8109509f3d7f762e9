@@ -92,11 +92,10 @@ function ListAmbassadors() {
         }
       />
       <View style={styles.pagination}>
-        <Button title="Prev" onPress={prevPage} disabled={startIndex === 0} />
+        <Button title="Prev" onPress={prevPage} />
         <Button
           title="Next"
           onPress={nextPage}
-          disabled={startIndex === 10 || startIndex === 11}
         />
       </View>
     </View>
