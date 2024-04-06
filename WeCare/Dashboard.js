@@ -12,7 +12,8 @@ import Tracking from './Tracking.js';
 import ChatBot from './Chatbot.js';
 import NotificationTemplate from './NotificationInbox';
 import AppointmentsMade from './Components/ListAppointments.js/AppointmentsMade';
-import MentalHealth from './MentalHealth'; // Correct import
+import MentalHealth from './MentalHealth.js'; // Correct import
+
 
 const Drawer = createDrawerNavigator();
 
