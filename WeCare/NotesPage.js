@@ -52,7 +52,7 @@ const NotesPage = () => {
         try {
             const { error } = await supabase.from('notes').delete().eq('id', id);
             if (error) {
-                console.error('Error deleting note:', error.message);
+                throw new Error('Error deleting note:', error.message);
             } else {
                 setNotes(notes.filter(note => note.id !== id));
             }
@@ -60,7 +60,7 @@ const NotesPage = () => {
             console.error('Error deleting note:', error.message);
         }
     };
-
+    
     const confirmDeleteNote = (id) => {
         Alert.alert(
             'Delete Note',
