@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useRef } from "react";
-import { StyleSheet, Text, View, Dimensions, Animated } from "react-native";
+import { StyleSheet, Text, View, Dimensions, Animated, TouchableOpacity} from "react-native";
 
 const { width, height } = Dimensions.get("window");
 const circleWidth = width / 2;
@@ -45,8 +45,12 @@ export default function Breathing() {
     inputRange: [0, 1],
     outputRange: [1, 0],
   });
+  
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('MentalHealth')}>
+        <Text style={styles.welcomeText}>welcome</Text>
+      </TouchableOpacity>
       <Animated.View
         style={{
           width: circleWidth,
@@ -117,10 +121,17 @@ export default function Breathing() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0,
     alignItems: "center",
     justifyContent: "center",
     left: width / 4,
-    top: height / 4,
+    top: height / 3,
+  },
+  welcomeText: {
+    color: "#666",
+    textDecorationLine: "underline",
+    marginTop: '70%',
+    marginRight: '50%',
+    
   },
 });
