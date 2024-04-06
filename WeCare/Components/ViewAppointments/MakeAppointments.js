@@ -37,11 +37,6 @@ function ListAmbassadors() {
       <Text style={styles.description}>{item.Description}</Text>
       <ViewArrangement
         item={item.user_name}
-        user={users}
-        date={date}
-        setDate={setDate}
-        setAccept={setAccept}
-        accept={accept}
       />
       <View style={styles.cancelButtonContainer}>
         <CancelAppointment item={item.user_name} user={users} />

@@ -6,9 +6,7 @@ import DashboardScreen from './dashboardScreen';
 import Profile from './Profile';
 import Account from './Account';
 import ChatbotTemplate from './chatbot';
-import ViewArrangement from './Components/ViewAppointments/ViewArrangement.js';
 import AppointmentsMade from './Components/ListAppointments.js/AppointmentsMade';
-import NotificationTemplate from './NotificationInbox';
 
 const Drawer = createDrawerNavigator();
 

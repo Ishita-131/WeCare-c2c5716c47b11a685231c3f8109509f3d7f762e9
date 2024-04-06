@@ -1,8 +1,15 @@
 import { supabase } from "../../supabase";
 import { Button } from "react-native-elements";
 import { Alert } from "react-native";
+import { UseAccept } from "./accept";
 
-export default function AskAppointment({item,  date, accept, setAccept , users}) {
+export default function AskAppointment({item}) {
+    const {
+        users,
+        date,
+        accept,
+        setAccept,
+      } = UseAccept();
 
     async function makeAppointment() {
         try {
