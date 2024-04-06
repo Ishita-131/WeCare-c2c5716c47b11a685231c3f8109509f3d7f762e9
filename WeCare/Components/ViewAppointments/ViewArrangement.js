@@ -10,7 +10,13 @@ export default function ViewArrangement({setAccept, accept , item , users, date,
     const [title, setTitle] = useState('Arrange Appointment');
 
     return (<>
-        <Button title={title} onPress={() => {
+        {(!block) && (
+            <View>
+                <AskAppointment style={styles.container} accept={accept} item={item} user={users} date={date} setAccept={setAccept}/>
+                <ViewDatePicker date={date} setDate={setDate} />
+            </View>
+        )}
+        <Button title={title}  buttonStyle={styles.arrangeButton} onPress={() => {
             setBlock(!block)
             if (!block) {
                 setTitle('Arrange Appointment')
@@ -18,12 +24,6 @@ export default function ViewArrangement({setAccept, accept , item , users, date,
                 setTitle("Close")
             }
         }}/>
-        {(!block) && (
-            <View>
-                <AskAppointment style={styles.container} accept={accept} item={item} user={users} date={date} setAccept={setAccept}/>
-                <ViewDatePicker date={date} setDate={setDate} />
-            </View>
-        )}
     </>)
 
 }
@@ -33,5 +33,8 @@ const styles = StyleSheet.create({
         position: 'relative',
         margin: 'auto',
         width: 90,
+    },
+    arrangeButton: {
+        borderRadius: 22, // Add border radius
     },
 })
