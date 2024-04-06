@@ -9,7 +9,7 @@ import Profile from './Profile';
 import Account from './Account';
 import MakeAppointments from './Components/ViewAppointments/MakeAppointments';
 import Tracking from './Tracking.js';
-import ChatBot from './Chatbot.js';
+import ChatBot from './ChatBot';
 import NotificationTemplate from './NotificationInbox';
 import AppointmentsMade from './Components/ListAppointments.js/AppointmentsMade';
 import MentalHealth from './MentalHealth.js'; // Correct import
