@@ -87,7 +87,7 @@ const NotesPage = () => {
                     onChangeText={setPatientName}
                 />
                 <TextInput
-                    style={styles.input}
+                    style={styles.input2}
                     placeholder="Write your note here..."
                     value={currentNote}
                     onChangeText={setCurrentNote}
@@ -132,6 +132,16 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         minHeight: 50,
     },
+
+    input2: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 8,
+        padding: 10,
+        marginBottom: 10,
+        minHeight: 100,
+    },
+
     addButton: {
         backgroundColor: '#007AFF',
         paddingVertical: 15,
