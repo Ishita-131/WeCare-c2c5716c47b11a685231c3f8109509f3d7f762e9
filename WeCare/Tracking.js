@@ -8,28 +8,33 @@ import ProfileButton2 from './assets/images/ProfileButton2.png'; // Import the i
 import ProgressImg from './assets/images/ProgressImg.png'; // Import the image
 import BannerPie from './assets/images/BannerPie.png'; // Import the circular image
 
+
 const Tracking = () => {
+  const navigation = useNavigation(); // Get navigation object using useNavigation hook
+
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.welcomeStyles}>Welcome to your tracker,</Text>
-        <Image source={ProfileButton2} style={styles.profileButton} />
-      </View>
-      <View style={styles.container2}>
-        <TargetCard />
-        <NotificationButton />
-        <ProgressCard /> 
-        <View style={styles.cardContainer}>
-          <FitnessCard />
-          <DietCard />
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.welcomeStyles}>Welcome to your tracker,</Text>
+          <Image source={ProfileButton2} style={styles.profileButton} />
         </View>
-        <BMICard />
+        <View style={styles.container2}>
+          <TargetCard />
+          <NotificationButton />
+          <ProgressCard />
+          <View style={styles.cardContainer}>
+            {/* Pass navigation prop to FitnessCard and DietCard */}
+            <FitnessCard navigation={navigation} />
+            <DietCard navigation={navigation} />
+          </View>
+          <BMICard />
+        </View>
       </View>
-    </View>
     </ScrollView>
   );
 };
+
 
 const TargetCard = () => {
   return (
@@ -42,12 +47,19 @@ const TargetCard = () => {
 };
 
 const NotificationButton = () => {
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate('NotificationTemplate'); // Navigate to the NotificationInbox page
+  };
+
   return (
-    <TouchableOpacity style={styles.notificationButton}>
+    <TouchableOpacity style={styles.notificationButton} onPress={handlePress}>
       <Text style={styles.notificationButtonText}>Notifications</Text>
     </TouchableOpacity>
   );
 };
+
 
 const ProgressCard = () => {
   return (
@@ -88,29 +100,25 @@ const Card3 = () => {
   );
 };
 
-const FitnessCard = () => {
-    const navigation = useNavigation();
-    
-    const handlePress = () => {
-        navigation.navigate('FitnessTracker');
-      };
+const FitnessCard = ({ navigation }) => {
+  const handlePress = () => {
+    navigation.navigate('FitnessTracker');
+  };
+
   return (
     <View style={styles.fitnesscard}>
       <Text style={styles.fitnessTitle}>Fitness Tracker</Text>
       <TouchableOpacity style={styles.button} onPress={handlePress}>
-        <Text style={styles.buttonText}>Go</Text>
+        <Text style={styles.buttonText}>Go </Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-const DietCard = () => {
-
-    const navigation = useNavigation();
-    
-    const handlePress = () => {
-        navigation.navigate('DietTracker');
-      };
+const DietCard = ({ navigation }) => {
+  const handlePress = () => {
+    navigation.navigate('DietTracker');
+  };
 
   return (
     <View style={styles.dietcard}>
