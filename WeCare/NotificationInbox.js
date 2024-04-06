@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const InboxScreen = () => {
@@ -46,7 +46,7 @@ const InboxScreen = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginVertical: 20 }}>
         Inbox
       </Text>
@@ -74,5 +74,13 @@ const InboxScreen = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFF', // Set default background color to white
+  },
+});
 
 export default InboxScreen;

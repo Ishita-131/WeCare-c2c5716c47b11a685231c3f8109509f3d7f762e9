@@ -1,89 +1,89 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Image } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import { Image } from 'react-native';
-
-
-
-
+import { supabase } from './supabase';
 
 const maxCalories = 1000;
 const currentCalories = 760;
 const caloriesLeft = maxCalories - currentCalories;
 
+
 const DashboardScreen = ({ navigation }) => {
+
+    // Define your mood icons data
+    const moodIcons = [
+        { id: 'happy', source: require('./assets/images/Happy1.png') },
+        { id: 'calm', source: require('./assets/images/Calm1.png') },
+        { id: 'manic', source: require('./assets/images/Manic1.png') },
+        { id: 'angry', source: require('./assets/images/Angry1.png') },
+        { id: 'sad', source: require('./assets/images/Sad1.png') }
+    ];
+
+    const handleMoodSelection = async (mood) => {
+        try {
+            // Send a request to store the mood selection using Supabase client
+            const { data, error } = await supabase
+                .from('UserMood')
+                .insert({ mood });
+    
+            if (error) {
+                throw new Error(error.message);
+            }
+    
+            console.log('Mood selection stored successfully:', data);
+            // Optionally, you can update the UI or show a success message
+        } catch (error) {
+            console.error('Error storing mood selection:', error.message);
+            // Handle errors (e.g., show an error message to the user)
+        }
+    };
+    
     return (
         <ScrollView style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.greeting}>Hi, User</Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Profile')} >
-                <Image
-                    source={require('./assets/images/Profile Button.png')} // Make sure the path is correct
-                    style={styles.profileIcon}
-                />
+                    <Image
+                        source={require('./assets/images/Profile Button.png')} // Make sure the path is correct
+                        style={styles.profileIcon}
+                    />
                 </TouchableOpacity>
             </View>
 
             <View style={styles.quoteContainer}>
-         
+
                 <Text style={styles.quote}>
                     "Take care of your body. It's the only place you have to live." - Jim Rohn
                 </Text>
                 <Image
-                //  source={require('./assets/images/Layer 1.png')}
+                    //  source={require('./assets/images/Layer 1.png')}
                     style={styles.quoteImage}
-             />
+                />
 
             </View>
 
-           
-
-            <TouchableOpacity 
-    style={styles.targetButton} 
-    onPress={() => navigation.navigate('Tracking')} >
-    <Text style={styles.targetButtonText}>Today's Target</Text>
-</TouchableOpacity>
-
-
-            {/* <Text style={styles.activityStatusLabel}>Activity Status</Text> */}
-
-
+            <TouchableOpacity
+                style={styles.targetButton}
+                onPress={() => navigation.navigate('Tracking')} >
+                <Text style={styles.targetButtonText}>Today's Target</Text>
+            </TouchableOpacity>
 
             {/* Mood Selection Section */}
             <View style={styles.moodSelectionContainer}>
                 <Text style={styles.moodSelectionTitle}>How are you feeling today?</Text>
-                <View style={styles.moodIconsContainer}>
-                    <TouchableOpacity>
-                        <Image
-                            source={require('./assets/images/Happy1.png')}
-                            style={styles.moodIcon}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image
-                            source={require('./assets/images/Calm1.png')}
-                            style={styles.moodIcon}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image
-                            source={require('./assets/images/Manic1.png')}
-                            style={styles.moodIcon}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image
-                            source={require('./assets/images/Angry1.png')}
-                            style={styles.moodIcon}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image
-                            source={require('./assets/images/Sad1.png')}
-                            style={styles.moodIcon}
-                        />
-                    </TouchableOpacity>
-                </View>
+                <FlatList
+                    horizontal
+                    data={moodIcons}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity onPress={() => handleMoodSelection(item.id)}>
+                            <Image
+                                source={item.source}
+                                style={styles.moodIcon}
+                            />
+                        </TouchableOpacity>
+                    )}
+                />
             </View>
 
 
@@ -92,15 +92,15 @@ const DashboardScreen = ({ navigation }) => {
 
             <View style={styles.activityStatusContainer}>
                 <View style={styles.activityCard}>
-                <View style={styles.activityCardTitleContainer}>
+                    <View style={styles.activityCardTitleContainer}>
                         <Text style={styles.activityCardTitle}>Calories</Text>
                         <Text style={styles.currentCalories}>{currentCalories} KCal</Text>
                     </View>
-                <AnimatedCircularProgress
+                    <AnimatedCircularProgress
                         size={120}
                         width={15}
                         fill={(currentCalories / maxCalories) * 100}
-                        tintColor="#C58BF2" 
+                        tintColor="#C58BF2"
                         backgroundColor="#F7F8F8"
                     >
                         {() => (
@@ -117,49 +117,49 @@ const DashboardScreen = ({ navigation }) => {
 
                 {/* Sleep Card */}
                 <View style={styles.activityCard}>
-                <View style={styles.activityCardTitleContainer2}>
-                    <Text style={styles.activityCardTitle}>Sleep</Text>
-                    <Text style={styles.currentCalories}>8h 20m</Text>
-                </View>
-                
+                    <View style={styles.activityCardTitleContainer2}>
+                        <Text style={styles.activityCardTitle}>Sleep</Text>
+                        <Text style={styles.currentCalories}>8h 20m</Text>
+                    </View>
+
                     {/* You'll need to implement a graph or similar component */}
                     <Image
-            source={require('./assets/images/Sleep-Graph.png')}
-            style={styles.graphImage}
-            resizeMode="contain" // Adjust the resizeMode as needed
-          />
+                        source={require('./assets/images/Sleep-Graph.png')}
+                        style={styles.graphImage}
+                        resizeMode="contain" // Adjust the resizeMode as needed
+                    />
                 </View>
             </View>
 
-            
-            
+
+
 
             <View style={styles.sessionsContainer}>
-  <View style={styles.textContainer}>
-    <Text style={styles.sessionsTitle}>1 on 1 Sessions</Text>
-    <Text style={styles.sessionsSubtitle} numberOfLines={2}>
-      Create an appointment with an ambassador
-    </Text>
-    <TouchableOpacity onPress={() => navigation.navigate('Book an Appointment')}>  
-      <Text style={styles.bookNowText}>
-        Book Now 
-        <Image
-          source={require('./assets/images/dateIcon1.png')}
-          style={styles.dateIcon}
-        />
-      </Text>
-    </TouchableOpacity>
-  </View>
-  <Image
-    source={require('./assets/images/Sessionimage1.png')}
-    style={styles.sessionImage}
-  />
-</View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.sessionsTitle}>1 on 1 Sessions</Text>
+                    <Text style={styles.sessionsSubtitle} numberOfLines={2}>
+                        Create an appointment with an ambassador
+                    </Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('Book an Appointment')}>
+                        <Text style={styles.bookNowText}>
+                            Book Now
+                            <Image
+                                source={require('./assets/images/dateIcon1.png')}
+                                style={styles.dateIcon}
+                            />
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                <Image
+                    source={require('./assets/images/Sessionimage1.png')}
+                    style={styles.sessionImage}
+                />
+            </View>
 
 
-    
 
-            
+
+
         </ScrollView>
     );
 };
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-   
+
     header: {
         flexDirection: 'row', // Align children in a row
         justifyContent: 'space-between', // Distribute space between the children
@@ -208,6 +208,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20, // Adjust horizontal margin to make the container smaller
         marginTop: 20, // Adjust as needed
         marginBottom: 20, // Adjust as needed
+        height: 150,
         backgroundColor: '#f0f0f0',
         borderRadius: 8,
         padding: 16,
@@ -221,20 +222,6 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
 
-    // quoteImage: {
-    //     width: 100,   // Set the width of your image
-    //     height: 175,  // Set the height of your image
-    //     marginBottom: 20, // Spacing between the image and the quote text
-    //     marginLeft: 20, 
-    // }, 
-
-    // quote: {
-    //     flexShrink: 1,
-    //     textAlign: 'center',
-    //     fontStyle: 'italic',
-    //     fontSize: 16,
-    // },
-   
     quote: {
         flex: 1, // Take up the remaining space in the flex container
         fontStyle: 'italic',
@@ -295,15 +282,13 @@ const styles = StyleSheet.create({
     },
 
     activityStatusLabel: {
-        paddingHorizontal: 20,
-        fontSize: 22,
+        fontSize: 18,
         fontWeight: 'bold',
-        color: '#333',
-        marginTop: 20, // You can adjust the margin as needed to match your Figma design
-        marginBottom: 10, // Space before the activity cards start
+        marginBottom: 10, // Adjust as per your design
+        textAlign: 'center', // This ensures that your text is centered
     },
 
-    
+
 
     // activityStatusContainer: {
     //     flexDirection: 'row',
@@ -326,11 +311,11 @@ const styles = StyleSheet.create({
     },
 
     activityCard: {
-        backgroundColor: '#E0E4EA', 
+        backgroundColor: '#E0E4EA',
         padding: 20,
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center', 
+        justifyContent: 'center',
         borderRadius: 8,
         marginHorizontal: 10,
         shadowColor: '#000',
@@ -341,29 +326,27 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
         elevation: 4,
-        //minHeight: 350,
         width: 150, // Set a fixed width or adjust as needed
-        height: 195, // Set a fixed height or adjust as needed
+        height: 200, // Set a fixed height or adjust as needed
     },
     activityCardTitle: {
         fontSize: 14,
         fontWeight: 'bold',
         color: '#333',
         position: 'absolute',
-    top: 20, // Position at the top of the box
-    alignSelf: 'center', // Center horizontally
+        top: 20, // Position at the top of the box
+        alignSelf: 'center', // Center horizontally
     },
 
     activityCardTitleContainer: {
         alignSelf: 'center', // Align the title container to center horizontally
-        marginTop: -33, // Move the title container up above the progress circle
-        
+
     },
 
     activityCardTitleContainer2: {
         alignSelf: 'center', // Align the title container to center horizontally
-        marginTop: 60, // Move the title container up above the sleep diagram
-        
+        marginTop: 50, // Move the title container up above the sleep diagram
+
     },
 
     circularProgressInner: {
@@ -378,15 +361,15 @@ const styles = StyleSheet.create({
     graphImage: {
         width: '100%', // Take up all available horizontal space
         height: 200, // Set the height of the image
-        marginTop: 10, // Space between the title and the image
-      },
-    
+        marginTop: -40,
+    },
+
 
     caloriesLeft: {
         fontSize: 12,
         fontWeight: 'bold',
         color: '#FFFFFF',
-        
+
     },
 
     activityCardValue: {
@@ -421,6 +404,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         marginTop: 20, // Adjust this as needed
         alignItems: 'center', // This ensures that your container's items are centered
+        marginBottom: 20,
     },
 
     moodSelectionTitle: {
@@ -438,13 +422,20 @@ const styles = StyleSheet.create({
     },
 
     moodIcon: {
-        width: 70, // Adjust if needed
-        height: 70, // Adjust if needed
-        resizeMode: 'contain', // This ensures the image fits within the dimensions
-        marginHorizontal: 5, // This adds space to the left and right of each image
+        width: 70,
+        height: 70,
+        resizeMode: 'contain',
+        marginHorizontal: 5,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        elevation: 2, // for Android shadow
+        opacity: 0.9, // Example opacity
     },
-
-
 
     sessionsContainer: {
         flexDirection: 'row',
@@ -455,50 +446,51 @@ const styles = StyleSheet.create({
         padding: 20,
         marginHorizontal: 20,
         marginTop: 20,
+        marginBottom: 60,
         // To add the shadow as per your Figma design, adjust the values below
         shadowColor: '#000',
         shadowOffset: {
-          width: 0,
-          height: 2,
+            width: 0,
+            height: 2,
         },
         shadowOpacity: 0.1,
         shadowRadius: 2,
         elevation: 4,
-      },
-      textContainer: {
+    },
+    textContainer: {
         flex: 1,
         justifyContent: 'center',
-      },
-      sessionsTitle: {
+    },
+    sessionsTitle: {
         fontSize: 25,
         fontWeight: 'bold',
         color: '#333',
-        marginBottom: 4, 
-      },
-      sessionsSubtitle: {
+        marginBottom: 4,
+    },
+    sessionsSubtitle: {
         fontSize: 14,
         color: '#333',
         marginVertical: 4,
-        marginBottom: 4, 
-      },
-      bookNowText: {
+        marginBottom: 4,
+    },
+    bookNowText: {
         fontSize: 16,
         fontWeight: 'bold',
         color: '#FE8235', // Color as per Figma design for clickable text
-        marginBottom: 10, 
-        
-      },
-      dateIcon: {
+        marginBottom: 10,
+
+    },
+    dateIcon: {
         width: 10,
         height: 8,
         marginLeft: 5,
-      },
-      sessionImage: {
+    },
+    sessionImage: {
         width: 120, // Adjust the size as per your design requirement
         height: 120, // Adjust the size to maintain the aspect ratio
         resizeMode: 'contain',
         alignSelf: 'flex-end',
-      },
+    },
 
 
 
@@ -506,5 +498,3 @@ const styles = StyleSheet.create({
 });
 
 export default DashboardScreen;
-
-//aa
