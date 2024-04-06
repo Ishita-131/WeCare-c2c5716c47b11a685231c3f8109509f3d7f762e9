@@ -37,6 +37,7 @@ import ViewArrangement from './Components/ViewAppointments/ViewArrangement.js';
 import AskAppointment from './Components/ViewAppointments/AskAppointment.js';
 import * as Notifications from 'expo-notifications';
 import NotificationTemplate from './NotificationInbox';
+import MentalHealth from './MentalHealth.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -264,6 +265,10 @@ export default function App() {
                 navigation: navigation,
               })} /> 
               <Stack.Screen name="DietTracker" component={DietTracker}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} /> 
+              <Stack.Screen name="MentalHealth" component={MentalHealth}options={({ navigation }) => ({
                 headerShown: false,
                 navigation: navigation,
               })} /> 

@@ -19,9 +19,6 @@ export default function ViewDatePicker({date, setDate}) {
         mode="datetime"
         display="spinner"
         onChange={selectedDate} />
-        <Text>
-            {date.toString()}
-        </Text>
     </View> 
     </>)
 }

@@ -12,7 +12,8 @@ import Tracking from './Tracking.js';
 import ChatBot from './ChatBot';
 import NotificationTemplate from './NotificationInbox';
 import AppointmentsMade from './Components/ListAppointments.js/AppointmentsMade';
-import MentalHealth from './MentalHealth'; // Correct import
+import MentalHealth from './MentalHealth.js'; // Correct import
+
 
 const Drawer = createDrawerNavigator();
 
@@ -21,13 +22,13 @@ export default function Dashboard() {
     <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen name="Home" component={DashboardScreen} />
       <Drawer.Screen name="Profile" component={Profile} />
-      <Drawer.Screen name="Account" component={Account} />
       <Drawer.Screen name="Book an Appointment" component={MakeAppointments} />
       <Drawer.Screen name="Appointments Made" component={AppointmentsMade} />
       <Drawer.Screen name="Wellness" component={Tracking} />
       <Drawer.Screen name="Mental Health" component={MentalHealth}/>
       <Drawer.Screen name="Chatbot" component={ChatBot} />
       <Drawer.Screen name="Access Notifications" component={NotificationTemplate} />
+      <Drawer.Screen name="Sign Out" component={Account} />
     </Drawer.Navigator>
   );
 }
