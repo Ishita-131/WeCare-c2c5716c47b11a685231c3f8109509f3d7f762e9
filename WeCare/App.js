@@ -15,10 +15,11 @@ import MakeAppointments from './Components/ViewAppointments/MakeAppointments.js'
 import registerNNPushToken from 'native-notify';
 import { AcceptProvider } from './Components/ViewAppointments/accept.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ChatBot from './ChatBot.js';
+import ChatBot from './chatbot.js';
 import Login from './Login.js';
 import SignUp from './SignUp.js';
 import UpcomingWorkouts from './UpcomingWorkouts.js';
+import FavMeals from './FavMeals.js';
 import DeleteProfile from './DeleteProfile.js'; 
 import RetrieveProfile from './RetrieveProfile.js';
 import Options from './Options.js';
@@ -36,6 +37,8 @@ import ViewArrangement from './Components/ViewAppointments/ViewArrangement.js';
 import AskAppointment from './Components/ViewAppointments/AskAppointment.js';
 import * as Notifications from 'expo-notifications';
 import NotificationTemplate from './NotificationInbox';
+import MentalHealth from './Components/MentalHealth /MentalHealth.js';
+import Breathing from './Components/MentalHealth /Breathing.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -266,11 +269,24 @@ export default function App() {
                 headerShown: false,
                 navigation: navigation,
               })} /> 
+              <Stack.Screen name="MentalHealth" component={MentalHealth}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} /> 
+              <Stack.Screen name="Breathing" component={Breathing} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/>
+
               <Stack.Screen name="ChatBot" component={ChatBot} options={({ navigation }) => ({
                 headerShown: false,
                 navigation: navigation,
               })}/>
               <Stack.Screen name="UpcomingWorkouts" component={UpcomingWorkouts} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/> 
+              <Stack.Screen name="FavMeals" component={FavMeals} options={({ navigation }) => ({
                 headerShown: false,
                 navigation: navigation,
               })}/> 

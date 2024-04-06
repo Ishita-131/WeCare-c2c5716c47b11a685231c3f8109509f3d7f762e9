@@ -1,8 +1,12 @@
 import DateTimePicker from "@react-native-community/datetimepicker"
 import { View, Text } from "react-native";
-
+import { UseAccept } from "./accept";
 {/** Views Date Picker */}
-export default function ViewDatePicker({date, setDate}) {
+export default function ViewDatePicker() {
+    const {
+        date,
+        setDate,
+      } = UseAccept();
 
     const selectedDate = (event , selectedDate) => {
         if (selectedDate !== undefined) {
@@ -19,9 +23,6 @@ export default function ViewDatePicker({date, setDate}) {
         mode="datetime"
         display="spinner"
         onChange={selectedDate} />
-        <Text>
-            {date.toString()}
-        </Text>
     </View> 
     </>)
 }

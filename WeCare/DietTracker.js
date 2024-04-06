@@ -5,8 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
 import { supabase } from './supabase';
 import ProfileButton2 from './assets/images/ProfileButton2.png'; // Import the image
-import Workout from './assets/images/Workout.png';
-import Workout2 from './assets/images/Workout2.png';
+import StirFry from './assets/images/stirfry.png';
+import Salad from './assets/images/salad.png';
 import Drop from './assets/images/drop.png';
 
 
@@ -35,9 +35,10 @@ const DietTracker = () => {
             <WaterLoggingCard />
             <CaloriesCard />
           </View>
-          <UpcomingWorkouts />
-          <Upcoming1 />
-          <Upcoming2 />
+          <QuoteCard />
+          <FavouriteMeals />
+          <FavouriteRec1 />
+          <FavouriteRec2 />
           <ExerciseCount />
         </View>
       </ScrollView>
@@ -161,12 +162,12 @@ const CaloriesCard = () => {
         console.error('Please fill in all fields');
         return;
       }
-  
+
       // Insert meal data into the database
       const { data, error } = await supabase.from('meals').insert([
         { meal_name: mealName, time: time, timestamp: new Date() },
       ]);
-  
+
       if (error) {
         console.error('Error logging meal:', error.message);
       } else {
@@ -179,7 +180,7 @@ const CaloriesCard = () => {
       console.error('Error logging meal:', error.message);
     }
   };
-  
+
   return (
     <View style={styles.loggingcard}>
       <Text style={styles.loggingTitle}>Log Meal</Text>
@@ -208,17 +209,29 @@ const CaloriesCard = () => {
 };
 
 
-const UpcomingWorkouts = () => {
+const QuoteCard = () => {
+  return (
+    <View style={styles.quoteContainer}>
+
+      <Text style={styles.quote}>
+      "Success is the sum of small efforts, repeated day in and day out." - Robert Collier
+      </Text>
+
+    </View>
+  );
+};
+
+const FavouriteMeals = () => {
   const navigation = useNavigation();
 
   const handleSeeMorePress = () => {
-    navigation.navigate('UpcomingWorkouts'); // Navigate to the UpcomingWorkouts page
+    navigation.navigate('FavMeals'); // Navigate to the FavMeals page
   };
 
   return (
     <View style={styles.UpcomingWorkouts}>
-      <View style={styles.titleWorkoutsContainer}>
-        <Text style={styles.UpcomingWorkoutsTitle}>Upcoming Workouts</Text>
+      <View style={styles.FavMealsContainer}>
+        <Text style={styles.MealsTitle}>Favourtie Meals</Text>
         <TouchableOpacity onPress={handleSeeMorePress}>
           <Text style={styles.seeMoreButton}>See more</Text>
         </TouchableOpacity>
@@ -227,16 +240,18 @@ const UpcomingWorkouts = () => {
   );
 };
 
-const Upcoming1 = () => {
+
+const FavouriteRec1 = () => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   return (
     <View style={styles.upcoming1Container}>
       <View style={styles.cardContentUpcoming}>
-        <Image source={Workout} style={styles.workoutImage} />
+        {/* Move the image container to the left side */}
+        <Image source={StirFry} style={styles.workoutImage} />
         <View>
-          <Text style={styles.UpcomingText}>FullBody Workout</Text>
+          <Text style={styles.UpcomingText}>Stirfry</Text>
           <Text style={[styles.UpcomingText2, styles.dateText]}>Today, 03:00pm</Text>
         </View>
         <Switch
@@ -252,16 +267,16 @@ const Upcoming1 = () => {
 };
 
 
-const Upcoming2 = () => {
+const FavouriteRec2 = () => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   return (
     <View style={styles.upcoming1Container}>
       <View style={styles.cardContentUpcoming}>
-        <Image source={Workout2} style={styles.workoutImage} />
+        <Image source={Salad} style={styles.workoutImage} />
         <View>
-          <Text style={styles.UpcomingText2}>UpperBody Workout</Text>
+          <Text style={styles.UpcomingText2}>Greek Salad</Text>
           <Text style={[styles.UpcomingText2, styles.dateText]}>April 20, 01:00pm</Text>
         </View>
         <Switch
@@ -282,25 +297,37 @@ const ExerciseCount = () => {
       colors={['#92A3FD', '#9DCEFF']}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
-      style={styles.ExerciseCountStyle}
+      style={styles.MealStyle}
     >
       <View style={styles.cardContentExCount}>
-        <Text style={styles.CountTitle}>Weekly Exercise Count</Text>
-        <View style={styles.countAndButtonContainer}>
-          {/* More Details Button */}
-          <TouchableOpacity style={styles.learnMoreButton2}>
-            <Text style={styles.learnMoreText}>More Details</Text>
-          </TouchableOpacity>
-          {/* Exercise Count Circle */}
-          <View style={styles.countContainer}>
-            <Text style={styles.CountNumber}>20</Text>
+        <Text style={styles.nutrientTitle}>Nutritional Value</Text>
+        <View style={styles.nutritionalInfo}>
+          <View style={styles.nutrient}>
+            <Text style={styles.nutrientLabel}>Calories:</Text>
+            <Text style={styles.nutrientValue}>500 kcal</Text>
           </View>
+          <View style={styles.nutrient}>
+            <Text style={styles.nutrientLabel}>Protein:</Text>
+            <Text style={styles.nutrientValue}>25g</Text>
+          </View>
+          <View style={styles.nutrient}>
+            <Text style={styles.nutrientLabel}>Carbs:</Text>
+            <Text style={styles.nutrientValue}>50g</Text>
+          </View>
+          <View style={styles.nutrient}>
+            <Text style={styles.nutrientLabel}>Fat:</Text>
+            <Text style={styles.nutrientValue}>20g</Text>
+          </View>
+          {/* Add more nutrients as needed */}
         </View>
+        {/* More Details Button */}
+        <TouchableOpacity style={styles.learnMoreButton2}>
+          <Text style={styles.learnMoreText}>More Details</Text>
+        </TouchableOpacity>
       </View>
     </LinearGradient>
   );
 };
-
 
 
 const styles = StyleSheet.create({
@@ -448,7 +475,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop:10
+    marginTop: 10
   },
 
   caloriesImg: {
@@ -540,24 +567,53 @@ const styles = StyleSheet.create({
     width: 348, // Set width to match the target card's width
   },
 
-  UpcomingWorkoutsTitle: {
+  quoteContainer: {
+    flexDirection: 'row', // Set the direction of children to horizontal
+    justifyContent: 'space-between', // Distribute space between the children
+    alignItems: 'center', // Center children vertically
+    marginHorizontal: 20, // Adjust horizontal margin to make the container smaller
+    marginTop: 20, // Adjust as needed
+    marginBottom: 20, // Adjust as needed
+    height: 150,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 8,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+  },
+
+  quote: {
+    flex: 1, // Take up the remaining space in the flex container
+    fontStyle: 'italic',
+    fontSize: 14, // Adjust font size as needed
+    textAlign: 'center', // Align to the left if text is short
+    fontWeight: '600',
+  },
+
+  MealsTitle: {
     fontFamily: 'Poppins',
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '600',
     lineHeight: 24, // React Native does not require units for lineHeight
     color: '#1D1617', // Use the provided color or fallback to #1D1617
-    marginTop: 10,
+    marginTop:10, 
   },
 
-  titleWorkoutsContainer: {
+  FavMealsContainer: {
     flexDirection: 'row', // Align children in a row
     justifyContent: 'space-between', // Distribute children along the row
     alignItems: 'center', // Align items vertically
     width: '100%', // Ensure full width
     paddingHorizontal: 20, // Add padding to the sides
-    marginTop: 8,
-  },
+    marginTop: 8, 
+  }, 
 
   seeMoreButton: {
     fontFamily: 'Poppins',
@@ -586,6 +642,7 @@ const styles = StyleSheet.create({
     elevation: 4,
     marginVertical: 10,
   },
+
   cardContentUpcoming: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -594,13 +651,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+  workoutImage: {
+    width: 50, // Adjust the width to make the image smaller
+    height: 50, // Adjust the height to make the image smaller
+    marginRight:-80,
+  },
+
   UpcomingText: {
     fontFamily: 'Poppins',
     fontSize: 14, // React Native does not require units for fontSize
     fontStyle: 'normal',
     fontWeight: '500',
     lineHeight: 18, // React Native does not require units for lineHeight
-    marginRight: 40,
     marginTop: -15,
   },
 
@@ -610,7 +672,6 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: '500',
     lineHeight: 18, // React Native does not require units for lineHeight
-    marginRight: 18,
     marginTop: -15,
   },
 
@@ -624,10 +685,10 @@ const styles = StyleSheet.create({
     color: '#ADA4A5', // Specify the color explicitly
   },
 
-  ExerciseCountStyle: {
+  MealStyle: {
     // Updated styles for Exercise Count card
     width: 348,
-    height: 140,
+    height: 200,
     borderRadius: 10,
     overflow: 'hidden',
     marginTop: 10,
@@ -638,44 +699,36 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
 
-  cardContentExCount: {
-    // Updated styles for content container
-    flex: 1,
-  },
-
-  CountTitle: {
-    // Styles for Weekly Exercise Count title
+  nutrientTitle:{
     color: 'white',
     fontFamily: 'Poppins',
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: 'bold',
+  },
+  
+  nutritionalInfo: {
     marginTop: 10,
   },
 
-  countAndButtonContainer: {
-    // Container for count and button
+  nutrient: {
     flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+    marginLeft:8,
   },
 
-  countContainer: {
-    // Container for exercise count
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 50,
-    width: 90,
-    height: 90,
-    marginLeft: 20,
-    marginBottom: 10,
-  },
-
-  CountNumber: {
-    // Styles for exercise count number
-    color: '#1986EC',
+  nutrientLabel: {
+    color: 'white',
     fontFamily: 'Poppins',
-    fontSize: 24,
+    fontSize: 14,
     fontWeight: 'bold',
+  },
+
+  nutrientValue: {
+    color: 'white',
+    fontFamily: 'Poppins',
+    fontSize: 14,
+    marginRight:70,
   },
 
   learnMoreButton: {
@@ -703,6 +756,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginRight: 50,
     marginLeft: -3,
+    marginTop:10,
+    width:300,
   },
 
   button2: {
@@ -712,7 +767,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1986EC',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop:20,
+    marginTop: 20,
   },
 
   buttonLog2: {
@@ -722,7 +777,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1986EC',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom:10,
+    marginBottom: 10,
   },
 
   buttonText2: {

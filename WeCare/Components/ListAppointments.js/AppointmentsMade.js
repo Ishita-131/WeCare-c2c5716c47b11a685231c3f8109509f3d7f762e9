@@ -37,7 +37,7 @@ export default function AppointmentsMade() {
     }
 
     return (<>
-        <View>
+        <View style={styles.mainContainer}>
             <FlatList
             data={Appointment}
             keyExtractor={(item) => item.id}
@@ -51,16 +51,20 @@ export default function AppointmentsMade() {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    mainContainer: {
         flex: 1,
-        flexDirection: 'row', // Arrange items horizontally
-        alignItems: 'center', // Align items vertically in the center
-        justifyContent: 'space-between', // Distribute items evenly along the main axis
+        paddingTop: 20,
+        backgroundColor: "#fff",
+    },
+    container: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
         padding: 10,
         borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
+        borderBottomColor: "#ccc",
     },
-    test : {
-        height: 100,
-    }
+    flatList: {
+        flex: 1,
+    },
 });
