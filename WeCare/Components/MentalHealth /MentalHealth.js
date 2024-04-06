@@ -6,7 +6,7 @@ const MentalHealth = () => {
   const navigation = useNavigation();
 
   const goToBreathing = () => {
-    navigation.navigate('Breathing');
+    navigation.navigate('BreathingScreen');
   };
 
   return (

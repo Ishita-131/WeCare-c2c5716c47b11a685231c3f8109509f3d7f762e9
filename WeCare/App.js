@@ -39,6 +39,8 @@ import * as Notifications from 'expo-notifications';
 import NotificationTemplate from './NotificationInbox';
 import MentalHealth from './Components/MentalHealth /MentalHealth.js';
 import Breathing from './Components/MentalHealth /Breathing.js';
+import BreathingScreen from './BreathingScreen.js';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -273,10 +275,15 @@ export default function App() {
                 headerShown: false,
                 navigation: navigation,
               })} /> 
-              <Stack.Screen name="Breathing" component={Breathing} options={({ navigation }) => ({
+              <Stack.Screen name="Breathing" component={Breathing}options={({ navigation }) => ({
                 headerShown: false,
                 navigation: navigation,
-              })}/>
+              })} />
+              <Stack.Screen name="BreathingScreen" component={BreathingScreen}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} />
+
 
               <Stack.Screen name="ChatBot" component={ChatBot} options={({ navigation }) => ({
                 headerShown: false,
