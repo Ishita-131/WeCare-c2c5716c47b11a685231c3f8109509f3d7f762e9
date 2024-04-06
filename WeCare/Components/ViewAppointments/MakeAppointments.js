@@ -47,7 +47,7 @@ function ListAmbassadors() {
             setIndex(StartIndex - 10)
         } 
     }
-    
+
     const fetchAmbassadors = async () => {
         try {
             setRefresh(true)
