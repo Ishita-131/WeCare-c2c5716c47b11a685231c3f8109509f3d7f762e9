@@ -7,8 +7,8 @@ import calories from './assets/images/calories.png';
 import clock from './assets/images/clock.png';
 import { supabase } from './supabase';
 import ProfileButton2 from './assets/images/ProfileButton2.png'; // Import the image
-import Workout from './assets/images/Workout.png';
-import Workout2 from './assets/images/Workout2.png';
+import FullBody from './assets/images/FullBody.png';
+import UpperBody from './assets/images/UpperBody.png';
 
 
 const FitnessTracker = () => {
@@ -318,7 +318,7 @@ const Upcoming1 = () => {
   return (
     <View style={styles.upcoming1Container}>
       <View style={styles.cardContentUpcoming}>
-        <Image source={Workout} style={styles.workoutImage} />
+        <Image source={FullBody} style={styles.workoutImage} />
         <View>
           <Text style={styles.UpcomingText}>FullBody Workout</Text>
           <Text style={[styles.UpcomingText2, styles.dateText]}>Today, 03:00pm</Text>
@@ -343,7 +343,7 @@ const Upcoming2 = () => {
   return (
     <View style={styles.upcoming1Container}>
       <View style={styles.cardContentUpcoming}>
-        <Image source={Workout2} style={styles.workoutImage} />
+        <Image source={UpperBody} style={styles.workoutImage} />
         <View>
           <Text style={styles.UpcomingText2}>UpperBody Workout</Text>
           <Text style={[styles.UpcomingText2, styles.dateText]}>April 20, 01:00pm</Text>
@@ -650,6 +650,11 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: '#ADA4A5',
     marginTop: 10,
+  },
+
+  workoutImage: {
+    width: 50, // Adjust the width to make the image smaller
+    height: 50, // Adjust the height to make the image smaller
   },
 
   upcoming1Container: {
