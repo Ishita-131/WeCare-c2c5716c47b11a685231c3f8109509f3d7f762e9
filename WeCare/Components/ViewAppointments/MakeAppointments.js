@@ -74,7 +74,17 @@ function ListAmbassadors() {
     }
   };
 
+  const fetchUser = async() => {
+    try {
+        const data = await getUser();
+        setUser(data)
+    }catch (error) {
+
+    }
+  }
+
   useEffect(() => {
+    fetchUser();
     fetchAmbassadors();
   }, []);
 
@@ -92,10 +102,11 @@ function ListAmbassadors() {
         }
       />
       <View style={styles.pagination}>
-        <Button title="Prev" onPress={prevPage} />
+        <Button title="Prev" onPress={prevPage} disabled={startIndex===0}/>
         <Button
           title="Next"
           onPress={nextPage}
+          disabled={startIndex===20}
         />
       </View>
     </View>
