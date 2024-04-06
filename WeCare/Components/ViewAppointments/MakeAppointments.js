@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     backgroundColor: '#FFF', // Set default background color to white
-    marginTop:-30,
+    marginTop:-20,
   },
   itemContainer: {
     flexDirection: "column",
@@ -124,7 +124,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#666",
     marginTop: 5,
-    marginBottom:10,
   },
   cancelButtonContainer: {
     marginTop: 10,
@@ -134,5 +133,4 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 10,
   },
-  
 });
