@@ -19,6 +19,7 @@ import ChatBot from './Chatbot.js';
 import Login from './Login.js';
 import SignUp from './SignUp.js';
 import UpcomingWorkouts from './UpcomingWorkouts.js';
+import FavMeals from './FavMeals.js';
 import DeleteProfile from './DeleteProfile.js'; 
 import RetrieveProfile from './RetrieveProfile.js';
 import Options from './Options.js';
@@ -276,6 +277,10 @@ export default function App() {
                 navigation: navigation,
               })}/>
               <Stack.Screen name="UpcomingWorkouts" component={UpcomingWorkouts} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/> 
+              <Stack.Screen name="FavMeals" component={FavMeals} options={({ navigation }) => ({
                 headerShown: false,
                 navigation: navigation,
               })}/> 

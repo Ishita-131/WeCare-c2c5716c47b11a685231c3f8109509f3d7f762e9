@@ -3,6 +3,12 @@ import { ScrollView, View, StyleSheet, TouchableOpacity, Image, Text } from 'rea
 import { useNavigation } from '@react-navigation/native';
 import Salmon from './assets/images/salmon.png';
 import Pasta from './assets/images/pasta.png';
+import Carbonara from './assets/images/Carbonara.png';
+import Shrimp from './assets/images/shrimp.png';
+import ChickenSalad from './assets/images/chickenSalad.png';
+import StirFry from './assets/images/stirfry.png';
+import HoneyChicken from './assets/images/HoneyChicken.png';
+import Salad from './assets/images/salad.png';
 
 const FavMeals = () => {
     const navigation = useNavigation();
@@ -21,45 +27,20 @@ const FavMeals = () => {
               </TouchableOpacity>
               <Text style={styles.favoriteMealsTitle}>Favorite Meals</Text>
             </View>
-            <MealCard name="Spaghetti Bolognese" image={Salmon} />
-            <MealCard name="Grilled Salmon" image={Pasta} />
-            <MealCard name="Pasta Carbonara" image={Pasta} />
-            <MealCard name="Chicken Alfredo" image={Salmon} />
-            <MealCard name="Shrimp Scampi" image={Pasta} />
-            <MealCard name="Caesar Salad" image={Salmon} />
-            <MealCard name="Beef Stroganoff" image={Pasta} />
-            <MealCard name="Vegetable Stir Fry" image={Salmon} />
-            <MealCard name="Honey Garlic Chicken" image={Pasta} />
-            <MealCard name="Teriyaki Salmon" image={Salmon} />
-            <MealCard name="Tofu Curry" image={Pasta} />
-            <MealCard name="Mushroom Risotto" image={Salmon} />
-            <MealCard name="Eggplant Parmesan" image={Pasta} />
-            <MealCard name="Lemon Herb Chicken" image={Salmon} />
-            <MealCard name="Sesame Ginger Beef" image={Pasta} />
-            <MealCard name="Cajun Shrimp" image={Salmon} />
+            <MealCard name="Spaghetti Bolognese" image={Pasta} />
+            <MealCard name="Grilled Salmon" image={Salmon} />
+            <MealCard name="Pasta Carbonara" image={Carbonara} />
+            <MealCard name="Shrimp Scampi" image={Shrimp} />
+            <MealCard name="Caesar Salad" image={ChickenSalad} />
+            <MealCard name="Vegetable Stir Fry" image={StirFry} />
+            <MealCard name="Honey Garlic Chicken" image={HoneyChicken} />
+            <MealCard name="Lemon Herb Chicken" image={HoneyChicken} />
+            <MealCard name="Cajun Shrimp" image={Shrimp} />
             <MealCard name="Pesto Pasta" image={Pasta} />
-            <MealCard name="Spinach Artichoke Chicken" image={Salmon} />
-            <MealCard name="Beef Tacos" image={Pasta} />
-            <MealCard name="Chicken Quesadillas" image={Salmon} />
-            <MealCard name="Vegetarian Pizza" image={Pasta} />
-            <MealCard name="BBQ Ribs" image={Salmon} />
-            <MealCard name="Hawaiian Poke Bowl" image={Pasta} />
-            <MealCard name="Beef Burritos" image={Salmon} />
-            <MealCard name="Caprese Salad" image={Pasta} />
-            <MealCard name="Sweet and Sour Pork" image={Salmon} />
-            <MealCard name="Miso Soup" image={Pasta} />
-            <MealCard name="Lentil Soup" image={Salmon} />
-            <MealCard name="Beef Pho" image={Pasta} />
-            <MealCard name="Vegetable Curry" image={Salmon} />
-            <MealCard name="Ratatouille" image={Pasta} />
-            <MealCard name="Cheeseburger" image={Salmon} />
-            <MealCard name="Club Sandwich" image={Pasta} />
-            <MealCard name="Fish and Chips" image={Salmon} />
-            <MealCard name="Chicken Fried Rice" image={Pasta} />
-            <MealCard name="Beef Bulgogi" image={Salmon} />
-            <MealCard name="Egg Fried Rice" image={Pasta} />
-            <MealCard name="Pad Thai" image={Salmon} />
-            <MealCard name="Chicken Shawarma" image={Pasta} />
+            <MealCard name="Greek Salad" image={Salad} />
+            <MealCard name="Spinach Artichoke Chicken" image={HoneyChicken} />
+            <MealCard name="Caprese Salad" image={Salad} />
+            <MealCard name="Chicken Shawarma" image={HoneyChicken} />
           </View>
         </View>
       </ScrollView>
