@@ -1,10 +1,13 @@
+import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import React, { useRef } from "react";
 import { StyleSheet, Text, View, Dimensions, Animated, TouchableOpacity} from "react-native";
 
 const { width, height } = Dimensions.get("window");
 const circleWidth = width / 2;
+
 export default function Breathing() {
+  const navigation = useNavigation();
   const move = useRef(new Animated.Value(0)).current;
   const textOpacity = useRef(new Animated.Value(1)).current;
   Animated.loop(
