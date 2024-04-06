@@ -5,14 +5,9 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import DashboardScreen from './dashboardScreen';
 import Profile from './Profile';
 import Account from './Account';
-import MakeAppointments from './makeappointments';
-import Tracking from './Tracking';
 import ChatBot from './chatbot';
-import NotificationTemplate from './NotificationInbox';
 import DeleteProfile from './DeleteProfile'; // Import DeleteProfile component
 import RetrieveProfile from './RetrieveProfile'; // Import RetrieveProfile component
-import MentalHealth from './Components/MentalHealth /MentalHealth'; // Correct import
-import TechnicalIssue from './TechnicalIssue';
 import ViewTechnicalIssue from './ViewTechnicalIssue';
 
 
@@ -24,13 +19,12 @@ const Dashboard = () => {
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={DashboardScreen}/>
         <Drawer.Screen name="Profile" component={Profile}/>
-        <Drawer.Screen name="Account" component={Account}/>
         <Drawer.Screen name="Chatbot" component={ChatBot}/>
         {/* Admin Dashboard Buttons */}
         <Drawer.Screen name="Delete User Profiles" component={DeleteProfile}/>
         <Drawer.Screen name="Retrieve Deleted User Profiles" component={RetrieveProfile}/>
-        <Drawer.Screen name="Report Technical Issues" component={TechnicalIssue}/>
         <Drawer.Screen name="View Technical Issues" component={ViewTechnicalIssue}/>
+        <Drawer.Screen name="Sign Out" component={Account} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

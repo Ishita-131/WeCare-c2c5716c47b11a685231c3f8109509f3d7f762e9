@@ -12,6 +12,7 @@ import Tracking from './Tracking.js';
 import ChatBot from './chatbot';
 import NotificationTemplate from './NotificationInbox';
 import AppointmentsMade from './Components/ListAppointments.js/AppointmentsMade';
+import TechnicalIssue from './TechnicalIssue';
 import MentalHealth from './Components/MentalHealth /MentalHealth.js'; // Correct import
 
 
@@ -28,6 +29,7 @@ export default function Dashboard() {
       <Drawer.Screen name="Mental Health" component={MentalHealth}/>
       <Drawer.Screen name="Chatbot" component={ChatBot} />
       <Drawer.Screen name="Access Notifications" component={NotificationTemplate} />
+      <Drawer.Screen name="Report Technical Issues" component={TechnicalIssue}/>
       <Drawer.Screen name="Sign Out" component={Account} />
     </Drawer.Navigator>
   );
