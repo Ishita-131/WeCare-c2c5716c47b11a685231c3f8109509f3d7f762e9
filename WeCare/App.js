@@ -36,6 +36,7 @@ import ViewArrangement from './Components/ViewAppointments/ViewArrangement.js';
 import AskAppointment from './Components/ViewAppointments/AskAppointment.js';
 import * as Notifications from 'expo-notifications';
 import NotificationTemplate from './NotificationInbox';
+import FavMeals from './FavMeals.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -271,6 +272,10 @@ export default function App() {
                 navigation: navigation,
               })}/>
               <Stack.Screen name="UpcomingWorkouts" component={UpcomingWorkouts} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/> 
+              <Stack.Screen name="FavMeals" component={FavMeals} options={({ navigation }) => ({
                 headerShown: false,
                 navigation: navigation,
               })}/> 
