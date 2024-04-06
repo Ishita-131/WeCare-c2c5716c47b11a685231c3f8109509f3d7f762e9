@@ -24,7 +24,7 @@ export default function Dashboard() {
       <Drawer.Screen name="Account" component={Account} />
       <Drawer.Screen name="Book an Appointment" component={MakeAppointments} />
       <Drawer.Screen name="Appointments Made" component={AppointmentsMade} />
-      <Drawer.Screen name="Tracking" component={Tracking} />
+      <Drawer.Screen name="Wellness" component={Tracking} />
       <Drawer.Screen name="Mental Health" component={MentalHealth}/>
       <Drawer.Screen name="Chatbot" component={ChatBot} />
       <Drawer.Screen name="Access Notifications" component={NotificationTemplate} />
