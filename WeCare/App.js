@@ -15,7 +15,7 @@ import MakeAppointments from './Components/ViewAppointments/MakeAppointments.js'
 import registerNNPushToken from 'native-notify';
 import { AcceptProvider } from './Components/ViewAppointments/accept.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ChatBot from './chatbot';
+import ChatBot from './Chatbot';
 import Login from './Login.js';
 import SignUp from './SignUp.js';
 import UpcomingWorkouts from './UpcomingWorkouts.js';
