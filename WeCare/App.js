@@ -38,6 +38,7 @@ import AskAppointment from './Components/ViewAppointments/AskAppointment.js';
 import * as Notifications from 'expo-notifications';
 import NotificationTemplate from './NotificationInbox';
 import MentalHealth from './MentalHealth.js';
+import Breathing from './Breathing.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -272,6 +273,11 @@ export default function App() {
                 headerShown: false,
                 navigation: navigation,
               })} /> 
+              <Stack.Screen name="Breathing" component={Breathing} options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })}/>
+
               <Stack.Screen name="ChatBot" component={ChatBot} options={({ navigation }) => ({
                 headerShown: false,
                 navigation: navigation,
