@@ -11,7 +11,7 @@ import ChatBot from './chatbot';
 import NotificationTemplate from './NotificationInbox';
 import DeleteProfile from './DeleteProfile'; // Import DeleteProfile component
 import RetrieveProfile from './RetrieveProfile'; // Import RetrieveProfile component
-import MentalHealth from './MentalHealth'; // Correct import
+import MentalHealth from './Components/MentalHealth /MentalHealth'; // Correct import
 import TechnicalIssue from './TechnicalIssue';
 import ViewTechnicalIssue from './ViewTechnicalIssue';
 

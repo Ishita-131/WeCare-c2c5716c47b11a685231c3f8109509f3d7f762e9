@@ -37,8 +37,8 @@ import ViewArrangement from './Components/ViewAppointments/ViewArrangement.js';
 import AskAppointment from './Components/ViewAppointments/AskAppointment.js';
 import * as Notifications from 'expo-notifications';
 import NotificationTemplate from './NotificationInbox';
-import MentalHealth from './MentalHealth.js';
-import Breathing from './Breathing.js';
+import MentalHealth from './Components/MentalHealth /MentalHealth.js';
+import Breathing from './Components/MentalHealth /Breathing.js';
 
 const Stack = createNativeStackNavigator();
 
