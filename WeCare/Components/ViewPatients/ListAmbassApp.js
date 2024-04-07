@@ -37,7 +37,7 @@ export default function ViewPatients() {
     const renderItem = ({item}) => {
         return (<>
             <View style={styles.container}>
-                <Text style={styles.text}>Patient: {item.user}</Text>
+                <Text style={styles.title}>Patient: {item.user}</Text>
                 <Text style={styles.text}>Date: {formatDate(item.Date_Suggested)}</Text>
                 <CancelAppointment item={item.user} />
             </View>
@@ -71,6 +71,12 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: "#ccc",
     },
+    title: {
+        fontSize: 18,
+        marginBottom: 10,
+        fontWeight:'bold',
+    },
+
     text: {
         fontSize: 18,
         marginBottom: 10,

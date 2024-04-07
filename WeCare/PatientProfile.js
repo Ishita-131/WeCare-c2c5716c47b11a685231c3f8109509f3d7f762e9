@@ -1,7 +1,7 @@
 // Import necessary dependencies and components
 
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, Image,StyleSheet } from 'react-native';
 import { supabase } from './supabase';
 
 // Import profile placeholder image
