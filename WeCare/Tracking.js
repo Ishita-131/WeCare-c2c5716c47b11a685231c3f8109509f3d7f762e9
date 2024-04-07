@@ -1,5 +1,5 @@
-import React from 'react';
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Image, Modal, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
 import glass1 from './assets/images/glass1.png';
@@ -10,7 +10,7 @@ import BannerPie from './assets/images/BannerPie.png'; // Import the circular im
 
 
 const Tracking = () => {
-  const navigation = useNavigation(); // Get navigation object using useNavigation hook
+  const navigation = useNavigation();
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -24,7 +24,6 @@ const Tracking = () => {
           <NotificationButton />
           <ProgressCard />
           <View style={styles.cardContainer}>
-            {/* Pass navigation prop to FitnessCard and DietCard */}
             <FitnessCard navigation={navigation} />
             <DietCard navigation={navigation} />
           </View>
@@ -62,21 +61,46 @@ const NotificationButton = () => {
 
 
 const ProgressCard = () => {
+  const [modalVisible, setModalVisible] = useState(false); // State for modal visibility
+
   return (
-    <LinearGradient
-      colors={['#92A3FD', '#9DCEFF']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 0 }}
-      style={styles.progressCard}
-    >
-      <View style={styles.cardContent}>
-        <Text style={styles.progressText}>Track your progress each month with a photo</Text>
-        <TouchableOpacity style={styles.learnMoreButton}>
-          <Text style={styles.learnMoreText}>Learn More</Text>
-        </TouchableOpacity>
-      </View>
-      <Image source={ProgressImg} style={styles.progressImage} />
-    </LinearGradient>
+    <View>
+      <LinearGradient
+        colors={['#92A3FD', '#9DCEFF']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.progressCard}
+      >
+        <View style={styles.cardContent}>
+          <Text style={styles.progressText}>Tip for tracking your fitness progress</Text>
+          <TouchableOpacity style={styles.learnMoreButton} onPress={() => setModalVisible(true)}>
+            <Text style={styles.learnMoreText}>Learn More</Text>
+          </TouchableOpacity>
+        </View>
+        <Image source={ProgressImg} style={styles.progressImage} />
+      </LinearGradient>
+      {/* Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+
+            <Text style={styles.modalText}>
+              Take a photo everday of your fitness progress, this is a good way to see your progress over time!
+            </Text>
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.closeButton}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    </View>
   );
 };
 
@@ -131,6 +155,40 @@ const DietCard = ({ navigation }) => {
 };
 
 const BMICard = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
+  const [bmi, setBMI] = useState(null);
+
+  const calculateBMI = () => {
+    // Validate height and weight inputs
+    if (!height || !weight) {
+      alert('Please enter both height and weight.');
+      return;
+    }
+
+    // Convert height to meters
+    const heightInMeters = height / 100;
+
+    // Calculate BMI
+    const bmiValue = (weight / (heightInMeters * heightInMeters)).toFixed(2);
+    setBMI(bmiValue);
+
+    // Show modal
+    setModalVisible(true);
+  };
+
+  const handleViewMorePress = () => {
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setHeight(''); // Reset height input
+    setWeight(''); // Reset weight input
+    setBMI(null); // Reset BMI value
+    setModalVisible(false); // Close the modal
+  };
+
   return (
     <LinearGradient
       colors={['#92A3FD', '#9DCEFF']}
@@ -139,15 +197,50 @@ const BMICard = () => {
       style={styles.BMICard}
     >
       <View style={styles.cardContent}>
-        <Text style={styles.BMIText}>Track your BMI progress with this chart</Text>
-        <TouchableOpacity style={styles.learnMoreButton}>
-          <Text style={styles.learnMoreText}>View More</Text>
+        <Text style={styles.BMIText}>Calculate your BMI - body mass index</Text>
+        <TouchableOpacity style={styles.learnMoreButton} onPress={handleViewMorePress}>
+          <Text style={styles.learnMoreText}>Calculate</Text>
         </TouchableOpacity>
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Calculate BMI</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter height (cm)"
+              keyboardType="numeric"
+              value={height}
+              onChangeText={text => setHeight(text)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter weight (kg)"
+              keyboardType="numeric"
+              value={weight}
+              onChangeText={text => setWeight(text)}
+            />
+            <TouchableOpacity style={styles.calculateButton} onPress={calculateBMI}>
+              <Text style={styles.calculateButtonText}>Calculate BMI</Text>
+            </TouchableOpacity>
+            {bmi && <Text style={styles.bmiText}>Your BMI: {bmi}</Text>}
+            <TouchableOpacity onPress={handleCloseModal}>
+              <Text style={styles.closeButton}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
       <Image source={BannerPie} style={styles.BannerPie} />
     </LinearGradient>
   );
 };
+
 
 
 const styles = StyleSheet.create({
@@ -165,9 +258,9 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
     marginLeft: 10,
-    padding:5,
+    padding: 5,
   },
 
   profileButton: {
@@ -176,7 +269,7 @@ const styles = StyleSheet.create({
     flexShrink: 0,
     borderRadius: 51.508,
     backgroundColor: '#9DCEFF',
-    marginRight:15,
+    marginRight: 15,
   },
 
   welcomeStyles: {
@@ -298,7 +391,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom:10,
+    marginBottom: 10,
   },
   cardContent: {
     flex: 1,
@@ -317,9 +410,9 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginTop: 10,
-    width:150,
-    marginLeft:-5,
-    marginTop:10,
+    width: 150,
+    marginLeft: -5,
+    marginTop: 10,
   },
   learnMoreText: {
     color: 'white',
@@ -413,7 +506,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', // Arrange items horizontally
     alignItems: 'center', // Align items vertically in the middle
     padding: 20,
-    marginBottom: 40, 
+    marginBottom: 40,
   },
 
   BMICardText: {
@@ -422,7 +515,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
-    marginTop: 15, 
+    marginTop: 15,
   },
 
   BMIText: {
@@ -453,13 +546,78 @@ const styles = StyleSheet.create({
     shadowRadius: 22,
     shadowOpacity: 1,
     elevation: 5, // Android elevation for shadow effect
-    marginTop: 15, 
-    marginLeft:15,
+    marginTop: 15,
+    marginLeft: 15,
   },
   buttonText: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+
+  learnMoreButton: {
+    backgroundColor: '#1986EC',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: 10,
+    width: 150,
+    marginLeft: -5,
+    marginTop: 10,
+  },
+  learnMoreText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+    width: '100%',
+  },
+  calculateButton: {
+    backgroundColor: '#1986EC',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: 10,
+  },
+  calculateButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  bmiText: {
+    fontSize: 16,
+    marginTop: 10,
+    fontWeight: 'bold',
+  },
+  closeButton: {
+    color: 'blue',
+    fontSize: 16,
+    marginTop: 10,
   },
 });
 

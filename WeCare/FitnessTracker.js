@@ -19,6 +19,12 @@ const FitnessTracker = () => {
     navigation.goBack();
   };
 
+  const [totalCaloriesBurned, setTotalCaloriesBurned] = useState(0);
+
+  const handleCaloriesChange = (caloriesBurned) => {
+    setTotalCaloriesBurned(caloriesBurned);
+  };
+
 
   return (
     <PaperProvider>
@@ -33,8 +39,8 @@ const FitnessTracker = () => {
           </View>
           <WorkoutCard />
           <View style={styles.cardContainer}>
-            <LoggingCard />
-            <CaloriesCard />
+            <LoggingCard onCaloriesChange={handleCaloriesChange} />
+            <CaloriesCard totalCaloriesBurned={totalCaloriesBurned} />
           </View>
           <UpcomingWorkouts />
           <Upcoming1 />
@@ -178,6 +184,11 @@ const LoggingCard = () => {
       duration: '',
       caloriesBurned: '',
     });
+
+    const caloriesBurned = exerciseData.calories_per_minute * parseInt(exerciseDetails.duration);
+    setTotalCaloriesBurned(totalCaloriesBurned + caloriesBurned);
+    onCaloriesChange(totalCaloriesBurned); // Pass the calories burned value to the parent component
+
   };
   
 
@@ -272,20 +283,13 @@ const LoggingCard = () => {
   );
 };
 
-
-
-
-
-
-
-
-const CaloriesCard = () => {
+const CaloriesCard = ({ totalCaloriesBurned }) => {
   return (
     <View style={styles.caloriesCard}>
       <Text style={styles.caloriesTitle}>Calories burned</Text>
       <View style={styles.caloriesCircle}>
-        <Text style={styles.caloriesText}>1700</Text>
-        <Text style={styles.caloriessmallText}>remaining</Text>
+        <Text style={styles.caloriesText}>{totalCaloriesBurned}</Text>
+        <Text style={styles.caloriessmallText}>burned</Text>
       </View>
     </View>
   );
