@@ -31,7 +31,7 @@ export default function Auth() {
         <Input
           label="Email"
           leftIcon={{ type: 'font-awesome', name: 'envelope' }}
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={(text) => {setEmail(text); setUser(text)}}
           value={email}
           placeholder="email@address.com"
           autoCapitalize={'none'}

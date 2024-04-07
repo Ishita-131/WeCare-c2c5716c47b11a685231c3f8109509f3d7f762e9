@@ -9,30 +9,48 @@ const MentalHealth = () => {
     navigation.navigate('BreathingScreen');
   };
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.widgetContainer}>
-        <TouchableOpacity style={styles.widgetButton} onPress={goToBreathing}>
-          <Text style={styles.widgetText}>Deep Breathing</Text>
-        </TouchableOpacity>
+  return (<>
+  <View style={styles.containermain}>
+    {/* Breathing */}
+      <View style={styles.container}>
+        
+        <View style={styles.widgetContainer}>
+          <TouchableOpacity style={styles.widgetButton} onPress={goToBreathing}>
+            <Text style={styles.widgetText}>Deep Breathing</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+      {/* Resource */}
+      <View style={styles.container}>
+        <View style={styles.widgetContainer}>
+          <TouchableOpacity style={styles.widgetButton} onPress={() => navigation.navigate('MentalResource')}>
+            <Text style={styles.widgetText}>Mental Health Resource</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+  </View>
+
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  containermain: {
     flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  container: {
+    width: '60%',
   },
   widgetContainer: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '40%',
+    marginTop: 20 ,
+    marginLeft: 20,
+    padding: 10,
+    width: 'auto',
     height: '30%',
     borderRadius: 30,
-    marginLeft: 20,
-    marginTop: 20,
     backgroundColor: '#1986EC',
     justifyContent: 'center',
     alignItems: 'center',

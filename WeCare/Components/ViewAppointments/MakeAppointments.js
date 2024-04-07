@@ -21,12 +21,9 @@ function ListAmbassadors() {
   const {
     ambassadors,
     users,
-    date,
-    setDate,
     refreshing,
     setRefresh,
     setAmbassadors,
-    accept,
     setAccept,
   } = UseAccept();
   const [startIndex, setStartIndex] = useState(0);
@@ -39,7 +36,7 @@ function ListAmbassadors() {
         item={item.user_name}
       />
       <View style={styles.cancelButtonContainer}>
-        <CancelAppointment item={item.user_name} user={users} />
+        <CancelAppointment item={users}/>
       </View>
     </View>
   );

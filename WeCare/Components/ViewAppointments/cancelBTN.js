@@ -5,7 +5,7 @@ import { Alert } from "react-native";
 export default function CancelAppointment({item}) {
     async function cancel() {
         try {
-            const {error} = await supabase.from('Appointments').delete().eq('ambassador_name', String(item))
+            const {error} = await supabase.from('Appointments').delete().eq('user', String(item))
             if (error) {
                 Alert.alert(error)
             }
