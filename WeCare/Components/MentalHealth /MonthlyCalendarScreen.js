@@ -1,5 +1,6 @@
+// MonthlyCalendarScreen.js
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
 
@@ -59,6 +60,7 @@ const MonthlyCalendarScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Monthly Mood Calendar</Text>
       <Calendar
         markedDates={markedDates}
         onDayPress={handleDayPress}
@@ -78,8 +80,12 @@ const MonthlyCalendarScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 20,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
 });
 

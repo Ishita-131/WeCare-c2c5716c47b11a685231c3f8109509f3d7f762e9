@@ -1,8 +1,9 @@
 // MoodTracking.js
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Button, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, Button, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { supabase } from './supabase.js';
+import MonthlyCalendarScreen from './Components/MentalHealth /MonthlyCalendarScreen';
 
 const MoodTracking = ({ userId }) => {
   const [selectedMood, setSelectedMood] = useState(null);
@@ -53,51 +54,59 @@ const MoodTracking = ({ userId }) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
-      <View style={styles.container}>
-        <Text style={styles.heading}>How are you feeling today?</Text>
-        <View style={styles.moodIconsContainer}>
-          {moodIcons.map((item, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[styles.moodIcon, selectedMood === item.mood && styles.selectedMoodIcon]}
-              onPress={() => handleMoodSelection(item.mood)}
-              accessibilityLabel={`Select ${item.mood} mood`}
-            >
-              <Text style={styles.moodText}>{item.icon}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-        {selectedMood && (
-          <View style={styles.thoughtsContainer}>
-            <Text style={styles.subHeading}>Write about Today</Text>
-            <TextInput
-              style={styles.textInput}
-              multiline
-              placeholder="Share your thoughts..."
-              value={thoughts}
-              onChangeText={(text) => setThoughts(text)}
-              accessibilityLabel="Write your thoughts here"
-            />
-            <Button title="Submit" onPress={handleSubmit} accessibilityLabel="Submit mood entry" />
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <TouchableWithoutFeedback onPress={dismissKeyboard}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Track your monthly mood</Text>
+          <View style={styles.moodIconsContainer}>
+            {moodIcons.map((item, index) => (
+              <TouchableOpacity
+                key={index}
+                style={[styles.moodIcon, selectedMood === item.mood && styles.selectedMoodIcon]}
+                onPress={() => handleMoodSelection(item.mood)}
+                accessibilityLabel={`Select ${item.mood} mood`}
+              >
+                <Text style={styles.moodText}>{item.icon}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
-        )}
-      </View>
-    </TouchableWithoutFeedback>
+          {selectedMood && (
+            <View style={styles.thoughtsContainer}>
+              <Text style={styles.subHeading}>Write about Today</Text>
+              <TextInput
+                style={styles.textInput}
+                multiline
+                placeholder="Share your thoughts..."
+                value={thoughts}
+                onChangeText={(text) => setThoughts(text)}
+                accessibilityLabel="Write your thoughts here"
+              />
+              <Button title="Submit" onPress={handleSubmit} accessibilityLabel="Submit mood entry" />
+            </View>
+          )}
+        </View>
+      </TouchableWithoutFeedback>
+      <MonthlyCalendarScreen />
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: '#ffffff', // White background
+  },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
   },
-  heading: {
+  title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginTop: 20,
+    marginBottom: 10,
   },
   subHeading: {
     fontSize: 18,
