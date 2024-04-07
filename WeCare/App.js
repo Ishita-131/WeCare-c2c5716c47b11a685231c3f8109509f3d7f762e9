@@ -39,6 +39,11 @@ import * as Notifications from 'expo-notifications';
 import NotificationTemplate from './NotificationInbox';
 import MentalHealth from './Components/MentalHealth /MentalHealth.js';
 import Breathing from './Components/MentalHealth /Breathing.js';
+import BreathingScreen from './Components/MentalHealth /BreathingScreen.js';
+import ResourceMental from './Components/MentalHealth /MentalResourse.js';
+import MoodTracking from './MoodTracking.js';
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -273,11 +278,22 @@ export default function App() {
                 headerShown: false,
                 navigation: navigation,
               })} /> 
-              <Stack.Screen name="Breathing" component={Breathing} options={({ navigation }) => ({
+              <Stack.Screen name="Breathing" component={Breathing}options={({ navigation }) => ({
                 headerShown: false,
                 navigation: navigation,
-              })}/>
-
+              })} />
+              <Stack.Screen name="BreathingScreen" component={BreathingScreen}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} />
+              <Stack.Screen name="MentalResource" component={ResourceMental}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} />
+              <Stack.Screen name="MoodTracking" component={MoodTracking}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} />
               <Stack.Screen name="ChatBot" component={ChatBot} options={({ navigation }) => ({
                 headerShown: false,
                 navigation: navigation,
@@ -291,14 +307,6 @@ export default function App() {
                 navigation: navigation,
               })}/> 
               <Stack.Screen name="Appointments" component={MakeAppointments}options={({ navigation }) => ({
-                headerShown: false,
-                navigation: navigation,
-              })} />
-              <Stack.Screen name="ViewArrangements" component={ViewArrangement} options={({ navigation }) => ({
-                headerShown: false,
-                navigation: navigation,
-              })}/>
-              <Stack.Screen name='AskAppointment' component={AskAppointment}options={({ navigation }) => ({
                 headerShown: false,
                 navigation: navigation,
               })} />
@@ -333,3 +341,4 @@ export default function App() {
     </AcceptProvider>
   );
 }
+

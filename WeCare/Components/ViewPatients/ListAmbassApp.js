@@ -7,7 +7,7 @@ import { StyleSheet } from "react-native";
 import CancelAppointment from "../ViewAppointments/cancelBTN";
 import { RefreshControl } from "react-native-gesture-handler";
 
-export default function AppointmentsMade() {
+export default function ViewPatients() {
     const [Appointment , setAppointment] = useState();
     const [refreshing , setRefresh] = useState(false)
     
@@ -29,7 +29,7 @@ export default function AppointmentsMade() {
     const renderItem = ({item}) => {
         return (<>
             <View  style={styles.container}>
-                <Text>{item.ambassador_name}</Text>
+                <Text>{item.user}</Text>
                 <Text>{item.Date_Suggested}</Text>
                 <CancelAppointment item={item.user} />
             </View>

@@ -6,41 +6,68 @@ const MentalHealth = () => {
   const navigation = useNavigation();
 
   const goToBreathing = () => {
-    navigation.navigate('Breathing');
+    navigation.navigate('BreathingScreen');
+  };
+
+  const moodTracking = () => {
+    navigation.navigate('MoodTracking');
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.widgetContainer}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.widgetsContainer}>
+        {/* Breathing */}
         <TouchableOpacity style={styles.widgetButton} onPress={goToBreathing}>
-          <Text style={styles.widgetText}>Deep Breathing</Text>
+          <View style={styles.widgetInner}>
+            <Text style={styles.widgetText}>Deep Breathing</Text>
+          </View>
         </TouchableOpacity>
+        
+        {/* Resource */}
+        <TouchableOpacity style={styles.widgetButton} onPress={() => navigation.navigate('MentalResource')}>
+          <View style={styles.widgetInner}>
+            <Text style={styles.widgetText}>Mental Health Resource</Text>
+          </View>
+        </TouchableOpacity>
+
+        {/* Mood Tracking */}
+        <TouchableOpacity style={styles.widgetButton} onPress={moodTracking}>
+          <View style={styles.widgetInner}>
+            <Text style={styles.widgetText}>Mood Tracking</Text>
+          </View>
+        </TouchableOpacity>
+
+        {/* Add more widgets here */}
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
+    backgroundColor: 'white',
+    paddingHorizontal: 20,
+    paddingTop: 30, // Add top padding to push content below the title
   },
-  widgetContainer: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '40%',
-    height: '30%',
-    borderRadius: 30,
-    marginLeft: 20,
-    marginTop: 20,
+  widgetsContainer: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  widgetButton: {
+    width: '48%', // Adjust width to fit two widgets with spacing
+    aspectRatio: 1,
+    borderRadius: 22,
     backgroundColor: '#1986EC',
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 20, // Add margin to create spacing between widgets
   },
-  widgetButton: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+  widgetInner: {
+    width: '80%',
+    aspectRatio: 1,
+    borderRadius: 70,
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
@@ -48,6 +75,7 @@ const styles = StyleSheet.create({
   widgetText: {
     color: '#1986EC',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 

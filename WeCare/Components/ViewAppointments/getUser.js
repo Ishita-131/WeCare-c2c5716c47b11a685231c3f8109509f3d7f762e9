@@ -1,10 +1,10 @@
-import { supabase } from "../../supabase";
+import { supabase } from "../../supabase"
 
 export async function getUser() {
     try {
-        const {user} = await supabase.auth.getUser()
-        return user
+        const {data:{user}} = await supabase.auth.getUser()
+        return user.email
     } catch (error) {
-
+        console.log(error);
     }
 }

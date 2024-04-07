@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { StyleSheet, Text, View, Dimensions, Animated, TouchableOpacity} from "react-native";
 
 const { width, height } = Dimensions.get("window");
@@ -10,6 +10,20 @@ export default function Breathing() {
   const navigation = useNavigation();
   const move = useRef(new Animated.Value(0)).current;
   const textOpacity = useRef(new Animated.Value(1)).current;
+  const [showFinishedText, setShowFinishedText] = useState(false);
+  const [timer, setTimer] = useState(0);
+  
+ // Start the timer once the component mounts
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer((prevTimer) => prevTimer );
+    }, 1000);
+
+    return () => clearInterval(interval); // Cleanup on component unmount
+  }, []);
+
+
+  
   Animated.loop(
     Animated.sequence([
       Animated.parallel([
@@ -40,6 +54,15 @@ export default function Breathing() {
       ]),
     ])
   ).start();
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
+
+
+
   const translate = move.interpolate({
     inputRange: [0, 1],
     outputRange: [0, circleWidth / 6],
@@ -49,11 +72,16 @@ export default function Breathing() {
     outputRange: [1, 0],
   });
   
+  
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('MentalHealth')}>
-        <Text style={styles.welcomeText}>welcome</Text>
-      </TouchableOpacity>
+     <TouchableOpacity 
+  style={styles.welcomeButton} 
+  onPress={() => navigation.navigate('MentalHealth')}
+>
+  <Text style={styles.welcomeText}>Click here to terminate</Text>
+</TouchableOpacity>    
+
       <Animated.View
         style={{
           width: circleWidth,
@@ -131,10 +159,19 @@ const styles = StyleSheet.create({
     top: height / 3,
   },
   welcomeText: {
-    color: "#666",
-    textDecorationLine: "underline",
-    marginTop: '70%',
-    marginRight: '50%',
-    
+    color: "#fff",
   },
+
+  welcomeButton: {
+    backgroundColor: '#1986EC',
+    borderRadius: 25,
+    padding: 20,
+    marginTop: '110%',
+    Opacity: 0.9,
+    marginRight: '50%',
+  },
+
+
+
+  
 });
