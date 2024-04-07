@@ -9,6 +9,8 @@ import TechnicalIssue from './TechnicalIssue';
 import AdminDashScreen from './AmbasDashScreen';
 import NotesPage from './NotesPage';
 import ViewPatients from './Components/ViewPatients/ListAmbassApp';
+import ToDoList from './ToDoList';
+import PatientProfile from './PatientProfile';
 
 const Drawer = createDrawerNavigator();
 
@@ -22,6 +24,8 @@ export default function Dashboard() {
         <Drawer.Screen name="Profile" component={Profile} />
         <Drawer.Screen name="View Scheduled Appointments" component={ViewPatients} />
         <Drawer.Screen name="Notes" component={NotesPage} />
+        <Drawer.Screen name="To Do" component={ToDoList} />
+        <Drawer.Screen name="Patient Info" component={PatientProfile} />
         <Drawer.Screen name="Report Technical Issues" component={TechnicalIssue}/>
         <Drawer.Screen name="Chatbot" component={ChatbotTemplate} />
         <Drawer.Screen name="Sign Out" component={Account} />

@@ -26,11 +26,19 @@ export default function ViewPatients() {
         getData();
     }, [])
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
     const renderItem = ({item}) => {
         return (<>
-            <View  style={styles.container}>
-                <Text>{item.user}</Text>
-                <Text>{item.Date_Suggested}</Text>
+            <View style={styles.container}>
+                <Text style={styles.text}>Patient: {item.user}</Text>
+                <Text style={styles.text}>Date: {formatDate(item.Date_Suggested)}</Text>
                 <CancelAppointment item={item.user} />
             </View>
         </>)
@@ -59,11 +67,12 @@ const styles = StyleSheet.create({
     container: {
         alignItems: "center",
         justifyContent: "space-between",
-        padding: 10,
+        padding: 20,
         borderBottomWidth: 1,
         borderBottomColor: "#ccc",
     },
-    flatList: {
-        flex: 1,
+    text: {
+        fontSize: 18,
+        marginBottom: 10,
     },
-});
+}); 

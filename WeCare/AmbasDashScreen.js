@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 
-const AdminDashScreen = ({ navigation }) => {
+const AmbasDashScreen = ({ navigation }) => {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.greeting}>Welcome Back</Text>
+                <Text style={styles.greeting}>Ambassador</Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Profile')} >
                     <Image
                         source={require('./assets/images/Profile Button.png')} // Make sure the path is correct
@@ -23,14 +23,14 @@ const AdminDashScreen = ({ navigation }) => {
                     <Text>
                         Click below to view your patients' information
                     </Text>
-                    <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('View Scheduled Appointments')}>
+                    <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Patient Info')}>
                         <Text style={styles.buttonText2}>Click here</Text>
                     </TouchableOpacity>
                 </View>
             </View>
 
-             {/* View Appointments Button */}
-             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('View Scheduled Appointments')}>
+            {/* View Appointments Button */}
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('View Scheduled Appointments')}>
                 <Text style={styles.buttonText}>View Appointments</Text>
             </TouchableOpacity>
 
@@ -51,29 +51,29 @@ const AdminDashScreen = ({ navigation }) => {
             </View>
 
             <View style={styles.rowContainer}>
-            {/* Notes Access Card */}
-            <View style={styles.notesCard}>
-                <View style={styles.cardTextContainer}>
-                    <Text style={styles.notesTitle}>
-                        Your Notes
-                    </Text>
+                {/* Notes Access Card */}
+                <View style={styles.notesCard}>
+                    <View style={styles.cardTextContainer}>
+                        <Text style={styles.notesTitle}>
+                            Your Notes
+                        </Text>
+                    </View>
+                    <TouchableOpacity style={styles.notesButton} onPress={() => navigation.navigate('Notes')}>
+                        <Image source={require('./assets/images/notes.png')} style={styles.notesImage} />
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.notesButton} onPress={() => navigation.navigate('Notes')}>
-                <Image source={require('./assets/images/notes.png')} style={styles.notesImage} />
-                </TouchableOpacity>
-            </View>
 
-            {/* Notes Access Card */}
-            <View style={styles.notesCard}>
-                <View style={styles.cardTextContainer}>
-                    <Text style={styles.notesTitle}>
-                        Your Notes
-                    </Text>
+                {/* Notes Access Card */}
+                <View style={styles.notesCard}>
+                    <View style={styles.cardTextContainer}>
+                        <Text style={styles.notesTitle}>
+                            To-Do List
+                        </Text>
+                    </View>
+                    <TouchableOpacity style={styles.notesButton} onPress={() => navigation.navigate('To Do')}>
+                        <Image source={require('./assets/images/checklist.png')} style={styles.checklistImage} />
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.notesButton} onPress={() => navigation.navigate('NotesPage')}>
-                <Image source={require('./assets/images/notes.png')} style={styles.notesImage} />
-                </TouchableOpacity>
-            </View>
             </View>
         </ScrollView>
     );
@@ -141,12 +141,12 @@ const styles = StyleSheet.create({
         marginBottom: 4,
     },
 
-    notesTitle:{
+    notesTitle: {
         fontSize: 18,
         fontWeight: 'bold',
         color: '#333',
         marginBottom: 4,
-        marginLeft:-10,
+        marginLeft: -15,
     },
 
     button: {
@@ -165,49 +165,51 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 
-    button2: {
-        backgroundColor: '#FFA500',
-        paddingVertical: 15,
-        paddingHorizontal: 30,
-        borderRadius: 22,
-        width: '90%',
-        height: 55,
-        marginTop: 20,
-    },
+    // button2: {
+    //     backgroundColor: '#FFA500',
+    //     paddingVertical: 15,
+    //     paddingHorizontal: 30,
+    //     borderRadius: 22,
+    //     width: '90%',
+    //     height: 55,
+    //     marginTop: 20,
+    // },
 
     buttonText2: {
-        color: '#fff',
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
-        textAlign: 'center',
+        color: '#FE8235', // Color as per Figma design for clickable text
+        paddingTop: 10,
+
     },
 
-    notesButton:{
-        backgroundColor: '#007AFF',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+    notesButton: {
+        backgroundColor: '#9DC183',
         borderRadius: 22,
-        width: '60%',
-        marginLeft:30,
+        width: '70%',
+        marginLeft: 22,
+        padding: 30,
+        marginTop: 10,
     },
 
     chatbotCard: {
         flexDirection: 'row',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
         alignItems: 'center',
+        backgroundColor: '#FFF3E0', // Adjust the color as needed
+        borderRadius: 10,
+        padding: 20,
         marginHorizontal: 20,
         marginTop: 20,
-        marginBottom: 20,
-        backgroundColor: '#f0f0f0',
-        borderRadius: 8,
-        padding: 16,
+        marginBottom: 30,
+        // To add the shadow as per your Figma design, adjust the values below
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
             height: 2,
         },
-        shadowOpacity: 0.23,
-        shadowRadius: 2.62,
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
         elevation: 4,
     },
 
@@ -225,13 +227,12 @@ const styles = StyleSheet.create({
         marginBottom: 4,
     },
 
-    notesCard:{
-        justifyContent: 'flex-start',
-        marginHorizontal: 10,
-        marginBottom: 20,
-        backgroundColor: '#f0f0f0',
+    notesCard: {
+        backgroundColor: 'white',
+        padding: 15,
+        flex: 1,
         borderRadius: 8,
-        padding: 16,
+        marginHorizontal: 15,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -240,28 +241,34 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
         elevation: 4,
-        width:'44%',
+        width: 150, // Set a fixed width or adjust as needed
+        height: 200, // Set a fixed height or adjust as needed
     },
 
-    notesImage:{
+    notesImage: {
         width: 50,
         height: 50,
         resizeMode: 'contain',
-        tintColor:'white',
-        marginRight:20,
+        tintColor: 'white',
     },
 
-    fillerImage:{
+    checklistImage: {
+        width: 50,
+        height: 50,
+        tintColor: 'white',
+    },
+
+    fillerImage: {
         width: 50,
         height: 50,
         resizeMode: 'contain',
-        marginLeft:'60%',
+        marginLeft: '60%',
     },
 
-    rowContainer:{
+    rowContainer: {
         flexDirection: 'row',
-        marginLeft:10,
+        marginLeft: 5,
     },
 });
 
-export default AdminDashScreen;
+export default AmbasDashScreen;
