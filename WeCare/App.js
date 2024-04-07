@@ -281,11 +281,11 @@ export default function App() {
                 navigation: navigation,
               })} />
               <Stack.Screen name="BreathingScreen" component={BreathingScreen}options={({ navigation }) => ({
-                headerShown: false,
+                headerShown: true,
                 navigation: navigation,
               })} />
               <Stack.Screen name="MentalResource" component={ResourceMental}options={({ navigation }) => ({
-                headerShown: false,
+                headerShown: true,
                 navigation: navigation,
               })} />
               <Stack.Screen name="ChatBot" component={ChatBot} options={({ navigation }) => ({
