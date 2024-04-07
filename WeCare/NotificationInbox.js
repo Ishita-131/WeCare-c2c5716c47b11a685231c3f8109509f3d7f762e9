@@ -47,9 +47,6 @@ const InboxScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginVertical: 20 }}>
-        Inbox
-      </Text>
       <FlatList
         data={notifications}
         renderItem={({ item, index }) => (
@@ -80,6 +77,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#FFF', // Set default background color to white
+    paddingTop:10,
   },
 });
 
