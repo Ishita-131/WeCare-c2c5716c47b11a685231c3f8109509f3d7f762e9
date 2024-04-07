@@ -1,14 +1,11 @@
-// MoodTracking.js
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, Button, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { supabase } from './supabase.js';
 import MonthlyCalendarScreen from './Components/MentalHealth /MonthlyCalendarScreen';
 
 const MoodTracking = ({ userId }) => {
   const [selectedMood, setSelectedMood] = useState(null);
   const [thoughts, setThoughts] = useState('');
-  const navigation = useNavigation();
 
   const moodIcons = [
     { mood: 'happy', icon: '😊' },
