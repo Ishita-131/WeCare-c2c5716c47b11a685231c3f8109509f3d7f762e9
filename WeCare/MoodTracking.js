@@ -26,7 +26,7 @@ const MoodTracking = ({ userId }) => {
       try {
         // Submit mood entry to backend database
         const { data, error } = await supabase.from('mood_entries').insert([
-          { userid: userid, mood: selectedMood, notes: thoughts }
+          { userid: userId, mood: selectedMood, notes: thoughts }
         ]);
         if (error) {
           throw error;
