@@ -1,27 +1,41 @@
-import React, { useState } from 'react';
+// Auth.js
+import React, { useState, useEffect } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { supabase } from './supabase';
-import { UseAccept } from './Components/ViewAppointments/accept';
+import MoodTracking from './MoodTracking.js'; // Import MoodTracking component
 
 export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const {setUser} = UseAccept();
+  const [userId, setUserId] = useState(null); // State to store userID
+
+  useEffect(() => {
+    const initializeAuth = async () => {
+      const user = supabase.auth.user();
+      if (user) {
+        const userId = user.id;
+        console.log('UID of the logged-in user:', userId);
+        setUserId(userId); // Set the userID state
+      }
+    };
+
+    initializeAuth();
+  }, []);
 
   async function signInWithEmail() {
     setLoading(true);
-    const { error } = await supabase.auth.signIn({
+    const { user, error } = await supabase.auth.signIn({
       email: email,
       password: password,
     });
     if (error) {
       Alert.alert(error.message);
       navigation.navigate('SelectRole');
-
+    } else {
+      setUserId(user.id); // Set the userID state upon successful login
     }
-
     setLoading(false);
   }
 
@@ -31,7 +45,7 @@ export default function Auth() {
         <Input
           label="Email"
           leftIcon={{ type: 'font-awesome', name: 'envelope' }}
-          onChangeText={(text) => {setEmail(text); setUser(text)}}
+          onChangeText={(text) => setEmail(text)}
           value={email}
           placeholder="email@address.com"
           autoCapitalize={'none'}
@@ -51,6 +65,8 @@ export default function Auth() {
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Button title="Login" disabled={loading} onPress={signInWithEmail} />
       </View>
+      {/* Pass userId to MoodTracking component */}
+      {userId && <MoodTracking userId={userId} />}
     </View>
   );
 }

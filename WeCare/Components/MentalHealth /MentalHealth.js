@@ -9,10 +9,12 @@ const MentalHealth = () => {
     navigation.navigate('BreathingScreen');
   };
 
+  const moodTracking = () => {
+    navigation.navigate('MoodTracking');
+  };
+
   return (
-    <View style={styles.container}>
-      
-      {/* Widgets */}
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.widgetsContainer}>
         {/* Breathing */}
         <TouchableOpacity style={styles.widgetButton} onPress={goToBreathing}>
@@ -27,19 +29,29 @@ const MentalHealth = () => {
             <Text style={styles.widgetText}>Mental Health Resource</Text>
           </View>
         </TouchableOpacity>
+
+        {/* Mood Tracking */}
+        <TouchableOpacity style={styles.widgetButton} onPress={moodTracking}>
+          <View style={styles.widgetInner}>
+            <Text style={styles.widgetText}>Mood Tracking</Text>
+          </View>
+        </TouchableOpacity>
+
+        {/* Add more widgets here */}
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: 'white',
     paddingHorizontal: 20,
     paddingTop: 30, // Add top padding to push content below the title
   },
   widgetsContainer: {
+    flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -50,6 +62,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1986EC',
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 20, // Add margin to create spacing between widgets
   },
   widgetInner: {
     width: '80%',
