@@ -13,7 +13,7 @@ LocaleConfig.locales['en'] = {
 };
 LocaleConfig.defaultLocale = 'en';
 
-const MonthlyCalendarScreen = () => {
+export default function MonthlyCalendarScreen () {
   const [markedDates, setMarkedDates] = useState({});
   const navigation = useNavigation();
 
@@ -61,6 +61,7 @@ const MonthlyCalendarScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Monthly Mood Calendar</Text>
+      {/** */}
       <Calendar
         markedDates={markedDates}
         onDayPress={handleDayPress}
@@ -89,4 +90,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MonthlyCalendarScreen;
