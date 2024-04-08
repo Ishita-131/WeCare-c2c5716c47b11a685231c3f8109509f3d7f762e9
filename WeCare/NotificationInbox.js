@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const InboxScreen = () => {
@@ -45,6 +45,26 @@ const InboxScreen = () => {
     );
   };
 
+  const handleClearAll = () => {
+    Alert.alert(
+      'Clear All Notifications',
+      'Are you sure you want to clear all notifications?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Clear All', onPress: clearAllNotifications }
+      ]
+    );
+  };
+
+  const clearAllNotifications = async () => {
+    try {
+      await AsyncStorage.removeItem('notifications');
+      setNotifications([]);
+    } catch (error) {
+      console.error('Error clearing notifications:', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -68,6 +88,9 @@ const InboxScreen = () => {
           </View>
         )}
       />
+      <View style={styles.buttonContainer}>
+        <Button title="Clear All" onPress={handleClearAll} />
+      </View>
     </View>
   );
 };
@@ -78,6 +101,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FFF', // Set default background color to white
     paddingTop:10,
+  },
+  buttonContainer:{
+    height:150,
   },
 });
 

@@ -59,11 +59,11 @@ const notifications = [
     },
     trigger: {
       repeats: true,
-      hour: 1,
-      minute: 54,
+      hour: 15,
+      minute: 46,
       sound: 'default',
     },
-    timestamp: null  
+    timestamp: Date.now() // Include the current timestamp when scheduling
   },
   {
     content: {
@@ -72,11 +72,11 @@ const notifications = [
     },
     trigger: {
       repeats: true,
-      hour: 12,
-      minute: 7,
+      hour: 15,
+      minute: 47,
       sound: 'default',
     },
-    timestamp: null  
+    timestamp: Date.now() // Include the current timestamp when scheduling
   }
 ];
 
