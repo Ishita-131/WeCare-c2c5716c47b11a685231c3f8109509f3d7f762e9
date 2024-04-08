@@ -82,6 +82,7 @@ export default function MonthlyCalendarScreen () {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    marginBottom: '100%',
   },
   title: {
     fontSize: 20,

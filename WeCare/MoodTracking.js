@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, TextInput, Button, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
 import { supabase } from './supabase.js';
 import MonthlyCalendarScreen from './Components/MentalHealth /MonthlyCalendarScreen';
+import MoodFactors from './MoodFactors.js';
+
 
 const MoodTracking = ({ userId }) => {
-  const [selectedMood, setSelectedMood] = useState(null);
+  const [selectedMood, setSelectedMood] = useState('happy'); // Initialize to default mood
   const [thoughts, setThoughts] = useState('');
+  const [selectedFactors, setSelectedFactors] = useState([]);
 
+  // Define the moodIcons array
   const moodIcons = [
     { mood: 'happy', icon: '😊' },
     { mood: 'sad', icon: '😢' },
@@ -20,19 +24,20 @@ const MoodTracking = ({ userId }) => {
   };
 
   const handleSubmit = async () => {
-    if (selectedMood && thoughts) {
+    if (thoughts) {
       try {
         // Submit mood entry to backend database
         const { data, error } = await supabase.from('mood_entries').insert([
-          { userid: userId, mood: selectedMood, notes: thoughts }
+          { userId, mood: selectedMood, notes: thoughts, factors: selectedFactors.join(', ') }
         ]);
         if (error) {
           throw error;
         }
         console.log('Mood entry submitted successfully:', data);
         // Reset state after submission
-        setSelectedMood(null);
+        setSelectedMood('happy'); // Reset mood to default
         setThoughts('');
+        setSelectedFactors([]);
         // Dismiss keyboard
         Keyboard.dismiss();
         // Show confirmation alert
@@ -42,59 +47,61 @@ const MoodTracking = ({ userId }) => {
         Alert.alert('Error', 'Failed to submit mood entry. Please try again.');
       }
     } else {
-      alert('Please select a mood and write your thoughts.');
+      alert('Please write your thoughts.');
     }
   };
 
+  // Define dismissKeyboard function
   const dismissKeyboard = () => {
     Keyboard.dismiss();
   };
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <TouchableWithoutFeedback onPress={dismissKeyboard}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Track your monthly mood</Text>
-          <View style={styles.moodIconsContainer}>
-            {moodIcons.map((item, index) => (
-              <TouchableOpacity
-                key={index}
-                style={[styles.moodIcon, selectedMood === item.mood && styles.selectedMoodIcon]}
-                onPress={() => handleMoodSelection(item.mood)}
-                accessibilityLabel={`Select ${item.mood} mood`}
-              >
-                <Text style={styles.moodText}>{item.icon}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-          {selectedMood && (
-            <View style={styles.thoughtsContainer}>
-              <Text style={styles.subHeading}>Write about Today</Text>
-              <TextInput
-                style={styles.textInput}
-                multiline
-                placeholder="Share your thoughts..."
-                value={thoughts}
-                onChangeText={(text) => setThoughts(text)}
-                accessibilityLabel="Write your thoughts here"
-              />
-              <Button title="Submit" onPress={handleSubmit} accessibilityLabel="Submit mood entry" />
-            </View>
-          )}
+      <View style={styles.container}>
+        <Text style={styles.title}>Track your monthly mood</Text>
+        <MoodFactors onSelectFactors={setSelectedFactors} />
+        <View style={styles.moodIconsContainer}>
+          {moodIcons.map((item, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[styles.moodIcon, selectedMood === item.mood && styles.selectedMoodIcon]}
+              onPress={() => handleMoodSelection(item.mood)}
+              accessibilityLabel={`Select ${item.mood} mood`}
+            >
+              <Text style={styles.moodText}>{item.icon}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
+        <View style={styles.thoughtsContainer}>
+          <Text style={styles.subHeading}>Write about Today</Text>
+          <TextInput
+            style={styles.textInput}
+            multiline
+            placeholder="Share your thoughts..."
+            value={thoughts}
+            onChangeText={(text) => setThoughts(text)}
+            accessibilityLabel="Write your thoughts here"
+          />
+          <Button title="Submit" onPress={handleSubmit} accessibilityLabel="Submit mood entry" />
+        </View>
+      </View>
+      <TouchableWithoutFeedback onPress={dismissKeyboard}>
+        <MonthlyCalendarScreen />
       </TouchableWithoutFeedback>
-      <MonthlyCalendarScreen />
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    flexGrow: 1,
+    flexGrow: 0,
+    marginTop: 50,
     backgroundColor: '#ffffff', // White background
   },
   container: {
-    flex: 1,
+    flex: 0,
+    backgroundColor: 'white', // Make entire screen background white
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
