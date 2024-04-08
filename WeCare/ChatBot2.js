@@ -7,7 +7,7 @@ const Chatbot = () => {
   const [issueTitle, setIssueTitle] = useState('');
   const [issueDescription, setIssueDescription] = useState('');
   const [messages, setMessages] = useState([
-    { id: 1, content: "Hello, how can I help you? You can type in 'report bug' to report a technical issue.", sender: "bot" }
+    { id: 1, content: "Hello, how can I help you? You can type in 'Report bug' to report a technical issue.", sender: "bot" }
   ]);
   const [userMessage, setUserMessage] = useState('');
   const [bugModalVisible, setBugModalVisible] = useState(false);

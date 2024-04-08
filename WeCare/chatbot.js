@@ -9,7 +9,7 @@ const Chatbot = () => {
   const [issueDescription, setIssueDescription] = useState('');
   const navigation = useNavigation();
   const [messages, setMessages] = useState([
-    { id: 1, content: "Hello, how can I help you? You can type in 'need instant support', 'get in touch' or 'report bug'", sender: "bot" }
+    { id: 1, content: "Hello, how can I help you? You can type in 'Need instant support', 'Get in touch' or 'Report bug'", sender: "bot" }
   ]);
   const [userMessage, setUserMessage] = useState('');
   const [bugModalVisible, setBugModalVisible] = useState(false);
@@ -222,6 +222,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    marginBottom:190,
   },
   modalContent: {
     backgroundColor: 'white',

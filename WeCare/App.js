@@ -266,7 +266,7 @@ export default function App() {
                 navigation: navigation,
               })}/>
               <Stack.Screen name="Tracking" component={Tracking} options={({ navigation }) => ({
-                headerShown: false,
+                headerShown: true,
                 navigation: navigation,
               })}/> 
               <Stack.Screen name="FitnessTracker" component={FitnessTracker}options={({ navigation }) => ({
