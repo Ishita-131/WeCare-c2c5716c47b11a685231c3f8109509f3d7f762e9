@@ -37,16 +37,37 @@ const MoodTracking = ({ userId }) => {
 
   const fetchMoodData = async () => {
     try {
-      const { data, error } = await supabase.from('mood_entries').select('*').eq('mood', selectedMood);
+      const { data, error } = await supabase.from('mood_entries').select('*');
       if (error) {
         throw error;
       }
-      // Process the data to count mood occurrences
+      
       const moodCounts = moodIcons.map(icon => {
         const count = data.filter(entry => entry.mood === icon.mood).length;
         return { mood: icon.mood, count };
       });
-      setMoodData(moodCounts);
+      
+      const totalCount = moodCounts.reduce((total, mood) => total + mood.count, 0);
+      
+      const averageMoodData = moodCounts.map(mood => ({
+        mood: mood.mood,
+        count: totalCount ? (mood.count / totalCount) * 100 : 0, // Convert count to percentage
+      }));
+      
+      const existingMoodData = moodData.map(item => ({
+        mood: item.mood,
+        count: item.count,
+      }));
+
+      const combinedMoodData = averageMoodData.map(avgMood => {
+        const existingMood = existingMoodData.find(item => item.mood === avgMood.mood);
+        return {
+          mood: avgMood.mood,
+          count: existingMood ? (avgMood.count + existingMood.count) / 2 : avgMood.count,
+        };
+      });
+
+      setMoodData(combinedMoodData);
     } catch (error) {
       console.error('Error fetching mood data:', error.message);
     }
@@ -93,42 +114,10 @@ const MoodTracking = ({ userId }) => {
     Keyboard.dismiss();
   };
 
-  // Calculate average mood count
-  const averageCount = moodData.reduce((total, mood) => total + mood.count, 0) / moodData.length;
-
-  // Adjust mood count relative to average
-  const balancedMoodData = moodData.map(mood => ({
-    mood: mood.mood,
-    count: Math.round(mood.count * (averageCount / mood.count)),
-  }));
-
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
         <Text style={styles.title}>Track your monthly mood</Text>
-        <BarChart
-          style={{ marginBottom: 20 }}
-          data={{
-            labels: balancedMoodData.map(item => item.mood),
-            datasets: [
-              {
-                data: balancedMoodData.map(item => item.count),
-              },
-            ],
-          }}
-          width={300}
-          height={200}
-          yAxisLabel=""
-          chartConfig={{
-            backgroundGradientFrom: '#fff',
-            backgroundGradientTo: '#fff',
-            decimalPlaces: 0,
-            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-            style: {
-              borderRadius: 16,
-            },
-          }}
-        />
         <View style={styles.moodIconsContainer}>
           {moodIcons.map((item, index) => (
             <TouchableOpacity
@@ -170,6 +159,36 @@ const MoodTracking = ({ userId }) => {
           />
           <Button title="Submit" onPress={handleSubmit} accessibilityLabel="Submit mood entry" />
         </View>
+        <Text style={styles.subtitle}>View your monthly average</Text>
+        <BarChart
+          style={{ marginBottom: 20 }}
+          data={{
+            labels: moodData.map(item => item.mood),
+            datasets: [
+              {
+                data: moodData.map(item => item.count),
+                colors: [
+                  (opacity = 1) => `rgba(0, 92, 190, ${opacity})`, // Blue
+                  (opacity = 1) => `rgba(255, 149, 0, ${opacity})`, // Orange
+                  (opacity = 1) => `rgba(128, 0, 128, ${opacity})`, // Purple
+                  (opacity = 1) => `rgba(173, 216, 230, ${opacity})`, // Sky Blue
+                ],
+              },
+            ],
+          }}
+          width={300}
+          height={200}
+          yAxisSuffix="%"
+          chartConfig={{
+            backgroundGradientFrom: '#fff',
+            backgroundGradientTo: '#fff',
+            decimalPlaces: 0,
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            style: {
+              borderRadius: 16,
+            },
+          }}
+        />
       </View>
     </ScrollView>
   );
