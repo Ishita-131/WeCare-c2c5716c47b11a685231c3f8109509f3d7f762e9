@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert, RefreshControl } from 'react-native';
 import { supabase } from './supabase'; // Import Supabase client
 
 const NotesPage = () => {
     const [currentNote, setCurrentNote] = useState('');
     const [patientName, setPatientName] = useState('');
     const [notes, setNotes] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
         fetchNotes();
@@ -33,20 +34,18 @@ const NotesPage = () => {
                 if (error) {
                     console.error('Error saving note:', error.message);
                 } else {
-                    if (newNote && newNote.length > 0) {
-                        console.log('New note added:', newNote);
-                        setNotes([...notes, newNote[0]]);
-                        setCurrentNote('');
-                        setPatientName('');
-                    } else {
-                        console.error('Error saving note: New note is null or empty.');
-                    }
+                    // Clear input fields
+                    setCurrentNote('');
+                    setPatientName('');
                 }
             } catch (error) {
                 console.error('Error saving note:', error.message);
             }
         }
     };
+    
+    
+    
 
     const deleteNote = async (id) => {
         try {
@@ -77,6 +76,11 @@ const NotesPage = () => {
         );
     };
 
+    const onRefresh = () => {
+        setRefreshing(true);
+        fetchNotes().then(() => setRefreshing(false));
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.inputContainer}>
@@ -98,7 +102,12 @@ const NotesPage = () => {
                 </TouchableOpacity>
             </View>
 
-            <ScrollView style={styles.notesContainer}>
+            <ScrollView
+                style={styles.notesContainer}
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
+            >
                 <Text style={styles.sectionTitle}>Notes History</Text>
                 {notes.map((note, index) => (
                     <View key={index} style={styles.note}>

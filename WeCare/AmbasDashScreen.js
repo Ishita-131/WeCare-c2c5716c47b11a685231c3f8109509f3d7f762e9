@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     },
 
     notesButton: {
-        backgroundColor: '#9DC183',
+        backgroundColor: '#E3CFA7',
         borderRadius: 22,
         width: '70%',
         marginLeft: 22,
