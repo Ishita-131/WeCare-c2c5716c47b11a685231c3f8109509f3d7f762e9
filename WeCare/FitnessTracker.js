@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { Modal, Portal, Text, Button, Provider as PaperProvider } from 'react-native-paper';
-import { ScrollView, View, StyleSheet, TouchableOpacity, Image, TextInput, Switch } from 'react-native'; // Import ScrollView from react-native
+import { ScrollView, View, StyleSheet, TouchableOpacity, Image, TextInput, Switch, RefreshControl } from 'react-native'; // Import ScrollView from react-native
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
 import calories from './assets/images/calories.png';
