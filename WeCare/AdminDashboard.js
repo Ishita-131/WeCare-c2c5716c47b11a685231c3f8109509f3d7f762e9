@@ -5,7 +5,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import DashboardScreen from './dashboardScreen';
 import Profile from './Profile';
 import Account from './Account';
-import ChatBot from './chatbot';
+import ChatBot from './ChatBot2';
 import DeleteProfile from './DeleteProfile'; // Import DeleteProfile component
 import RetrieveProfile from './RetrieveProfile'; // Import RetrieveProfile component
 import ViewTechnicalIssue from './ViewTechnicalIssue';

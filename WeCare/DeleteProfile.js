@@ -1,35 +1,30 @@
-// UserProfile.js
-
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert, RefreshControl } from 'react-native';
 import { supabase } from './supabase'; // Import your Supabase client instance
 
 const UserProfile = () => {
   const [userProfiles, setUserProfiles] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    // Fetch user profiles from the database table
-    const fetchUserProfiles = async () => {
-      try {
-        const { data, error } = await supabase.from('user_profiles').select('*');
-        if (error) {
-          console.error('Error fetching user profiles:', error.message);
-        } else {
-          console.log('User profiles fetched successfully:', data);
-          setUserProfiles(data);
-        }
-      } catch (error) {
-        console.error('Error fetching user profiles:', error.message);
-      }
-    };
-
     fetchUserProfiles();
-
-    // Cleanup function
-    return () => {
-      // Any cleanup code
-    };
   }, []);
+
+  const fetchUserProfiles = async () => {
+    setRefreshing(true);
+    try {
+      const { data, error } = await supabase.from('user_profiles').select('*');
+      if (error) {
+        console.error('Error fetching user profiles:', error.message);
+      } else {
+        console.log('User profiles fetched successfully:', data);
+        setUserProfiles(data);
+      }
+    } catch (error) {
+      console.error('Error fetching user profiles:', error.message);
+    }
+    setRefreshing(false);
+  };
 
   const deleteUserProfile = async (id, profile) => {
     try {
@@ -83,17 +78,16 @@ const UserProfile = () => {
   const renderUserProfile = ({ item, index }) => (
     <View>
       <View style={[styles.profileContainer, index % 2 === 0 ? styles.lightBlueRow : styles.darkBlueRow]}>
-        <Text style={[styles.column, styles.boldText, { flex: 1 }]}> {item.id}</Text>
-        <Text style={[styles.column, styles.boldText, { flex: 2 }]}> {item.name}</Text>
-        <Text style={[styles.column, styles.boldText, { flex: 2 }]}> {item.surname}</Text>
-        <Text style={[styles.column, styles.boldText, { flex: 2 }]}> {item.fdm_id}</Text>
+        <Text style={[styles.column, { flex: 1 }]}> {item.id}</Text>
+        <Text style={[styles.column, { flex: 2 }]}> {item.name}</Text>
+        <Text style={[styles.column, { flex: 2 }]}> {item.surname}</Text>
+        <Text style={[styles.column, { flex: 2 }]}> {item.fdm_id}</Text>
       </View>
       <TouchableOpacity style={[styles.deleteButtonContainer, index % 2 === 0 ? styles.lightBlueRow : styles.darkBlueRow]} onPress={() => deleteUserProfile(item.id, item)}>
         <Text style={[styles.deleteButton, styles.boldText, { width: 70, marginLeft: 10 }]}>Delete</Text>
       </TouchableOpacity>
     </View>
   );
-  
 
   return (
     <View style={styles.container}>
@@ -107,6 +101,7 @@ const UserProfile = () => {
         data={userProfiles}
         renderItem={renderUserProfile}
         keyExtractor={(item) => item.id.toString()}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={fetchUserProfiles} />} // Add RefreshControl to handle pull-to-refresh
       />
     </View>
   );
@@ -120,8 +115,8 @@ const styles = StyleSheet.create({
   },
   profileContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center', // Align items in the center vertically
+    justifyContent: 'space-between', // Spread items evenly
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     paddingVertical: 10, // Increase vertical padding for better spacing
@@ -133,10 +128,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#1986EC',
     color: '#fff',
     textTransform: 'uppercase',
-    paddingHorizontal: 10,
+    paddingVertical:10,
   },
   column: {
     paddingHorizontal: 2,
+    width:'100%',
   },
   
   boldText: {
@@ -157,6 +153,7 @@ const styles = StyleSheet.create({
     marginBottom: 10, // Decrease marginBottom for better spacing
     alignItems: 'center',
     width: '100%', // Adjust the width to fill the container
+    paddingBottom:15,
   },
 
   lightBlueRow: {

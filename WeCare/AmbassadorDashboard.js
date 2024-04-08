@@ -4,8 +4,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 import Profile from './Profile';
 import Account from './Account';
-import ChatbotTemplate from './chatbot';
-import TechnicalIssue from './TechnicalIssue';
+import ChatbotTemplate from './ChatBot2';
 import AdminDashScreen from './AmbasDashScreen';
 import NotesPage from './NotesPage';
 import ViewPatients from './Components/ViewPatients/ListAmbassApp';
@@ -26,7 +25,6 @@ export default function Dashboard() {
         <Drawer.Screen name="Notes" component={NotesPage} />
         <Drawer.Screen name="To Do" component={ToDoList} />
         <Drawer.Screen name="Patient Info" component={PatientProfile} />
-        <Drawer.Screen name="Report Technical Issues" component={TechnicalIssue}/>
         <Drawer.Screen name="Chatbot" component={ChatbotTemplate} />
         <Drawer.Screen name="Sign Out" component={Account} />
       </Drawer.Navigator>
