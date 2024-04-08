@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import { supabase } from './supabase';
+
 
 const maxCalories = 1000;
 const currentCalories = 760;
@@ -10,34 +10,6 @@ const caloriesLeft = maxCalories - currentCalories;
 
 const DashboardScreen = ({ navigation }) => {
 
-    // Define your mood icons data
-    const moodIcons = [
-        { id: 'happy', source: require('./assets/images/Happy1.png') },
-        { id: 'calm', source: require('./assets/images/Calm1.png') },
-        { id: 'manic', source: require('./assets/images/Manic1.png') },
-        { id: 'angry', source: require('./assets/images/Angry1.png') },
-        { id: 'sad', source: require('./assets/images/Sad1.png') }
-    ];
-
-    const handleMoodSelection = async (mood) => {
-        try {
-            // Send a request to store the mood selection using Supabase client
-            const { data, error } = await supabase
-                .from('UserMood')
-                .insert({ mood });
-    
-            if (error) {
-                throw new Error(error.message);
-            }
-    
-            console.log('Mood selection stored successfully:', data);
-            // Optionally, you can update the UI or show a success message
-        } catch (error) {
-            console.error('Error storing mood selection:', error.message);
-            // Handle errors (e.g., show an error message to the user)
-        }
-    };
-    
     return (
         <ScrollView style={styles.container}>
             <View style={styles.header}>
@@ -68,22 +40,20 @@ const DashboardScreen = ({ navigation }) => {
                 <Text style={styles.targetButtonText}>Today's Target</Text>
             </TouchableOpacity>
 
-            {/* Mood Selection Section */}
             <View style={styles.moodSelectionContainer}>
-                <Text style={styles.moodSelectionTitle}>How are you feeling today?</Text>
-                <FlatList
-                    horizontal
-                    data={moodIcons}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity onPress={() => handleMoodSelection(item.id)}>
-                            <Image
-                                source={item.source}
-                                style={styles.moodIcon}
-                            />
-                        </TouchableOpacity>
-                    )}
+                <Image
+                    source={require('./assets/images/person.png')}
+                    style={styles.profileIcon2}
                 />
+                <View>
+                    <Text style={styles.moodSelectionTitle}>Ben Gaunt</Text>
+                    <Text style={styles.moodSelectionText}>Fdm Employee</Text>
+                </View>
+                <TouchableOpacity
+                style={styles.targetButton}
+                onPress={() => navigation.navigate('Profile')} >
+                <Text style={styles.targetButtonText}>Edit</Text>
+            </TouchableOpacity>
             </View>
 
 
@@ -178,15 +148,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20, // Add some padding on the sides
     },
 
-
-    // profileIcon: {
-    //     width: 40, // Adjust the size as needed
-    //     height: 40, // Adjust the size as needed
-    //     position: 'absolute', // Use absolute positioning
-    //     top: 8, // Adjust the top as needed
-    //     right: 10, // Adjust the right as needed
-    //     // You may also want to add a border, borderRadius, etc.
-    // },
 
 
     profileIcon: {
@@ -405,13 +366,30 @@ const styles = StyleSheet.create({
         marginTop: 20, // Adjust this as needed
         alignItems: 'center', // This ensures that your container's items are centered
         marginBottom: 20,
+        flexDirection: 'row',
     },
 
     moodSelectionTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 10, // Adjust as per your design
-        textAlign: 'center', // This ensures that your text is centered
+        color: 'black',
+        fontFamily: 'Poppins',
+        fontSize: 16,
+        fontStyle: 'normal',
+        fontWeight: 500,
+        lineHeight: '21px',
+        width: 107,
+        height: 31,
+        fontWeight: '600',
+    },
+
+    moodSelectionText: {
+        color: '#7B6F72',
+        fontFamily: 'Poppins',
+        fontSize: 16,
+        fontStyle: 'normal',
+        fontWeight: 500,
+        lineHeight: '21px',
+        width: 129,
+        height: 27,
     },
 
     moodIconsContainer: {
@@ -491,6 +469,29 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         alignSelf: 'flex-end',
     },
+
+    editButton: {
+        backgroundColor: '#007bff', // Use the color from your Figma design
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 20, // Add left margin to create space between the texts and button
+        elevation: 10, // Adjust elevation for Android to match Figma
+        color: 'white',
+    },
+
+    editButtonContainer:{
+        borderRadius:22,
+    },
+    
+
+    profileIcon2:{
+        width:100,
+        height:100,
+        marginRight:10,
+    },
+    
 
 
 

@@ -184,12 +184,13 @@ const ProfileForm = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: '#FFF', // Set default background color to white
+    backgroundColor: '#FFFFFF', // Set default background color to white
   },
   profilePicContainer: {
     alignItems: 'center',
     paddingTop: 10,
     paddingBottom: 10,
+    marginBottom:20,
   },
   editProfileText: {
     color: '#fff',
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#171F1D',
+    backgroundColor: '#007bff',
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 4,
