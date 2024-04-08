@@ -422,7 +422,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF3E0', // Adjust the color as needed
         borderRadius: 10,
         padding: 20,
-        marginHorizontal: 20,
+        marginHorizontal: 25,
         marginTop: 20,
         marginBottom: 60,
         // To add the shadow as per your Figma design, adjust the values below
