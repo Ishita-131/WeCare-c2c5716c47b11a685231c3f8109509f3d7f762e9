@@ -197,8 +197,8 @@ const MoodTracking = ({ userId }) => {
 const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 0,
-    marginTop: 50,
     backgroundColor: '#ffffff', // White background
+    paddingBottom:100,
   },
   container: {
     flex: 0,

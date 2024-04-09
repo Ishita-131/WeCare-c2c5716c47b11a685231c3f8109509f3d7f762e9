@@ -280,7 +280,7 @@ export default function App() {
                 navigation: navigation,
               })} /> 
               <Stack.Screen name="MentalHealth" component={MentalHealth}options={({ navigation }) => ({
-                headerShown: false,
+                headerShown: true,
                 navigation: navigation,
               })} /> 
               <Stack.Screen name="Breathing" component={Breathing}options={({ navigation }) => ({
@@ -292,11 +292,11 @@ export default function App() {
                 navigation: navigation,
               })} />
               <Stack.Screen name="MentalResource" component={ResourceMental}options={({ navigation }) => ({
-                headerShown: false,
+                headerShown: true,
                 navigation: navigation,
               })} />
               <Stack.Screen name="MoodTracking" component={MoodTracking}options={({ navigation }) => ({
-                headerShown: false,
+                headerShown: true,
                 navigation: navigation,
               })} />
               <Stack.Screen name="MoodEntryDetails" component={MoodEntryDetails}options={({ navigation }) => ({

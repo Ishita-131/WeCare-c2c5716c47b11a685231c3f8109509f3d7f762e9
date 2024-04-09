@@ -38,7 +38,9 @@ export default function AppointmentsMade() {
             <View style={styles.container}>
                 <Text style={styles.title}>Ambassador: {item.ambassador_name}</Text>
                 <Text style={styles.text}>Date: {formatDate(item.Date_Suggested)}</Text>
+                <View  style={styles.buttonContainer}>
                 <CancelAppointment item={item.user} />
+                </View>
             </View>
         );
     }
@@ -64,20 +66,35 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
     },
     container: {
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: 20,
+        flexDirection: "column",
+        paddingVertical: 10,
         borderBottomWidth: 1,
         borderBottomColor: "#ccc",
+        paddingBottom:30,
+        backgroundColor:'#DFF3FF',
+        borderRadius:22,
+        margin:10,
+        padding:20,
     },
     title: {
-        fontSize: 18,
-        marginBottom: 10,
-        fontWeight:'bold',
+        fontSize: 16,
+        fontWeight: "bold",
+        paddingBottom:5,
     },
 
     text: {
-        fontSize: 18,
-        marginBottom: 10,
+        fontSize: 14,
+    color: "#666",
+    marginTop: 5,
+    paddingBottom:10,
     },
+    buttonContainer:{
+        backgroundColor:'#1986EC',
+        borderRadius:22,
+        color:'white',
+    },
+
+    button:{
+        color:'white',
+    }
 });

@@ -12,6 +12,7 @@ const MentalHealth = () => {
   const moodTracking = () => {
     navigation.navigate('MoodTracking');
   };
+  
 
 
   return (
