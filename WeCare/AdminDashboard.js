@@ -20,8 +20,6 @@ const Dashboard = () => {
     <NavigationContainer independent={true}>
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={AdminDashScreen}/>
-        <Drawer.Screen name="Profile" component={Profile}/>
-        <Drawer.Screen name="Chatbot" component={ChatBot}/>
         {/* Admin Dashboard Buttons */}
         <Drawer.Screen name="User Management" component={UserManagement}/>
         <Drawer.Screen name="Delete User Profiles" component={DeleteProfile}/>

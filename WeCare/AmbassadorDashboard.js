@@ -20,7 +20,6 @@ export default function Dashboard() {
     <NavigationContainer independent={true}>
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={AmbasDashScreen} />
-        <Drawer.Screen name="Profile" component={Profile} />
         <Drawer.Screen name="View Scheduled Appointments" component={ViewPatients} />
         <Drawer.Screen name="Notes" component={NotesPage} />
         <Drawer.Screen name="To Do" component={ToDoList} />

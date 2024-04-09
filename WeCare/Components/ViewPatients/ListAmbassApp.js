@@ -39,7 +39,9 @@ export default function ViewPatients() {
             <View style={styles.container}>
                 <Text style={styles.title}>Patient: {item.user}</Text>
                 <Text style={styles.text}>Date: {formatDate(item.Date_Suggested)}</Text>
-                <CancelAppointment item={item.user} />
+                <View style={styles.cancelContainer}>
+                    <CancelAppointment item={item.user} />
+                </View>
             </View>
         </>)
     }
@@ -61,24 +63,36 @@ export default function ViewPatients() {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        paddingTop: 20,
-        backgroundColor: "#fff",
+    padding: 1,
+    backgroundColor: '#FFF', // Set default background color to white
     },
     container: {
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: 20,
-        borderBottomWidth: 1,
-        borderBottomColor: "#ccc",
+        flexDirection: "column",
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+    paddingBottom:30,
+    backgroundColor:'#DFF3FF',
+    borderRadius:22,
+    margin:10,
+    padding:20,
     },
     title: {
-        fontSize: 18,
-        marginBottom: 10,
-        fontWeight:'bold',
+        fontSize: 16,
+        fontWeight: "bold",
+        paddingBottom:5,
     },
 
     text: {
-        fontSize: 18,
-        marginBottom: 10,
+        fontSize: 14,
+    color: "#666",
+    marginTop: 5,
+    paddingBottom:10,
+    },
+
+    cancelContainer:{
+        backgroundColor:'#1986EC',
+        borderRadius:22,
+        color:'white',
     },
 }); 

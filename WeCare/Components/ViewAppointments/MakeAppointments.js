@@ -132,7 +132,9 @@ const styles = StyleSheet.create({
     paddingBottom:10,
   },
   cancelButtonContainer: {
-    marginTop: 10,
+    backgroundColor:'#1986EC',
+        borderRadius:22,
+        color:'white',
   },
   pagination: {
     flexDirection: "row",

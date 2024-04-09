@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: "#ccc",
         paddingBottom:30,
-        backgroundColor:'#DFF3FF',
+        backgroundColor:'#E0F2F8',
         borderRadius:22,
         margin:10,
         padding:20,
@@ -84,9 +84,9 @@ const styles = StyleSheet.create({
 
     text: {
         fontSize: 14,
-    color: "#666",
-    marginTop: 5,
-    paddingBottom:10,
+        color: "#666",
+        marginTop: 5,
+        paddingBottom:10,
     },
     buttonContainer:{
         backgroundColor:'#1986EC',
