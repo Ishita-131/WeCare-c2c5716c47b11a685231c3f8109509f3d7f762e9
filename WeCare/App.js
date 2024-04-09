@@ -44,6 +44,8 @@ import ResourceMental from './Components/MentalHealth /MentalResourse.js';
 import MoodTracking from './MoodTracking.js';
 import MoodEntryDetails from './Components/MentalHealth /MoodEntryDetails.js';
 import UserManagement from './UserManagement.js';
+import ExerciseLogList from './ExerciseLogList.js';
+
 
 
 
@@ -344,6 +346,10 @@ export default function App() {
                 navigation: navigation,
               })} />
               <Stack.Screen name="NotificationTemplate" component={NotificationTemplate}options={({ navigation }) => ({
+                headerShown: true,
+                navigation: navigation,
+              })} />
+              <Stack.Screen name="ExerciseLogList" component={ExerciseLogList}options={({ navigation }) => ({
                 headerShown: true,
                 navigation: navigation,
               })} />

@@ -18,6 +18,7 @@ const FitnessTracker = () => {
   const handleGoBack = () => {
     navigation.goBack();
   };
+  
 
   const [totalCaloriesBurned, setTotalCaloriesBurned] = useState(0);
 
@@ -366,6 +367,7 @@ const Upcoming2 = () => {
 };
 
 const ExerciseCount = () => {
+  const navigation = useNavigation(); 
   const [weeklyExerciseCount, setWeeklyExerciseCount] = useState(0);
 
   useEffect(() => {
@@ -391,6 +393,10 @@ const ExerciseCount = () => {
 
     fetchExerciseLog();
   }, []);
+  const handleMoreDetailsPress = () => {
+    // Navigate to ExerciseLogList component
+    navigation.navigate('ExerciseLogList');
+  };
 
   return (
     <LinearGradient
@@ -402,9 +408,9 @@ const ExerciseCount = () => {
       <View style={styles.cardContentExCount}>
         <Text style={styles.CountTitle}>Weekly Exercise Count</Text>
         <View style={styles.countAndButtonContainer}>
-          <TouchableOpacity style={styles.learnMoreButton2}>
-            <Text style={styles.learnMoreText}>More Details</Text>
-          </TouchableOpacity>
+        <TouchableOpacity style={styles.learnMoreButton2} onPress={handleMoreDetailsPress}>
+  <Text style={styles.learnMoreText}>More Details</Text>
+</TouchableOpacity>
           <View style={styles.countContainer}>
             <Text style={styles.CountNumber}>{weeklyExerciseCount}</Text>
           </View>
