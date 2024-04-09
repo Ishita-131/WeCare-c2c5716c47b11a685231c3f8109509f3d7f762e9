@@ -13,8 +13,11 @@ const ExerciseLogList = () => {
 
   const fetchExerciseLogs = async () => {
     setRefreshing(true);
-    try {
-      const { data, error } = await supabase.from('exerciselog').select('*');
+        try {
+            const { data, error } = await supabase
+              .from('exerciselog')
+              .select('*')
+              .order('exercisedate', { ascending:false }); // Sort by exercisedate in ascending order
       if (error) {
         console.error('Error fetching exercise logs:', error.message);
       } else {
