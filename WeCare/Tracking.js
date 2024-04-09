@@ -16,8 +16,6 @@ const Tracking = () => {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.welcomeStyles}>Welcome to your tracker,</Text>
-          <Image source={ProfileButton2} style={styles.profileButton} />
         </View>
         <View style={styles.container2}>
           <TargetCard />
@@ -246,7 +244,8 @@ const BMICard = () => {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    backgroundColor: '#FFF', // Set default background color to white
+    backgroundColor: '#FFFFFF', // Set default background color to white
+    paddingBottom:40,
   },
 
   container2: {
