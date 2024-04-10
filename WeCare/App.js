@@ -306,6 +306,14 @@ export default function App() {
                 headerShown: false,
                 navigation: navigation,
               })}/> 
+              <Stack.Screen name="ExerciseLogList" component={ExerciseLogList} options={({ navigation }) => ({
+                headerShown: true,
+                navigation: navigation,
+              })}/> 
+              <Stack.Screen name="Support" component={Support} options={({ navigation }) => ({
+                headerShown: true,
+                navigation: navigation,
+              })}/> 
               <Stack.Screen name="FavMeals" component={FavMeals} options={({ navigation }) => ({
                 headerShown: false,
                 navigation: navigation,
@@ -349,4 +357,3 @@ export default function App() {
     </AcceptProvider>
   );
 }
-
