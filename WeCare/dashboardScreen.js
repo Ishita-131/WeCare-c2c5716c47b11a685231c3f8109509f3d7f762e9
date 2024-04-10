@@ -13,7 +13,7 @@ const DashboardScreen = ({ navigation }) => {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.greeting}>Hi, User</Text>
+                <Text style={styles.greeting}>Welcome to WeCare</Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Profile')} >
                     <Image
                         source={require('./assets/images/Profile Button.png')} // Make sure the path is correct
@@ -46,7 +46,7 @@ const DashboardScreen = ({ navigation }) => {
                     style={styles.profileIcon2}
                 />
                 <View>
-                    <Text style={styles.moodSelectionTitle}>Ben Gaunt</Text>
+                    <Text style={styles.moodSelectionTitle}>User Profile</Text>
                     <Text style={styles.moodSelectionText}>Fdm Employee</Text>
                 </View>
                 <TouchableOpacity
