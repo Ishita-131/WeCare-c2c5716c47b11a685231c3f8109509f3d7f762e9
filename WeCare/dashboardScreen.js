@@ -371,11 +371,10 @@ const styles = StyleSheet.create({
 
     moodSelectionTitle: {
         color: 'black',
-        fontFamily: 'Poppins',
         fontSize: 16,
         fontStyle: 'normal',
         fontWeight: 500,
-        lineHeight: '21px',
+        lineHeight: 21,
         width: 107,
         height: 31,
         fontWeight: '600',
@@ -383,11 +382,10 @@ const styles = StyleSheet.create({
 
     moodSelectionText: {
         color: '#7B6F72',
-        fontFamily: 'Poppins',
         fontSize: 16,
         fontStyle: 'normal',
         fontWeight: 500,
-        lineHeight: '21px',
+        lineHeight: 21,
         width: 129,
         height: 27,
     },

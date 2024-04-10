@@ -273,7 +273,6 @@ const styles = StyleSheet.create({
 
   welcomeStyles: {
     color: '#000',
-    fontFamily: 'Poppins',
     fontSize: 18,
     fontWeight: '800',
     lineHeight: 40,
@@ -282,31 +281,28 @@ const styles = StyleSheet.create({
 
   targetTitle: {
     color: 'black',
-    fontFamily: 'Segoe UI',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '800',
-    lineHeight: 21, // React Native does not require units for lineHeight
+    lineHeight: 21, 
   },
 
   waterTitle: {
     color: 'black',
-    fontFamily: 'Segoe UI',
     fontSize: 12,
     fontStyle: 'normal',
     fontWeight: '600',
-    lineHeight: 21, // React Native does not require units for lineHeight
+    lineHeight: 21,
     textAlign: 'center',
     marginLeft: 20,
   },
 
   measurement: {
     color: 'black',
-    fontFamily: 'Segoe UI',
     fontSize: 12,
     fontStyle: 'normal',
     fontWeight: '600',
-    lineHeight: 21, // React Native does not require units for lineHeight
+    lineHeight: 21, 
     textAlign: 'center',
     marginRight: 40,
     marginTop: -40,
@@ -314,22 +310,20 @@ const styles = StyleSheet.create({
 
   stepTitle: {
     color: 'black',
-    fontFamily: 'Segoe UI',
     fontSize: 12,
     fontStyle: 'normal',
     fontWeight: '600',
-    lineHeight: 21, // React Native does not require units for lineHeight
+    lineHeight: 21,
     textAlign: 'center',
     marginLeft: 20,
   },
 
   stepCount: {
     color: 'black',
-    fontFamily: 'Segoe UI',
     fontSize: 12,
     fontStyle: 'normal',
     fontWeight: '600',
-    lineHeight: 21, // React Native does not require units for lineHeight
+    lineHeight: 21, 
     textAlign: 'center',
     marginTop: -40,
     marginRight: 20,
@@ -398,7 +392,6 @@ const styles = StyleSheet.create({
   },
   progressText: {
     color: 'black',
-    fontFamily: 'Segoe UI',
     fontSize: 14,
     fontWeight: '500',
     lineHeight: 18,
@@ -457,7 +450,6 @@ const styles = StyleSheet.create({
 
   fitnessTitle: {
     color: 'black',
-    fontFamily: 'Segoe UI',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '600',
@@ -467,7 +459,6 @@ const styles = StyleSheet.create({
 
   dietTitle: {
     color: 'black',
-    fontFamily: 'Segoe UI',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '600',
@@ -510,7 +501,6 @@ const styles = StyleSheet.create({
 
   BMICardText: {
     color: 'black',
-    fontFamily: 'Segoe UI',
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
@@ -519,7 +509,6 @@ const styles = StyleSheet.create({
 
   BMIText: {
     color: 'black',
-    fontFamily: 'Segoe UI',
     fontSize: 14,
     fontWeight: '500',
     lineHeight: 18,

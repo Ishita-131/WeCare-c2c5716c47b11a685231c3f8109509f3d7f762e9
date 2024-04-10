@@ -350,7 +350,6 @@ const styles = StyleSheet.create({
 
   welcomeStyles: {
     color: '#000',
-    fontFamily: 'Poppins',
     fontSize: 18,
     fontWeight: '800',
     lineHeight: 40,
@@ -495,7 +494,6 @@ const styles = StyleSheet.create({
 
   loggingTitle: {
     color: 'black',
-    fontFamily: 'Segoe UI',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '600',
@@ -505,7 +503,6 @@ const styles = StyleSheet.create({
 
   loggingSmallText: {
     color: 'black',
-    fontFamily: 'Segoe UI',
     fontSize: 15,
     fontWeight: '400',
     marginLeft: 8,
@@ -530,7 +527,6 @@ const styles = StyleSheet.create({
 
   caloriesTitle: {
     color: 'black',
-    fontFamily: 'Segoe UI',
     fontSize: 14,
     fontWeight: '600',
     marginBottom: 10,
@@ -538,7 +534,6 @@ const styles = StyleSheet.create({
 
   caloriessmallText: {
     color: 'white',
-    fontFamily: 'Segoe UI',
     fontSize: 13,
     padding: 5,
     fontWeight: '400',
@@ -557,7 +552,6 @@ const styles = StyleSheet.create({
 
   caloriesText: {
     color: 'white',
-    fontFamily: 'Segoe UI',
     fontSize: 24, // Adjust font size of calories number
     fontWeight: 'bold',
   },
@@ -598,7 +592,6 @@ const styles = StyleSheet.create({
   },
 
   MealsTitle: {
-    fontFamily: 'Poppins',
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '600',
@@ -617,7 +610,6 @@ const styles = StyleSheet.create({
   }, 
 
   seeMoreButton: {
-    fontFamily: 'Poppins',
     fontSize: 12,
     fontWeight: '500',
     lineHeight: 18,
@@ -659,7 +651,6 @@ const styles = StyleSheet.create({
   },
 
   UpcomingText: {
-    fontFamily: 'Poppins',
     fontSize: 14, // React Native does not require units for fontSize
     fontStyle: 'normal',
     fontWeight: '500',
@@ -668,7 +659,6 @@ const styles = StyleSheet.create({
   },
 
   UpcomingText2: {
-    fontFamily: 'Poppins',
     fontSize: 14, // React Native does not require units for fontSize
     fontStyle: 'normal',
     fontWeight: '500',
@@ -678,7 +668,6 @@ const styles = StyleSheet.create({
 
   dateText: {
     marginTop: 5,
-    fontFamily: 'Poppins',
     fontSize: 10, // React Native does not require units for fontSize
     fontStyle: 'normal',
     fontWeight: '400',
@@ -702,7 +691,6 @@ const styles = StyleSheet.create({
 
   nutrientTitle:{
     color: 'white',
-    fontFamily: 'Poppins',
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -720,14 +708,12 @@ const styles = StyleSheet.create({
 
   nutrientLabel: {
     color: 'white',
-    fontFamily: 'Poppins',
     fontSize: 14,
     fontWeight: 'bold',
   },
 
   nutrientValue: {
     color: 'white',
-    fontFamily: 'Poppins',
     fontSize: 14,
     marginRight:70,
   },

@@ -86,7 +86,6 @@ const ProfileForm = () => {
             onChangeText={setSurname}
             value={surname}
             placeholder="Enter your last name"
-            keyboardType="words"
             required
           />
 

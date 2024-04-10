@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Alert, StyleSheet, View, TouchableOpacity, Text } from 'react-native'; // Import TouchableOpacity and Text
 import { Input } from 'react-native-elements';
 import { supabase } from './supabase';
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
 
   async function signInWithEmail() {
     setLoading(true);
@@ -14,15 +17,16 @@ export default function Auth() {
       email: email,
       password: password,
     });
-
+  
     if (error) {
       Alert.alert(error.message);
+    } else {
       navigation.navigate('SelectRole');
-
     }
-
+  
     setLoading(false);
   }
+  
 
   return (
     <View style={styles.container}>
