@@ -33,8 +33,6 @@ import Onboarding2 from './Onboarding2.js';
 import Onboarding3 from './Onboarding3.js';
 import Onboarding4 from './Onboarding4.js';
 import Onboarding5 from './Onboarding5.js';
-import ViewArrangement from './Components/ViewAppointments/ViewArrangement.js';
-import AskAppointment from './Components/ViewAppointments/AskAppointment.js';
 import * as Notifications from 'expo-notifications';
 import NotificationTemplate from './NotificationInbox';
 import MentalHealth from './Components/MentalHealth /MentalHealth.js';
@@ -46,9 +44,6 @@ import MoodEntryDetails from './Components/MentalHealth /MoodEntryDetails.js';
 import UserManagement from './UserManagement.js';
 import ExerciseLogList from './ExerciseLogList.js';
 import Support from './Components/MentalHealth /SupportGroup.js';
-
-
-
 
 const Stack = createNativeStackNavigator();
 
@@ -155,7 +150,7 @@ export default function App() {
           body: 'Drinking water regularly is important for your health.',
         },
         trigger: {
-          seconds: 7,
+          seconds: 60,
         },
       });
     } catch (error) {
@@ -299,10 +294,6 @@ export default function App() {
                 headerShown: true,
                 navigation: navigation,
               })} />
-              <Stack.Screen name="Support" component={Support}options={({ navigation }) => ({
-                headerShown: false,
-                navigation: navigation,
-              })} />
               <Stack.Screen name="MoodEntryDetails" component={MoodEntryDetails}options={({ navigation }) => ({
                 headerShown: false,
                 navigation: navigation,
@@ -348,10 +339,6 @@ export default function App() {
                 navigation: navigation,
               })} />
               <Stack.Screen name="NotificationTemplate" component={NotificationTemplate}options={({ navigation }) => ({
-                headerShown: true,
-                navigation: navigation,
-              })} />
-              <Stack.Screen name="ExerciseLogList" component={ExerciseLogList}options={({ navigation }) => ({
                 headerShown: true,
                 navigation: navigation,
               })} />
