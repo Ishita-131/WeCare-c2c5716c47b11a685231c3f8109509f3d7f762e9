@@ -40,7 +40,7 @@ const FitnessTracker = () => {
           </View>
           <WorkoutCard />
           <View style={styles.cardContainer}>
-            <LoggingCard onCaloriesChange={handleCaloriesChange} />
+          <LoggingCard onCaloriesChange={handleCaloriesChange} />
             <CaloriesCard totalCaloriesBurned={totalCaloriesBurned} />
           </View>
           <UpcomingWorkouts />
@@ -99,8 +99,7 @@ const WorkoutCard = () => {
 };
 
 // LoggingCard component
-
-const LoggingCard = () => {
+const LoggingCard = ({ onCaloriesChange }) => {
   const [visible, setVisible] = React.useState(false);
   const [selectedExercise, setSelectedExercise] = React.useState(null);
   const [exerciseDetails, setExerciseDetails] = React.useState({
@@ -172,54 +171,51 @@ const LoggingCard = () => {
       }
   
       console.log('Exercise details inserted successfully:', data);
-
+  
       // Update total calories burned and total duration
       setTotalCaloriesBurned(totalCaloriesBurned + caloriesBurned);
       setTotalDuration(totalDuration + parseInt(exerciseDetails.duration));
-    } catch (error) {
-      console.error('Error inserting exercise details:', error);
-    }
-  
-       // Reset exercise details
-       setExerciseDetails({
+      
+      // Clear exercise details after successful submission
+      setExerciseDetails({
         date: '',
         duration: '',
         caloriesBurned: '',
       });
-
-    const caloriesBurned = exerciseData.calories_per_minute * parseInt(exerciseDetails.duration);
-    setTotalCaloriesBurned(totalCaloriesBurned + caloriesBurned);
-    onCaloriesChange(totalCaloriesBurned); // Pass the calories burned value to the parent component
-
-  };
   
-
-  const handleChangeDate = (text) => {
-    setExerciseDetails((prevDetails) => ({ ...prevDetails, date: text }));
-  };
-
-  const formatDuration = (minutes) => {
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-    return `${hours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')} hr`;
-  };
-
-  React.useEffect(() => {
-    // Fetch exercise list from Supabase when component mounts
-    const fetchExerciseList = async () => {
-      try {
-        const { data, error } = await supabase.from('exerciseslist').select('*');
-        if (error) {
-          throw error;
-        }
-        setExerciseList(data);
-      } catch (error) {
-        console.error('Error fetching exercise list:', error.message);
-      }
+      // Pass the calories burned value to the parent component
+      onCaloriesChange(totalCaloriesBurned + caloriesBurned);
+    } catch (error) {
+      console.error('Error inserting exercise details:', error);
+    }
+  };  
+  
+    const handleChangeDate = (text) => {
+      setExerciseDetails((prevDetails) => ({ ...prevDetails, date: text }));
     };
-
-    fetchExerciseList();
-  }, []);
+  
+    const formatDuration = (minutes) => {
+      const hours = Math.floor(minutes / 60);
+      const remainingMinutes = minutes % 60;
+      return `${hours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')} hr`;
+    };
+  
+    React.useEffect(() => {
+      // Fetch exercise list from Supabase when component mounts
+      const fetchExerciseList = async () => {
+        try {
+          const { data, error } = await supabase.from('exerciseslist').select('*');
+          if (error) {
+            throw error;
+          }
+          setExerciseList(data);
+        } catch (error) {
+          console.error('Error fetching exercise list:', error.message);
+        }
+      };
+  
+      fetchExerciseList();
+    }, []);
 
   return (
     <View style={styles.loggingcard}>
