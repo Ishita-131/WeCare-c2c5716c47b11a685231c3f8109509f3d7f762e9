@@ -42,7 +42,7 @@ function ListAmbassadors() {
   );
 
   const nextPage = () => {
-    if (startIndex < 11) {
+    if (startIndex < 21) {
       setStartIndex(startIndex + 10);
     }
   };
@@ -98,7 +98,7 @@ function ListAmbassadors() {
         <Button
           title="Next"
           onPress={nextPage}
-          disabled={startIndex===20}
+          disabled={startIndex===30}
         />
       </View>
     </View>

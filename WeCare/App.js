@@ -43,6 +43,7 @@ import BreathingScreen from './Components/MentalHealth /BreathingScreen.js';
 import ResourceMental from './Components/MentalHealth /MentalResourse.js';
 import MoodTracking from './MoodTracking.js';
 import MoodEntryDetails from './Components/MentalHealth /MoodEntryDetails.js';
+import Support from './Components/MentalHealth /SupportGroup.js';
 
 
 
@@ -293,6 +294,10 @@ export default function App() {
                 navigation: navigation,
               })} />
               <Stack.Screen name="MoodTracking" component={MoodTracking}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} />
+              <Stack.Screen name="Support" component={Support}options={({ navigation }) => ({
                 headerShown: false,
                 navigation: navigation,
               })} />

@@ -38,6 +38,11 @@ const MentalHealth = () => {
         </TouchableOpacity>
 
         {/* Add more widgets here */}
+        <TouchableOpacity style={styles.widgetButton} onPress={() => navigation.navigate('Support')}>
+          <View style={styles.widgetInner}>
+            <Text style={styles.widgetText}>Support</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

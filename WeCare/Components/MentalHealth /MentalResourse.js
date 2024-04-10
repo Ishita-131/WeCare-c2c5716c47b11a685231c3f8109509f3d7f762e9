@@ -12,7 +12,7 @@ export default function ResourceMental() {
         try{
             const data = await axios.get('https://api.nhs.uk/mental-health', {
                 headers: {
-                    'subscription-key': '905f94250d4e4d2ca049ca4a30591351'
+                    'subscription-key': '0a9115489aa94a62a3c502222a2977f3'
                 }
                 })
             setData(data.data)

@@ -39,6 +39,7 @@ export default function ViewPatients() {
             <View style={styles.container}>
                 <Text style={styles.title}>Patient: {item.user}</Text>
                 <Text style={styles.text}>Date: {formatDate(item.Date_Suggested)}</Text>
+                <Text style={styles.text}>For: {item.ambassador_name}</Text>
                 <CancelAppointment item={item.user} />
             </View>
         </>)

@@ -38,6 +38,7 @@ export default function AppointmentsMade() {
             <View style={styles.container}>
                 <Text style={styles.title}>Ambassador: {item.ambassador_name}</Text>
                 <Text style={styles.text}>Date: {formatDate(item.Date_Suggested)}</Text>
+                <Text style={styles.text}> For: {item.user}</Text>
                 <CancelAppointment item={item.user} />
             </View>
         );

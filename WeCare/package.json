@@ -4,8 +4,8 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web"
   },
   "dependencies": {
@@ -17,8 +17,10 @@
     "@react-navigation/native-stack": "^6.9.26",
     "@react-navigation/stack": "^6.3.29",
     "@supabase/supabase-js": "^2.0.0",
+    "@videosdk.live/react-native-sdk": "^0.1.6",
     "aes-js": "^3.1.2",
     "axios": "^1.6.8",
+    "cocoapods": "^0.0.0",
     "expo": "~50.0.13",
     "expo-constants": "~15.4.5",
     "expo-device": "~5.9.3",
