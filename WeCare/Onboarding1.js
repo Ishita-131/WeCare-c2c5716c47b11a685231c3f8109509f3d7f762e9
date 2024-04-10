@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import Support from './Components/MentalHealth /SupportGroup';
+import ResourceMental from './Components/MentalHealth /MentalResourse';
 
 const Onboarding1 = ({ navigation }) => {
   const handleGetStarted = () => {
