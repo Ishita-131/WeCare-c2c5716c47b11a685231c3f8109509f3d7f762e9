@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Modal, Portal, Text, Button, Provider as PaperProvider } from 'react-native-paper';
-import { ScrollView, View, StyleSheet, TouchableOpacity, Image, TextInput, Switch } from 'react-native'; // Import ScrollView from react-native
+import { ScrollView, View, StyleSheet, TouchableOpacity, Image, TextInput, Switch, RefreshControl } from 'react-native'; // Import ScrollView from react-native
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
 import calories from './assets/images/calories.png';
@@ -18,6 +18,7 @@ const FitnessTracker = () => {
   const handleGoBack = () => {
     navigation.goBack();
   };
+  
 
   const [totalCaloriesBurned, setTotalCaloriesBurned] = useState(0);
 
@@ -179,11 +180,12 @@ const LoggingCard = () => {
       console.error('Error inserting exercise details:', error);
     }
   
-    setExerciseDetails({
-      date: '',
-      duration: '',
-      caloriesBurned: '',
-    });
+       // Reset exercise details
+       setExerciseDetails({
+        date: '',
+        duration: '',
+        caloriesBurned: '',
+      });
 
     const caloriesBurned = exerciseData.calories_per_minute * parseInt(exerciseDetails.duration);
     setTotalCaloriesBurned(totalCaloriesBurned + caloriesBurned);
@@ -365,6 +367,37 @@ const Upcoming2 = () => {
 };
 
 const ExerciseCount = () => {
+  const navigation = useNavigation(); 
+  const [weeklyExerciseCount, setWeeklyExerciseCount] = useState(0);
+
+  useEffect(() => {
+    const fetchExerciseLog = async () => {
+      try {
+        // Fetch exercise log data for the current week
+        const { data, error } = await supabase
+          .from('exerciselog')
+          .select('*')
+          .range(new Date(new Date().setDate(new Date().getDate() - 7)), new Date());
+
+        if (error) {
+          throw error;
+        }
+
+        // Calculate the total number of exercises logged within the current week
+        const count = data.length;
+        setWeeklyExerciseCount(count);
+      } catch (error) {
+        console.error('Error fetching exercise log:', error.message);
+      }
+    };
+
+    fetchExerciseLog();
+  }, []);
+  const handleMoreDetailsPress = () => {
+    // Navigate to ExerciseLogList component
+    navigation.navigate('ExerciseLogList');
+  };
+
   return (
     <LinearGradient
       colors={['#92A3FD', '#9DCEFF']}
@@ -375,13 +408,11 @@ const ExerciseCount = () => {
       <View style={styles.cardContentExCount}>
         <Text style={styles.CountTitle}>Weekly Exercise Count</Text>
         <View style={styles.countAndButtonContainer}>
-          {/* More Details Button */}
-          <TouchableOpacity style={styles.learnMoreButton2}>
-            <Text style={styles.learnMoreText}>More Details</Text>
-          </TouchableOpacity>
-          {/* Exercise Count Circle */}
+        <TouchableOpacity style={styles.learnMoreButton2} onPress={handleMoreDetailsPress}>
+  <Text style={styles.learnMoreText}>More Details</Text>
+</TouchableOpacity>
           <View style={styles.countContainer}>
-            <Text style={styles.CountNumber}>20</Text>
+            <Text style={styles.CountNumber}>{weeklyExerciseCount}</Text>
           </View>
         </View>
       </View>

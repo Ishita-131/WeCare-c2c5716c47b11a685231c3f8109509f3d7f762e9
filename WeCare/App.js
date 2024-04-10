@@ -43,6 +43,11 @@ import BreathingScreen from './Components/MentalHealth /BreathingScreen.js';
 import ResourceMental from './Components/MentalHealth /MentalResourse.js';
 import MoodTracking from './MoodTracking.js';
 import MoodEntryDetails from './Components/MentalHealth /MoodEntryDetails.js';
+import UserManagement from './UserManagement.js';
+import ExerciseLogList from './ExerciseLogList.js';
+
+
+
 import Support from './Components/MentalHealth /SupportGroup.js';
 
 
@@ -59,11 +64,11 @@ const notifications = [
     },
     trigger: {
       repeats: true,
-      hour: 1,
-      minute: 54,
+      hour: 15,
+      minute: 46,
       sound: 'default',
     },
-    timestamp: null  
+    timestamp: Date.now() // Include the current timestamp when scheduling
   },
   {
     content: {
@@ -72,11 +77,11 @@ const notifications = [
     },
     trigger: {
       repeats: true,
-      hour: 12,
-      minute: 7,
+      hour: 15,
+      minute: 47,
       sound: 'default',
     },
-    timestamp: null  
+    timestamp: Date.now() // Include the current timestamp when scheduling
   }
 ];
 
@@ -266,7 +271,7 @@ export default function App() {
                 navigation: navigation,
               })}/>
               <Stack.Screen name="Tracking" component={Tracking} options={({ navigation }) => ({
-                headerShown: false,
+                headerShown: true,
                 navigation: navigation,
               })}/> 
               <Stack.Screen name="FitnessTracker" component={FitnessTracker}options={({ navigation }) => ({
@@ -278,7 +283,7 @@ export default function App() {
                 navigation: navigation,
               })} /> 
               <Stack.Screen name="MentalHealth" component={MentalHealth}options={({ navigation }) => ({
-                headerShown: false,
+                headerShown: true,
                 navigation: navigation,
               })} /> 
               <Stack.Screen name="Breathing" component={Breathing}options={({ navigation }) => ({
@@ -290,11 +295,11 @@ export default function App() {
                 navigation: navigation,
               })} />
               <Stack.Screen name="MentalResource" component={ResourceMental}options={({ navigation }) => ({
-                headerShown: false,
+                headerShown: true,
                 navigation: navigation,
               })} />
               <Stack.Screen name="MoodTracking" component={MoodTracking}options={({ navigation }) => ({
-                headerShown: false,
+                headerShown: true,
                 navigation: navigation,
               })} />
               <Stack.Screen name="Support" component={Support}options={({ navigation }) => ({
@@ -321,6 +326,10 @@ export default function App() {
                 headerShown: false,
                 navigation: navigation,
               })} />
+              <Stack.Screen name="UserManagement" component={UserManagement}options={({ navigation }) => ({
+                headerShown: false,
+                navigation: navigation,
+              })} />
               <Stack.Screen name="DeleteProfile" component={DeleteProfile} options={({ navigation }) => ({
                 headerShown: false,
                 navigation: navigation,
@@ -342,6 +351,10 @@ export default function App() {
                 navigation: navigation,
               })} />
               <Stack.Screen name="NotificationTemplate" component={NotificationTemplate}options={({ navigation }) => ({
+                headerShown: true,
+                navigation: navigation,
+              })} />
+              <Stack.Screen name="ExerciseLogList" component={ExerciseLogList}options={({ navigation }) => ({
                 headerShown: true,
                 navigation: navigation,
               })} />

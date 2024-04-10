@@ -336,6 +336,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FFF', // Set default background color to white
     marginTop: 60,
+    flex: 1, // Ensure the container takes up the entire screen
   },
 
   titleContainer: {

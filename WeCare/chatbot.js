@@ -1,12 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView, Modal, Alert, KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView, Modal, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { supabase } from './supabase'; // Import your Supabase configuration
 
 const Chatbot = () => {
+  const [fdmId, setFdmId] = useState('');
+  const [issueTitle, setIssueTitle] = useState('');
+  const [issueDescription, setIssueDescription] = useState('');
   const navigation = useNavigation();
   const [messages, setMessages] = useState([
-    { id: 1, content: "Hello, how can I help you? You can type in 'need instant support', 'get in touch' or 'report bug'", sender: "bot" }
+    { id: 1, content: "Hello, how can I help you? You can type in 'Need instant support', 'Get in touch' or 'Report bug'", sender: "bot" }
   ]);
   const [userMessage, setUserMessage] = useState('');
   const [bugModalVisible, setBugModalVisible] = useState(false);
@@ -15,21 +18,8 @@ const Chatbot = () => {
   const scrollViewRef = useRef();
 
   useEffect(() => {
-    // Scroll to bottom when new message is added
     scrollViewRef.current.scrollToEnd({ animated: true });
   }, [messages]);
-
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      () => {
-        scrollViewRef.current.scrollToEnd({ animated: true });
-      }
-    );
-    return () => {
-      keyboardDidShowListener.remove();
-    };
-  }, []);
 
   const sendMessage = async () => {
     if (userMessage.trim() === '') return;
@@ -42,7 +32,7 @@ const Chatbot = () => {
       if (userMessage.toLowerCase() === 'need instant support') {
         newMessage = { id: messages.length + 2, content: "Central London Samaritans: 116 123 free from any phone and 0330 094 5717 local call charges apply", sender: "bot" };
       } else if (userMessage.toLowerCase() === 'get in touch') {
-        navigation.navigate('Appointments');
+        navigation.navigate('Book an Appointment');
         setUserMessage('');
         return;
       } else if (userMessage.toLowerCase() === 'report bug') {
@@ -56,40 +46,45 @@ const Chatbot = () => {
       setMessages([...messages, userNewMessage, newMessage]);
       setUserMessage('');
 
-      // Close bug report modal and clear bug description
       setBugModalVisible(false);
       setBugDescription('');
     }, 100);
   };
 
-
-
-  const sendBugReport = async () => {
-    if (bugDescription.trim() === '') {
-      Alert.alert('Error', 'Please enter a bug description.');
+  const handleSubmit = async () => {
+    if (!fdmId || !issueTitle || !issueDescription) {
+      Alert.alert('Error', 'All fields are required.');
       return;
     }
 
     try {
-      // Send bug report to Supabase
-      const { data, error } = await supabase.from('Bugs').insert([{ bug: bugDescription }]);
+      // Insert the technical issue into the database
+      const { data, error } = await supabase.from('TechnicalIssue').insert([
+        {
+          fdm_id: fdmId,
+          "Issue Title": issueTitle,
+          "Issue Description": issueDescription,
+          "Date of Issue": new Date().toISOString(),
+        },
+      ]);
+
       if (error) {
-        throw error;
+        console.error('Error reporting technical issue:', error.message);
+        Alert.alert('Error', 'Failed to report the technical issue. Please try again later.');
+      } else {
+        console.log('Technical issue reported successfully:', data);
+        Alert.alert('Success', 'Technical issue reported successfully.');
+        // Clear the form fields after successful submission
+        setFdmId('');
+        setIssueTitle('');
+        setIssueDescription('');
       }
-      Alert.alert('Bug Reported', `Your bug report: "${bugDescription}" has been sent.`);
-      setBugDescription('');
-      setBugModalVisible(false); // Close bug report modal
     } catch (error) {
-      console.error('Error reporting bug:', error.message);
-      Alert.alert('Error', 'Failed to report the bug. Please try again later.');
+      console.error('Error reporting technical issue:', error.message);
+      Alert.alert('Error', 'Failed to report the technical issue. Please try again later.');
     }
   };
 
-  const openBugReportModal = () => {
-    // Open bug report modal
-    setBugModalVisible(true);
-    setBugDescription(''); // Clear bug description when opening modal
-  };
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
@@ -111,8 +106,9 @@ const Chatbot = () => {
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
+            multiline
             placeholder="Enter here"
-            placeholderTextColor="black"
+            placeholderTextColor="#888"
             value={userMessage}
             onChangeText={text => setUserMessage(text)}
           />
@@ -128,16 +124,33 @@ const Chatbot = () => {
         >
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Report Bug</Text>
+              <Text style={styles.label}>FDM ID</Text>
               <TextInput
-                style={[styles.input, { color: 'black' }]}
-                placeholder="Enter bug description..."
-                value={bugDescription}
-                onChangeText={text => setBugDescription(text)}
+                style={styles.input2}
+                value={fdmId}
+                onChangeText={setFdmId}
+                placeholder="Enter FDM ID"
+              />
+
+              <Text style={styles.label}>Issue Title</Text>
+              <TextInput
+                style={styles.input2}
+                value={issueTitle}
+                onChangeText={setIssueTitle}
+                placeholder="Enter Issue Title"
+              />
+
+              <Text style={styles.label}>Issue Description</Text>
+              <TextInput
+                style={[styles.input2, { height: 100 }]}
+                value={issueDescription}
+                onChangeText={setIssueDescription}
+                multiline
+                placeholder="Describe Issue here"
               />
               <View style={styles.modalButtons}>
                 <Button title="Cancel" onPress={() => setBugModalVisible(false)} />
-                <Button title="Send" onPress={sendBugReport} />
+                <Button title="Send" onPress={handleSubmit} />
               </View>
             </View>
           </View>
@@ -150,76 +163,107 @@ const Chatbot = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E3F2FD',
+    backgroundColor: '#FFFFFF',
   },
   chatContainer: {
     flex: 1,
+    paddingHorizontal: 10,
   },
   chatBox: {
     paddingTop: 10,
-    paddingBottom: 100, // Add padding bottom to ensure the last message is visible above the input area
+    paddingBottom: 100,
   },
   botMessageContainer: {
-    alignSelf: 'flex-start',
+    marginRight: 100,
     marginBottom: 10,
+    borderRadius: 20,
+    overflow: 'hidden',
   },
   userMessageContainer: {
     alignSelf: 'flex-end',
     marginBottom: 10,
+    borderRadius: 20,
+    overflow: 'hidden',
   },
   botMessage: {
-    backgroundColor: '#724ae8',
+    backgroundColor: '#007bff',
     color: 'white',
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 20,
   },
   userMessage: {
     backgroundColor: '#aed581',
     color: 'black',
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 20,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center', // Add justifyContent to center the input horizontally
+    justifyContent: 'space-between',
     padding: 10,
     borderTopWidth: 1,
-    borderTopColor: 'lightgray',
+    borderTopColor: '#ccc',
+    backgroundColor: '#fff',
+    marginBottom: 100,
   },
   input: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#eee',
     borderWidth: 1,
-    borderColor: 'lightgray',
+    borderColor: '#ccc',
     borderRadius: 10,
     padding: 10,
-    marginBottom: 10,
-    alignSelf: 'center', // Align the input horizontally to the center
+    marginRight: 10,
+    height: 100,
   },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    marginBottom:190,
   },
   modalContent: {
     backgroundColor: 'white',
     borderRadius: 10,
-    padding: 10,
+    padding: 20,
     width: '80%',
-    color:'black',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   modalTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
   },
+  modalInput: {
+    marginBottom: 15,
+  },
   modalButtons: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  input2: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 15,
+  },
+  button: {
+    backgroundColor: '#171F1D',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 4,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
   },
 });
 

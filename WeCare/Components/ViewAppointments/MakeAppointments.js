@@ -4,7 +4,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { AcceptProvider, UseAccept } from "./accept";
 import { StyleSheet } from "react-native";
 import { getAmbassadors } from "./getAmbassadors";
-import CancelAppointment from "./cancelBTN";
 import ViewArrangement from "./ViewArrangement";
 
 export default function MakeAppointments() {
@@ -35,9 +34,6 @@ function ListAmbassadors() {
       <ViewArrangement
         item={item.user_name}
       />
-      <View style={styles.cancelButtonContainer}>
-        <CancelAppointment item={users}/>
-      </View>
     </View>
   );
 
@@ -108,31 +104,42 @@ function ListAmbassadors() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 1,
     backgroundColor: '#FFF', // Set default background color to white
-    marginTop:-20,
+    marginTop:-30,
   },
+
   itemContainer: {
     flexDirection: "column",
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
+    paddingBottom:30,
+    backgroundColor:'#DFF3FF',
+    borderRadius:22,
+    margin:10,
+    padding:20,
   },
   userName: {
     fontSize: 16,
     fontWeight: "bold",
+    paddingBottom:5,
   },
   description: {
     fontSize: 14,
     color: "#666",
     marginTop: 5,
+    paddingBottom:10,
   },
   cancelButtonContainer: {
-    marginTop: 10,
+    backgroundColor:'#1986EC',
+        borderRadius:22,
+        color:'white',
   },
   pagination: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 10,
+    padding:10,
   },
 });
