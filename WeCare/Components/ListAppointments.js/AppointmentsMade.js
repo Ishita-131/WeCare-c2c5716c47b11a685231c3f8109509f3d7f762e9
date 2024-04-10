@@ -8,7 +8,7 @@ import { RefreshControl } from "react-native-gesture-handler";
 export default function AppointmentsMade() {
     const [Appointment, setAppointment] = useState([]);
     const [refreshing, setRefresh] = useState(false);
-    
+
     const getData = async () => {
         try {
             setRefresh(true);
@@ -37,10 +37,10 @@ export default function AppointmentsMade() {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Ambassador: {item.ambassador_name}</Text>
+                <Text style={styles.text2}> For: {item.user}</Text>
                 <Text style={styles.text}>Date: {formatDate(item.Date_Suggested)}</Text>
-                <View  style={styles.buttonContainer}>
-                <Text style={styles.text}> For: {item.user}</Text>
-                <CancelAppointment item={item.user} />
+                <View style={styles.buttonContainer}>
+                    <CancelAppointment item={item.user} />
                 </View>
             </View>
         );
@@ -71,31 +71,41 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderBottomWidth: 1,
         borderBottomColor: "#ccc",
-        paddingBottom:30,
-        backgroundColor:'#E0F2F8',
-        borderRadius:22,
-        margin:10,
-        padding:20,
+        paddingBottom: 30,
+        backgroundColor: '#E0F2F8',
+        borderRadius: 22,
+        margin: 10,
+        padding: 20,
     },
     title: {
         fontSize: 16,
         fontWeight: "bold",
-        paddingBottom:5,
+        paddingBottom: 5,
     },
 
     text: {
         fontSize: 14,
         color: "#666",
         marginTop: 5,
-        paddingBottom:10,
-    },
-    buttonContainer:{
-        backgroundColor:'#1986EC',
-        borderRadius:22,
-        color:'white',
+        paddingBottom: 10,
     },
 
-    button:{
-        color:'white',
+    text2: {
+        fontSize: 15,
+        fontWeight: '600',
+        color: "#666",
+        marginTop: 5,
+        paddingBottom: 5,
+        marginLeft:-5,
+    },
+
+    buttonContainer: {
+        backgroundColor: '#1986EC',
+        borderRadius: 22,
+        color: 'white',
+    },
+
+    button: {
+        color: 'white',
     }
 });
