@@ -47,7 +47,6 @@ import Support from './Components/MentalHealth /SupportGroup.js';
 
 const Stack = createNativeStackNavigator();
 
-// Define notifications array
 const notifications = [
   {
     content: {
@@ -57,24 +56,116 @@ const notifications = [
     trigger: {
       repeats: true,
       hour: 15,
-      minute: 46,
+      minute: 40,
       sound: 'default',
     },
     timestamp: Date.now() // Include the current timestamp when scheduling
   },
   {
     content: {
-      title: "Time for Workout 🏋️‍♂️",
-      body: 'Don\'t forget to do your workout session today!',
+      title: "New Day 🌅",
+      body: 'Embrace today’s chance to grow.',
+    },
+    trigger: {
+      repeats: true,
+      hour: 7,
+      minute: 0,
+      sound: 'default',
+    },
+    timestamp: Date.now() // Include the current timestamp when scheduling
+  },
+  {
+    content: {
+      title: "Just Breathe 🍃",
+      body: 'Inhale calm, exhale stress.',
+    },
+    trigger: {
+      repeats: true,
+      hour: 9,
+      minute: 0,
+      sound: 'default',
+    },
+    timestamp: Date.now() // Include the current timestamp when scheduling
+  },
+  {
+    content: {
+      title: "Inner Strength 💪",
+      body: 'You\'re stronger than your struggles.',
+    },
+    trigger: {
+      repeats: true,
+      hour: 11,
+      minute: 0,
+      sound: 'default',
+    },
+    timestamp: Date.now() // Include the current timestamp when scheduling
+  },
+  {
+    content: {
+      title: "Keep Growing 🌱",
+      body: 'Every challenge is a step forward.',
+    },
+    trigger: {
+      repeats: true,
+      hour: 13,
+      minute: 0,
+      sound: 'default',
+    },
+    timestamp: Date.now() // Include the current timestamp when scheduling
+  },
+  {
+    content: {
+      title: "Trust Yourself 🌟",
+      body: 'Your uniqueness is your power.',
     },
     trigger: {
       repeats: true,
       hour: 15,
-      minute: 47,
+      minute: 0,
       sound: 'default',
     },
     timestamp: Date.now() // Include the current timestamp when scheduling
-  }
+  },
+  {
+    content: {
+      title: "Act Kindly ❤️",
+      body: 'Small kindnesses make big waves.',
+    },
+    trigger: {
+      repeats: true,
+      hour: 17,
+      minute: 0,
+      sound: 'default',
+    },
+    timestamp: Date.now() // Include the current timestamp when scheduling
+  },
+  {
+    content: {
+      title: "Evening Reflection 🌆",
+      body: 'Cherish today\'s moments, big and small.',
+    },
+    trigger: {
+      repeats: true,
+      hour: 19,
+      minute: 0,
+      sound: 'default',
+    },
+    timestamp: Date.now() // Include the current timestamp when scheduling
+  },
+  {
+    content: {
+      title: "Wind Down 🌜",
+      body: 'Release the day\'s stress, welcome peace.',
+    },
+    trigger: {
+      repeats: true,
+      hour: 21,
+      minute: 0,
+      sound: 'default',
+    },
+    timestamp: Date.now() // Include the current timestamp when scheduling
+  },
+  
 ];
 
 export default function App() {
@@ -142,22 +233,6 @@ export default function App() {
     }
   };
 
-  const scheduleNotification = async () => {
-    try {
-      await Notifications.scheduleNotificationAsync({
-        content: {
-          title: 'Time to Drink Water 💧',
-          body: 'Drinking water regularly is important for your health.',
-        },
-        trigger: {
-          seconds: 60,
-        },
-      });
-    } catch (error) {
-      console.error('Failed to schedule notification:', error);
-    }
-  };
-
   async function registerForPushNotificationsAsync() {
     let token;
 
@@ -191,7 +266,6 @@ export default function App() {
 
     return token;
   }
-
 
   return (
     <AcceptProvider>
