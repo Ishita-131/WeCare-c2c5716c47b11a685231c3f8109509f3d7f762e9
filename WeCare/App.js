@@ -55,8 +55,8 @@ const notifications = [
     },
     trigger: {
       repeats: true,
-      hour: 15,
-      minute: 40,
+      hour: 12,
+      minute: 30,
       sound: 'default',
     },
     timestamp: Date.now() // Include the current timestamp when scheduling
@@ -68,8 +68,8 @@ const notifications = [
     },
     trigger: {
       repeats: true,
-      hour: 7,
-      minute: 0,
+      hour: 12,
+      minute: 35,
       sound: 'default',
     },
     timestamp: Date.now() // Include the current timestamp when scheduling
@@ -81,8 +81,8 @@ const notifications = [
     },
     trigger: {
       repeats: true,
-      hour: 9,
-      minute: 0,
+      hour: 12,
+      minute: 37,
       sound: 'default',
     },
     timestamp: Date.now() // Include the current timestamp when scheduling
@@ -94,8 +94,8 @@ const notifications = [
     },
     trigger: {
       repeats: true,
-      hour: 11,
-      minute: 0,
+      hour: 12,
+      minute: 40,
       sound: 'default',
     },
     timestamp: Date.now() // Include the current timestamp when scheduling
@@ -107,8 +107,8 @@ const notifications = [
     },
     trigger: {
       repeats: true,
-      hour: 13,
-      minute: 0,
+      hour: 12,
+      minute: 48,
       sound: 'default',
     },
     timestamp: Date.now() // Include the current timestamp when scheduling
@@ -120,8 +120,8 @@ const notifications = [
     },
     trigger: {
       repeats: true,
-      hour: 15,
-      minute: 0,
+      hour: 12,
+      minute: 50,
       sound: 'default',
     },
     timestamp: Date.now() // Include the current timestamp when scheduling
@@ -133,8 +133,8 @@ const notifications = [
     },
     trigger: {
       repeats: true,
-      hour: 17,
-      minute: 0,
+      hour: 12,
+      minute: 42,
       sound: 'default',
     },
     timestamp: Date.now() // Include the current timestamp when scheduling
@@ -146,8 +146,8 @@ const notifications = [
     },
     trigger: {
       repeats: true,
-      hour: 19,
-      minute: 0,
+      hour: 12,
+      minute: 43,
       sound: 'default',
     },
     timestamp: Date.now() // Include the current timestamp when scheduling
@@ -159,8 +159,8 @@ const notifications = [
     },
     trigger: {
       repeats: true,
-      hour: 21,
-      minute: 0,
+      hour: 12,
+      minute: 44,
       sound: 'default',
     },
     timestamp: Date.now() // Include the current timestamp when scheduling
