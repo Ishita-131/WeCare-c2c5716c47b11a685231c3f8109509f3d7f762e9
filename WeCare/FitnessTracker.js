@@ -136,10 +136,10 @@ const LoggingCard = ({ onCaloriesChange }) => {
   };
 
   const handleDurationChange = (text) => {
-    const duration = parseInt(text);
-    const caloriesBurned = duration * selectedExercise.calories_per_minute;
+    const duration = text; // Set duration as string
+    const caloriesBurned = parseInt(duration) * selectedExercise.calories_per_minute; // Calculate calories burned as needed
     setExerciseDetails((prevDetails) => ({ ...prevDetails, duration, caloriesBurned }));
-  };
+  };  
 
   const handleSubmit = async () => {
     try {

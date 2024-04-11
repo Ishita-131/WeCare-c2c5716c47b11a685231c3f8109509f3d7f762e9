@@ -25,13 +25,22 @@ const ProfileForm = () => {
       .insert([
         { name, surname, gender, age, fdm_id: fdmID, user_type: userType, profile_pic: profilePic }
       ]);
-
+  
     if (error) {
       console.error('Error inserting user data:', error.message);
     } else {
       console.log('User data inserted successfully:', data);
+      // Clear the form fields after successful submission
+      setName('');
+      setSurname('');
+      setGender('');
+      setAge('');
+      setFdmID('');
+      setUserType('');
+      setProfilePic(null);
     }
   };
+  
 
   const displayProfilePic = async () => {
     // Check and request permission to access the photo library
